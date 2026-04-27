@@ -43,7 +43,7 @@ $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id_use
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
-    <link rel="stylesheet" href="/assets/css/profile_admin.css">
+    <link rel="stylesheet" href="/assets/css/profile_admin.css?v=<?= time(); ?>">
 </head>
 
 <body>

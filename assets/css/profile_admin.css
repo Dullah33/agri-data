@@ -2,12 +2,13 @@
    profile_admin.css
    ====================================== */
 
-/* ── LAYOUT UTAMA (FIX: Ke Tengah & Proporsional) ── */
+/* ── LAYOUT UTAMA (FIX: PASTI RATA TENGAH) ── */
 .profile-wrapper {
-    max-width: 900px; /* Lebar dibatasi agar form tidak melar terlalu panjang */
+    max-width: 900px; /* Lebar dibatasi agar elegan dan tidak melar */
     width: 100%;
-    margin: 0 auto; /* KUNCI: Membuat kotak profil berada tepat di tengah */
+    margin: 0 auto !important; /* MANTRA RATA TENGAH */
     padding-bottom: 40px;
+    display: block; /* Memastikan sifatnya sebagai blok yang bisa ditengah */
 }
 
 .profile-grid {
