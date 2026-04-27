@@ -69,3 +69,18 @@ $data_panen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 </body>
 
 </html>
+<script>
+function loadDataPanen() {
+    fetch('/api/get_panen.php')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('panen-container').innerHTML = html;
+        });
+}
+
+// reload tiap 5 detik
+setInterval(loadDataPanen, 5000);
+
+// load pertama
+loadDataPanen();
+</script>
