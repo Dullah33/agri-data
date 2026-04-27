@@ -5,11 +5,23 @@
         }
     },
     "routes": [
+        { "handle": "filesystem" },
+
+        // route untuk halaman utama
         {
-            "handle": "filesystem"
+            "src": "^/$",
+            "dest": "/api/index.php"
         },
+
+        // route untuk pages
         {
-            "src": "/api/(.*)",
+            "src": "^/pages/(.*)",
+            "dest": "/api/pages/$1"
+        },
+
+        // route untuk API lainnya
+        {
+            "src": "^/api/(.*)",
             "dest": "/api/$1"
         }
     ]
