@@ -2,11 +2,11 @@
   "builds": [
     {
       "src": "api/**/*.php",
-      "use": "vercel-php@0.6.0"
+      "use": "vercel-php@0.7.6"
     },
     {
       "src": "index.php",
-      "use": "vercel-php@0.6.0"
+      "use": "vercel-php@0.7.6"
     }
   ],
   "routes": [
