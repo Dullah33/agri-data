@@ -2,8 +2,6 @@
    DASHBOARD ADMIN — Premium Dark-Accent SaaS
    =============================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-
 /* ── RESET & BASE ── */
 *,
 *::before,
@@ -28,9 +26,8 @@ body {
 }
 
 .admin-title {
-    font-family: 'Instrument Serif', serif;
     font-size: 32px;
-    font-weight: 400;
+    font-weight: 700;
     color: #0d1f18;
     line-height: 1.1;
     letter-spacing: -0.5px;
@@ -168,9 +165,8 @@ body {
 }
 
 .kpi-value {
-    font-family: 'Instrument Serif', serif;
     font-size: 34px;
-    font-weight: 400;
+    font-weight: 700;
     color: #0d1f18;
     line-height: 1;
     letter-spacing: -1px;
@@ -215,9 +211,8 @@ body {
 }
 
 .card-title {
-    font-family: 'Instrument Serif', serif;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 700;
     color: #0d1f18;
     letter-spacing: -0.3px;
 }
@@ -273,8 +268,8 @@ body {
 }
 
 .chart-center-pct {
-    font-family: 'Instrument Serif', serif;
     font-size: 28px;
+    font-weight: 700;
     color: #0d1f18;
     line-height: 1;
 }
