@@ -23,7 +23,7 @@ require __DIR__ . '/../controllers/user/dashboard_controller.php';
         <!-- WELCOME BANNER -->
         <div class="welcome-banner">
             <div class="welcome-text">
-                <h1>Selamat datang, <?php echo htmlspecialchars($u['first_name'] ?? $user['name'] ?? 'Petani'); ?>! 🌾</h1>
+                <h1>Selamat datang, <?php echo htmlspecialchars($u['username'] ?? $user['name'] ?? 'Petani'); ?>! 🌾</h1>
                 <p>Panel pribadi AgriData — pantau data pertanian dan informasi Anda di sini.</p>
             </div>
             <div class="welcome-date-badge">

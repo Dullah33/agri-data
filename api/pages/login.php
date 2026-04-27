@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
             $payload = [
                 "id_user" => $row['id_user'],
                 "role"    => $row['role'],
-                "name"    => $row['first_name']
+                "name"    => $row['name'],
             ];
 
             $token   = generateJWT($payload);

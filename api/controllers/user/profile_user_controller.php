@@ -9,4 +9,4 @@ $id_user = $user['id_user'];
 $query = mysqli_query($conn, "SELECT * FROM users WHERE id_user='$id_user'");
 $data = mysqli_fetch_assoc($query);
 
-$data['name'] = $data['first_name'] ?? '';
+$data['name'] = $data['name'] ?? '';

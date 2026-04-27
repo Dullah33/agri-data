@@ -13,7 +13,7 @@ if (isset($_POST['update_profile'])) {
     $email = $_POST['email'];
 
     mysqli_query($conn, "UPDATE users SET 
-        first_name='$name',
+        name='$name',
         username='$username',
         email='$email'
         WHERE id_user='$id_user'");
