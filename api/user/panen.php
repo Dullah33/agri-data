@@ -21,8 +21,10 @@ $data_panen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <title>Data Panen - AgriData</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time() ?>">
     <link rel="stylesheet" href="/assets/css/sidebar_user.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/assets/css/topbar_user.css?v=<?= time() ?>">
 </head>
 
 <body style="background-color: #f1f5f9;">
