@@ -54,7 +54,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
 <body class="page-lahan">
 
-    <div class="layout-wrapper">
+    <div class="layout-wrapper" style="display: flex; width: 100%;">
 
         <?php include __DIR__ . '/partials/sidebar_admin.php'; ?>
 
@@ -62,57 +62,45 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
             <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
 
-            <!-- ✅ WRAPPER PENTING BIAR FULL -->
-            <div class="content-area">
+            <div class="content-area" style="flex: 1; width: 100%;">
 
                 <div class="lahan-layout">
 
-                    <!-- FORM -->
                     <div class="lahan-form-box">
                         <h3><i class="fa fa-plus"></i> Tambah Data</h3>
-
                         <form method="POST">
-
                             <div class="form-group">
                                 <label>Nama Pemilik</label>
-                                <input type="text" name="nama_pemilik" required>
+                                <input type="text" name="nama_pemilik" required placeholder="Nama lengkap...">
                             </div>
-
                             <div class="form-group">
                                 <label>Provinsi</label>
                                 <input type="text" name="provinsi" required>
                             </div>
-
                             <div class="form-group">
                                 <label>Desa</label>
                                 <input type="text" name="desa">
                             </div>
-
                             <div class="form-group">
                                 <label>Luas (ha)</label>
-                                <input type="number" name="luas">
+                                <input type="number" step="0.01" name="luas">
                             </div>
-
                             <div class="form-group">
                                 <label>Komoditas</label>
                                 <input type="text" name="komoditas">
                             </div>
-
                             <div class="form-group">
                                 <label>Masa Tanam</label>
                                 <input type="text" name="masa_tanam">
                             </div>
-
                             <div class="form-group">
                                 <label>Hasil / ha</label>
                                 <input type="number" name="hasil_per_ha">
                             </div>
-
                             <div class="form-group">
                                 <label>Total Panen</label>
                                 <input type="number" name="total_panen">
                             </div>
-
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="status">
@@ -120,41 +108,35 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                     <option value="tidak aktif">Nonaktif</option>
                                 </select>
                             </div>
-
                             <button name="simpan" class="btn-primary">
                                 <i class="fa fa-save"></i> Simpan Data
                             </button>
-
                         </form>
                     </div>
 
-                    <!-- TABLE -->
                     <div class="lahan-table-box">
-
                         <div class="table-header">
-                            <h3><i class="fa fa-table"></i> Daftar Lahan</h3>
+                            <h3><i class="fa fa-table"></i> Daftar Lahan Pertanian</h3>
                         </div>
 
                         <div class="table-container">
                             <table class="table-modern">
-
                                 <thead>
                                     <tr>
                                         <th>Pemilik</th>
-                                        <th>Lokasi</th>
+                                        <th>Lokasi (Prov/Desa)</th>
                                         <th>Luas</th>
                                         <th>Komoditas</th>
                                         <th>Status</th>
-                                        <th>Aksi</th>
+                                        <th style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     <?php if (mysqli_num_rows($data) > 0): ?>
                                         <?php while ($d = mysqli_fetch_assoc($data)): ?>
                                             <tr>
-                                                <td><?= $d['nama_pemilik'] ?></td>
-                                                <td><?= $d['provinsi'] ?></td>
+                                                <td><strong><?= $d['nama_pemilik'] ?></strong></td>
+                                                <td><?= $d['provinsi'] ?> / <?= $d['desa'] ?></td>
                                                 <td><?= $d['luas'] ?> ha</td>
                                                 <td><?= $d['komoditas'] ?></td>
                                                 <td>
@@ -162,31 +144,30 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                                         <?= $d['status'] ?>
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus?')">
-                                                        Hapus
+                                                <td style="text-align: center;">
+                                                    <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" style="color: #ef4444; font-size: 13px;" onclick="return confirm('Hapus data ini?')">
+                                                        <i class="fa fa-trash"></i> Hapus
                                                     </a>
                                                 </td>
                                             </tr>
                                         <?php endwhile; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6" style="text-align:center;">Data belum tersedia</td>
+                                            <td colspan="6" style="text-align:center; padding: 40px; color: #94a3b8;">
+                                                <i class="fa fa-folder-open" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
+                                                Belum ada data lahan tersedia.
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
-
                             </table>
                         </div>
-
                     </div>
 
                 </div>
             </div>
-
         </div>
     </div>
-
 </body>
 
 </html>
