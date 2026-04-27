@@ -1,5 +1,5 @@
 /* =========================================
-   KHUSUS HALAMAN LAHAN (MODERN TABLE FIX)
+   KHUSUS HALAMAN LAHAN (FINAL FIX CLEAN UI)
 ========================================= */
 
 body.page-lahan {
@@ -90,21 +90,20 @@ body.page-lahan {
 }
 
 /* =========================================
-   TABLE CONTAINER
+   TABLE CONTAINER (FIX UTAMA)
 ========================================= */
 .page-lahan .table-container {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
+    width: 100%;
+    overflow-x: auto;
 }
 
 /* =========================================
-   TABLE
+   TABLE (FIX TOTAL)
 ========================================= */
 .page-lahan .table-modern {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse; /* 🔥 penting */
+    background: #ffffff;
 }
 
 /* HEADER */
@@ -113,24 +112,33 @@ body.page-lahan {
     color: white;
     padding: 14px;
     font-size: 13px;
-    letter-spacing: 0.3px;
+    text-align: left;
 }
 
 /* BODY */
-.page-lahan .table-modern tbody td {
+.page-lahan .table-modern td {
     padding: 14px;
-    background: #ffffff;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #e5e7eb;
+    color: #334155;
 }
 
 /* STRIPED ROW */
-.page-lahan .table-modern tbody tr:nth-child(even) td {
-    background: #f8fafc;
+.page-lahan .table-modern tr:nth-child(even) {
+    background: #f9fafb;
 }
 
-/* HOVER EFFECT */
-.page-lahan .table-modern tbody tr:hover td {
-    background: #eef2ff;
+/* HOVER */
+.page-lahan .table-modern tr:hover {
+    background: #f1f5f9;
+}
+
+/* HEADER RADIUS (BIAR LEBIH HALUS) */
+.page-lahan .table-modern thead th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.page-lahan .table-modern thead th:last-child {
+    border-top-right-radius: 10px;
 }
 
 /* =========================================
