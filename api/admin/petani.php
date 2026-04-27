@@ -274,7 +274,6 @@ if ($q_panen) {
                 <div class="add-hero-icon"><i class="fa-solid fa-user-plus"></i></div>
                 <div class="add-hero-info">
                     <h2>Tambah Petani Baru</h2>
-                    <div class="add-hero-badge">ID Otomatis: <?= $new_id ?></div>
                 </div>
             </div>
             <form action="" method="POST">
