@@ -6,9 +6,7 @@ $user = requireAuth('user');
 $page = 'data_panen';
 
 // Ambil Data Panen
-$stmt = $conn->prepare("SELECT * FROM data_panen WHERE tahun=? ORDER BY id ASC");
-$tahun = 2024;
-$stmt->bind_param("i", $tahun);
+$stmt = $conn->prepare("SELECT * FROM data_panen ORDER BY id ASC");
 $stmt->execute();
 $data_panen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -47,19 +45,21 @@ $data_panen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             <th style="padding:16px 20px; font-weight: 600;">Produksi (ton)</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="panen-container">
                         <?php if (!empty($data_panen)): ?>
                             <?php foreach ($data_panen as $row): ?>
                                 <tr style="border-bottom:1px solid #f1f5f9; transition: background 0.2s;">
-                                    <td style="padding:16px 20px; color:#334155; font-weight:500;"><?= htmlspecialchars($row['provinsi']) ?></td>
-                                    <td style="padding:16px 20px; color:#475569;"><?= number_format($row['luas_panen'], 0, ',', '.') ?></td>
-                                    <td style="padding:16px 20px; color:#475569;"><strong><?= number_format($row['produksi'], 0, ',', '.') ?></strong></td>
+                                    <td style="padding:16px 20px; color:#334155; font-weight:500;">
+                                        <?= htmlspecialchars($row['provinsi']) ?>
+                                    </td>
+                                    <td style="padding:16px 20px; color:#475569;">
+                                        <?= number_format($row['luas_panen'], 0, ',', '.') ?>
+                                    </td>
+                                    <td style="padding:16px 20px; color:#475569;">
+                                        <strong><?= number_format($row['produksi'], 0, ',', '.') ?></strong>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="3" style="text-align:center; padding:30px; color:#94a3b8;">Belum ada data panen.</td>
-                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -69,18 +69,20 @@ $data_panen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 </body>
 
 </html>
+
 <script>
 function loadDataPanen() {
     fetch('/api/get_panen.php')
         .then(res => res.text())
         .then(html => {
             document.getElementById('panen-container').innerHTML = html;
-        });
+        })
+        .catch(err => console.log('Error:', err));
 }
-
-// reload tiap 5 detik
-setInterval(loadDataPanen, 5000);
 
 // load pertama
 loadDataPanen();
+
+// auto refresh tiap 5 detik
+setInterval(loadDataPanen, 5000);
 </script>
