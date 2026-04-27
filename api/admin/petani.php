@@ -1,6 +1,7 @@
 <?php
-// Mencegah output sebelum header
+// 1. Pastikan ob_start paling atas untuk mencegah "headers already sent"
 ob_start();
+
 require_once __DIR__ . '/../middleware/auth.php';
 require_once __DIR__ . '/../config/koneksi.php';
 
@@ -26,15 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email           = mysqli_real_escape_string($conn, $_POST['email']);
         $password_hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $role            = "user";
+        $status          = "Active"; // ✅ Tambahkan default status agar DB tidak error
 
-        $sql = "INSERT INTO users (id_user, name, username, email, password, phone, address, gender, dob, role)
-                VALUES ('$id_user', '$name', '$username', '$email', '$password_hashed', '$phone', '$address', '$gender', '$dob', '$role')";
+        // Menambahkan kolom 'status' ke dalam query INSERT
+        $sql = "INSERT INTO users (id_user, name, username, email, password, phone, address, gender, dob, role, status)
+                VALUES ('$id_user', '$name', '$username', '$email', '$password_hashed', '$phone', '$address', '$gender', '$dob', '$role', '$status')";
 
         if (mysqli_query($conn, $sql)) {
+            // Bersihkan buffer sebelum redirect
+            ob_end_clean();
             header("Location: /admin/petani?success=tambah");
             exit();
         } else {
-            $error_msg = "Error: " . mysqli_error($conn);
+            $error_msg = "Error DB: " . mysqli_error($conn);
         }
     }
 
@@ -63,10 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (mysqli_query($conn, $sql)) {
+            ob_end_clean();
             header("Location: /admin/petani?success=edit");
             exit();
         } else {
-            $error_msg = "Error: " . mysqli_error($conn);
+            $error_msg = "Error DB: " . mysqli_error($conn);
         }
     }
 
@@ -80,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $sql = "INSERT INTO data_panen (provinsi, luas_panen, produktivitas, produksi, tahun) VALUES ('$provinsi', '$luas_panen', '$produktivitas', '$produksi', '$tahun')";
         if (mysqli_query($conn, $sql)) {
+            ob_end_clean();
             header("Location: /admin/petani?action=panen&success=tambah");
             exit();
         }
@@ -92,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['hapus'])) {
     $id = mysqli_real_escape_string($conn, $_GET['hapus']);
     mysqli_query($conn, "DELETE FROM users WHERE id_user = '$id'");
+    ob_end_clean();
     header("Location: /admin/petani?success=hapus");
     exit();
 }
