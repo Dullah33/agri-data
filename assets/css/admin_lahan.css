@@ -1,32 +1,46 @@
-/* =========================
-   FORCE FULL WIDTH (FIX UTAMA)
-========================= */
+/* =========================================
+   KHUSUS HALAMAN LAHAN (FINAL FIX)
+========================================= */
+
+/* hanya aktif di halaman lahan */
+body.page-lahan {
+    display: block;
+}
+
+/* =========================================
+   MAIN CONTENT (FULL WIDTH TANPA RUSAK PAGE LAIN)
+========================================= */
 .page-lahan .main-content {
-    width: calc(100% - 250px); /* sesuaikan sidebar */
-    margin-left: 250px;
-    max-width: none !important;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    max-width: 100%;
+    padding: 24px 30px;
 }
 
-.page-lahan .content-area {
+/* hancurkan semua pembatas */
+.page-lahan .content-area,
+.page-lahan .container,
+.page-lahan .wrapper,
+.page-lahan .page-wrapper,
+.page-lahan .content-box {
     width: 100%;
-    max-width: none !important;
-    padding: 24px;
+    max-width: 100%;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-.lahan-layout {
+/* =========================================
+   LAYOUT UTAMA (FORM + TABLE)
+========================================= */
+.page-lahan .lahan-layout {
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 24px;
     width: 100%;
 }
 
-/* =========================
-   FORM
-========================= */
-.lahan-form-box {
+/* =========================================
+   FORM (KIRI)
+========================================= */
+.page-lahan .lahan-form-box {
     background: #fff;
     padding: 20px;
     border-radius: 14px;
@@ -34,23 +48,23 @@
     height: fit-content;
 }
 
-.lahan-form-box h3 {
+.page-lahan .lahan-form-box h3 {
     margin-bottom: 15px;
     font-size: 16px;
     font-weight: 600;
     color: #2d6a4f;
 }
 
-.lahan-form-box input,
-.lahan-form-box select {
+.page-lahan .lahan-form-box input,
+.page-lahan .lahan-form-box select {
     width: 100%;
     margin-bottom: 10px;
 }
 
-/* =========================
-   TABLE
-========================= */
-.lahan-table-box {
+/* =========================================
+   TABLE (KANAN FULL)
+========================================= */
+.page-lahan .lahan-table-box {
     width: 100%;
     background: #fff;
     padding: 20px;
@@ -59,131 +73,88 @@
     overflow-x: auto;
 }
 
-.table-header {
+.page-lahan .table-header {
     margin-bottom: 12px;
 }
 
-.table-header h3 {
+.page-lahan .table-header h3 {
     font-size: 16px;
     font-weight: 600;
     color: #2d6a4f;
 }
 
-.table-modern {
+.page-lahan .table-modern {
     width: 100%;
     border-collapse: collapse;
 }
 
-.table-modern th {
+.page-lahan .table-modern th {
     background: #2d6a4f;
     color: #fff;
     padding: 12px;
     text-align: left;
 }
 
-.table-modern td {
+.page-lahan .table-modern td {
     padding: 12px;
     border-bottom: 1px solid #eee;
 }
 
-.table-modern tr:hover {
+.page-lahan .table-modern tr:hover {
     background: #f9fafb;
 }
 
-/* =========================
+/* =========================================
    BADGE
-========================= */
-.badge {
+========================================= */
+.page-lahan .badge {
     padding: 5px 10px;
     border-radius: 999px;
     font-size: 12px;
 }
 
-.aktif {
+.page-lahan .aktif {
     background: #bbf7d0;
     color: #166534;
 }
 
-.nonaktif {
+.page-lahan .nonaktif {
     background: #fecaca;
     color: #991b1b;
 }
 
-/* =========================
+/* =========================================
    BUTTON
-========================= */
-.btn-primary {
+========================================= */
+.page-lahan .btn-primary {
     width: 100%;
     margin-top: 10px;
 }
 
-/* =========================
+/* =========================================
    RESPONSIVE
-========================= */
+========================================= */
 @media (max-width: 900px) {
     .page-lahan .main-content {
         margin-left: 0;
         width: 100%;
+        padding: 20px;
     }
 
-    .lahan-layout {
+    .page-lahan .lahan-layout {
         grid-template-columns: 1fr;
     }
 }
 
-/* =========================================
-   FORCE FULL WIDTH (OVERRIDE SEMUA)
-   ========================================= */
-
-/* Geser dari sidebar */
-.main-content {
-    margin-left: 260px !important;
-    width: calc(100% - 260px) !important;
-    max-width: 100% !important;
-    padding: 20px 30px !important;
+.page-lahan .content-area {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
 }
 
-/* HANCURKAN semua limit tengah */
-.main-content > * {
-    max-width: 100% !important;
-    width: 100% !important;
-}
-
-/* Kalau ada container bawaan */
-.container,
-.content-area,
-.page-wrapper,
-.wrapper {
-    max-width: 100% !important;
-    width: 100% !important;
-}
-
-/* Layout lahan */
-.lahan-layout {
-    display: grid !important;
-    grid-template-columns: 320px 1fr !important;
-    gap: 24px !important;
-    width: 100% !important;
-}
-
-/* Table FULL BANGET */
-.lahan-table-box {
-    width: 100% !important;
-}
-
-/* Card kanan (daftar lahan) */
-.lahan-table-box table {
-    width: 100% !important;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .main-content {
-        margin-left: 0 !important;
-        width: 100% !important;
-    }
-
-    .lahan-layout {
-        grid-template-columns: 1fr !important;
-    }
+.page-lahan .content-box {
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }

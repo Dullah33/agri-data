@@ -62,121 +62,128 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
             <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
 
-            <div class="lahan-layout">
+            <!-- ✅ WRAPPER PENTING BIAR FULL -->
+            <div class="content-area">
 
-                <!-- FORM -->
-                <div class="lahan-form-box">
-                    <h3><i class="fa fa-plus"></i> Tambah Data</h3>
+                <div class="lahan-layout">
 
-                    <form method="POST">
+                    <!-- FORM -->
+                    <div class="lahan-form-box">
+                        <h3><i class="fa fa-plus"></i> Tambah Data</h3>
 
-                        <div class="form-group">
-                            <label>Nama Pemilik</label>
-                            <input type="text" name="nama_pemilik" required>
-                        </div>
+                        <form method="POST">
 
-                        <div class="form-group">
-                            <label>Provinsi</label>
-                            <input type="text" name="provinsi" required>
-                        </div>
+                            <div class="form-group">
+                                <label>Nama Pemilik</label>
+                                <input type="text" name="nama_pemilik" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label>Desa</label>
-                            <input type="text" name="desa">
-                        </div>
+                            <div class="form-group">
+                                <label>Provinsi</label>
+                                <input type="text" name="provinsi" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label>Luas (ha)</label>
-                            <input type="number" name="luas">
-                        </div>
+                            <div class="form-group">
+                                <label>Desa</label>
+                                <input type="text" name="desa">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Komoditas</label>
-                            <input type="text" name="komoditas">
-                        </div>
+                            <div class="form-group">
+                                <label>Luas (ha)</label>
+                                <input type="number" name="luas">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Masa Tanam</label>
-                            <input type="text" name="masa_tanam">
-                        </div>
+                            <div class="form-group">
+                                <label>Komoditas</label>
+                                <input type="text" name="komoditas">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Hasil / ha</label>
-                            <input type="number" name="hasil_per_ha">
-                        </div>
+                            <div class="form-group">
+                                <label>Masa Tanam</label>
+                                <input type="text" name="masa_tanam">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Total Panen</label>
-                            <input type="number" name="total_panen">
-                        </div>
+                            <div class="form-group">
+                                <label>Hasil / ha</label>
+                                <input type="number" name="hasil_per_ha">
+                            </div>
 
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select name="status">
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak aktif">Nonaktif</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>Total Panen</label>
+                                <input type="number" name="total_panen">
+                            </div>
 
-                        <button name="simpan" class="btn-primary">
-                            <i class="fa fa-save"></i> Simpan Data
-                        </button>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status">
+                                    <option value="aktif">Aktif</option>
+                                    <option value="tidak aktif">Nonaktif</option>
+                                </select>
+                            </div>
 
-                    </form>
-                </div>
+                            <button name="simpan" class="btn-primary">
+                                <i class="fa fa-save"></i> Simpan Data
+                            </button>
 
-
-                <!-- TABLE -->
-                <div class="lahan-table-box">
-
-                    <div class="table-header">
-                        <h3><i class="fa fa-table"></i> Daftar Lahan</h3>
+                        </form>
                     </div>
 
-                    <div class="table-container">
-                        <table class="table-modern">
+                    <!-- TABLE -->
+                    <div class="lahan-table-box">
 
-                            <thead>
-                                <tr>
-                                    <th>Pemilik</th>
-                                    <th>Lokasi</th>
-                                    <th>Luas</th>
-                                    <th>Komoditas</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
+                        <div class="table-header">
+                            <h3><i class="fa fa-table"></i> Daftar Lahan</h3>
+                        </div>
 
-                            <tbody>
-                                <?php if (mysqli_num_rows($data) > 0): ?>
-                                    <?php while ($d = mysqli_fetch_assoc($data)): ?>
-                                        <tr>
-                                            <td><?= $d['nama_pemilik'] ?></td>
-                                            <td><?= $d['provinsi'] ?></td>
-                                            <td><?= $d['luas'] ?> ha</td>
-                                            <td><?= $d['komoditas'] ?></td>
-                                            <td>
-                                                <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
-                                                    <?= $d['status'] ?>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus?')">
-                                                    Hapus
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endwhile; ?>
-                                <?php else: ?>
+                        <div class="table-container">
+                            <table class="table-modern">
+
+                                <thead>
                                     <tr>
-                                        <td colspan="6" style="text-align:center;">Data belum tersedia</td>
+                                        <th>Pemilik</th>
+                                        <th>Lokasi</th>
+                                        <th>Luas</th>
+                                        <th>Komoditas</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    <?php if (mysqli_num_rows($data) > 0): ?>
+                                        <?php while ($d = mysqli_fetch_assoc($data)): ?>
+                                            <tr>
+                                                <td><?= $d['nama_pemilik'] ?></td>
+                                                <td><?= $d['provinsi'] ?></td>
+                                                <td><?= $d['luas'] ?> ha</td>
+                                                <td><?= $d['komoditas'] ?></td>
+                                                <td>
+                                                    <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
+                                                        <?= $d['status'] ?>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus?')">
+                                                        Hapus
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" style="text-align:center;">Data belum tersedia</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 
