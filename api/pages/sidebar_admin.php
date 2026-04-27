@@ -1,0 +1,64 @@
+<?php $page = isset($page) ? $page : '';
+?>
+
+<aside class="sidebar-modern">
+    <div class="sidebar-brand">
+        <div class="brand-icon"><i class="fa-solid fa-leaf"></i></div>
+        <span class="brand-name">AgriData</span>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul>
+            <li class="<?php echo ($page == 'dashboard') ? 'active' : ''; ?>">
+                <a href="dashboard_admin.php">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="<?php echo ($page == 'data_petani') ? 'active' : ''; ?>">
+                <a href="data_petani_admin.php">
+                    <i class="fa-solid fa-user-group"></i>
+                    <span>Data Petani</span>
+                </a>
+            </li>
+
+            <li class="nav-header" style="padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 600; letter-spacing: 0.5px; margin-top: 10px;">
+                MANAJEMEN DATA
+            </li>
+
+            <li class="<?php echo ($page == 'data_panen') ? 'active' : ''; ?>">
+                <a href="edit_data_panen_admin.php">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <span>Data Panen</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="modal-overlay" id="logoutModal">
+    <div class="modal-box">
+        <div class="modal-icon-warning">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+        <h3>Konfirmasi Keluar</h3>
+        <p>Apakah Anda yakin ingin keluar dari sistem Admin?</p>
+        <div class="modal-actions">
+            <button class="btn-cancel" id="btnBatalLogout">Batal</button>
+            <a href="logout.php" class="btn-confirm-logout">Ya, Keluar</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('logoutModal');
+        const btnBatal = document.getElementById('btnBatalLogout');
+        if (modal && btnBatal) {
+            btnBatal.onclick = () => modal.classList.remove('active');
+            window.onclick = (e) => {
+                if (e.target == modal) modal.classList.remove('active');
+            }
+        }
+    });
+</script>
