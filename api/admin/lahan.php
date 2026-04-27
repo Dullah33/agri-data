@@ -52,10 +52,8 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
+<body class="page-lahan">
 
-    <body class="page-lahan">
-    </body>
     <div class="layout-wrapper">
 
         <?php include __DIR__ . '/partials/sidebar_admin.php'; ?>
