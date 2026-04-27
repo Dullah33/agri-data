@@ -54,11 +54,10 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 </head>
 
 <body class="page-lahan">
-
     <?php include __DIR__ . '/partials/sidebar_admin.php'; ?>
-
-    <main class="main-content"> <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
-
+    <main class="main-content"> 
+        <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
+        
         <div class="content-area">
 
             <div class="lahan-layout">
