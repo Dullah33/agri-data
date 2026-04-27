@@ -1,8 +1,10 @@
 <?php
-session_start();
-// Gunakan path koneksi mundur 2 folder
+require __DIR__ . '/../../middleware/auth.php';
 require __DIR__ . '/../../config/koneksi.php';
 
+$user = requireAuth('admin');
+
+// Gunakan path koneksi mundur 2 folder
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ambil data dari form dan pastikan provinsi diubah jadi huruf besar (uppercase) agar seragam
     $provinsi = strtoupper(mysqli_real_escape_string($conn, $_POST['provinsi']));

@@ -1,8 +1,6 @@
 <?php
-session_start();
+setcookie("token", "", time() - 3600, "/");
+setcookie("refresh_token", "", time() - 3600, "/");
 
-session_destroy(); // Menghapus semua session
-
-// Mengarahkan kembali ke halaman login menggunakan jalur absolut browser
-header("Location: ./login.php");
+header("Location: /pages/login.php");
 exit();

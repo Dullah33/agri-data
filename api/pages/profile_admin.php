@@ -35,7 +35,7 @@ require __DIR__ . '/../controllers/admin/profile_admin.php';
             <?php endif; ?>
 
             <!-- BACK -->
-            <a href="<?= isset($_SESSION['kembali_ke']) ? htmlspecialchars($_SESSION['kembali_ke']) : 'dashboard_admin.php' ?>" class="back-link">
+            <a href="<?= 'dashboard_admin.php' ?>" class="back-link">
                 <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
             </a>
 

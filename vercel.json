@@ -12,12 +12,10 @@
             "dest": "/api/index.php"
         },
 
-
         {
             "src": "^/pages/(.*)",
             "dest": "/api/pages/$1"
         },
-
 
         {
             "src": "^/api/(.*)",

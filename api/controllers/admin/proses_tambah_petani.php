@@ -1,5 +1,9 @@
 <?php
-session_start();
+require __DIR__ . "/../../middleware/auth.php";
+require __DIR__ . "/../../config/koneksi.php";
+
+$user = requireAuth("admin");
+
 // Path koneksi sudah benar (../../)
 require __DIR__ . '/../../config/koneksi.php';
 

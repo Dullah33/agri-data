@@ -1,8 +1,10 @@
 <?php
-session_start();
-// Gunakan path koneksi yang benar (mundur 2 folder)
+require __DIR__ . '/../../middleware/auth.php';
 require __DIR__ . '/../../config/koneksi.php';
 
+$user = requireAuth('admin');
+
+// Gunakan path koneksi yang benar (mundur 2 folder)
 // Cek apakah ada data POST yang dikirim
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ambil data dari form pop-up

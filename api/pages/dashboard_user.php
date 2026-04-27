@@ -23,12 +23,12 @@ require __DIR__ . '/../controllers/user/dashboard_controller.php';
         <!-- WELCOME BANNER -->
         <div class="welcome-banner">
             <div class="welcome-text">
-                <h1>Selamat datang, <?php echo htmlspecialchars($u['first_name'] ?? $_SESSION['name']); ?>! 🌾</h1>
+                <h1>Selamat datang, <?php echo htmlspecialchars($u['first_name'] ?? $user['name'] ?? 'Petani'); ?>! 🌾</h1>
                 <p>Panel pribadi AgriData — pantau data pertanian dan informasi Anda di sini.</p>
             </div>
             <div class="welcome-date-badge">
                 <i class="fa-regular fa-calendar"></i>
-                <span id="currentDate">Memuat...</span>
+                <span id="currentDate">Memuat...
             </div>
         </div>
 
@@ -87,7 +87,7 @@ require __DIR__ . '/../controllers/user/dashboard_controller.php';
                 <div class="section-subtitle">Informasi akun yang terdaftar di sistem</div>
                 <div class="profile-summary">
                     <div class="profile-avatar-big">
-                        <?= strtoupper(substr($u['first_name'] ?? $_SESSION['name'], 0, 1)) ?>
+                        <?= strtoupper(substr($u['first_name'] ?? $user['name'] ?? 'P', 0, 1)) ?>
                     </div>
                     <div>
                         <div class="profile-info-name"><?= htmlspecialchars(trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? ''))) ?></div>

@@ -1,8 +1,10 @@
 <?php
-session_start();
-// Path koneksi sudah benar
+require __DIR__ . '/../../middleware/auth.php';
 require __DIR__ . '/../../config/koneksi.php';
 
+$user = requireAuth('admin');
+
+// Path koneksi sudah benar
 if (isset($_POST['update'])) {
     $id_user    = $_POST['id_user'];
     $name = mysqli_real_escape_string($conn, $_POST['name']);

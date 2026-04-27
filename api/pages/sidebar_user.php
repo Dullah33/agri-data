@@ -28,7 +28,7 @@ $page = isset($page) ? $page : '';
         <p style="color: #64748b; margin-bottom: 25px;">Apakah Anda yakin ingin keluar dari sistem?</p>
         <div style="display: flex; gap: 10px; justify-content: flex-end;">
             <button onclick="document.getElementById('logoutModal').classList.remove('active')" style="padding: 10px 20px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; cursor: pointer;">Batal</button>
-            <a href="logout.php" style="padding: 10px 20px; border-radius: 8px; background: #ef4444; color: white; text-decoration: none; font-weight: 600;">Ya, Keluar</a>
+            <a href="/pages/logout.php" style="padding: 10px 20px; border-radius: 8px; background: #ef4444; color: white; text-decoration: none; font-weight: 600;">Ya, Keluar</a>
         </div>
     </div>
 </div>

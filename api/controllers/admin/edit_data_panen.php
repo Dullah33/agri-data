@@ -1,18 +1,13 @@
 <?php
-session_start();
-// Gunakan path koneksi yang benar
+require __DIR__ . '/../../middleware/auth.php';
 require __DIR__ . '/../../config/koneksi.php';
 
-// 1. Proteksi Halaman: Pastikan hanya peran Admin
-if (!isset($_SESSION['role']) || ($_SESSION['role'] != 'admin' && $_SESSION['role'] != 'super_admin')) {
-    header("Location: ../../pages/login.php");
-    exit();
-}
+$user = requireAuth('admin');
 
 $page = 'data_panen';
 
-// 2. Ambil Data Pribadi Admin (Untuk Topbar)
-$id_user = $_SESSION['id_user'];
+// Ambil Data Admin
+$id_user = $user['id_user'];
 $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id_user'");
 $u = mysqli_fetch_assoc($query_user);
 

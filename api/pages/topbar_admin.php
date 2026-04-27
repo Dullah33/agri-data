@@ -11,18 +11,18 @@
     <div class="topbar-right">
         <div class="profile-trigger" id="profileDropdownTrigger">
             <div class="user-info-text">
-                <span class="user-name"><?php echo $_SESSION['name']; ?></span>
+                <span class="user-name"><?php echo $user['name'] ?? 'Admin'; ?></span>
                 <span class="user-role">Super Admin</span>
             </div>
 
             <div class="avatar-topbar">
-                <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+                <?php echo strtoupper(substr($user['name'] ?? 'Admin', 0, 1)); ?>
             </div>
 
             <div class="profile-dropdown" id="profileMenu">
                 <div class="dropdown-header">
                     <strong>Sistem Admin</strong>
-                    <span>@<?php echo $_SESSION['username']; ?></span>
+                    <span>@<?php echo $user['username'] ?? 'admin'; ?></span>
                 </div>
                 <hr>
                 <a href="profile_admin.php"><i class="fa-solid fa-user-shield"></i> Profil Admin</a>

@@ -1,13 +1,18 @@
 <?php
-session_start();
-
+require __DIR__ . '/../../middleware/auth.php';
 require __DIR__ . '/../../config/koneksi.php';
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
-    // PERBAIKAN: Gunakan jalur absolut browser
-    header("Location: ../../pages/login.php");
-    exit();
-}
+$user = requireAuth('admin');
+
+$page = 'dashboard';
+$id_user = $user['id_user'];
+
+// --- 1. AMBIL STATISTIK PETANI (MURNI DATA PRIBADI) ---
+$q_total = mysqli_query($conn, "SELECT COUNT(*) as total FROM users WHERE role='user'");
+$total_petani = mysqli_fetch_assoc($q_total)['total'] ?? 0;
+
+$q_aktif = mysqli_query($conn, "SELECT COUNT(*) as total FROM users WHERE role='user' AND status='Active'");
+$total_aktif = mysqli_fetch_assoc($q_aktif)['total'] ?? 0;
 
 $page = 'dashboard';
 
