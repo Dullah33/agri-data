@@ -35,6 +35,10 @@
             "dest": "/api/admin/profile.php"
         },
         {
+            "src": "/admin/lahan",
+            "dest": "/api/admin/lahan.php"
+        },
+        {
             "src": "^/user/dashboard$",
             "dest": "/api/user/dashboard.php"
         },
