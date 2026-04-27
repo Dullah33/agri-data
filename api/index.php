@@ -173,8 +173,8 @@ $daftarFitur = [
     </ul>
     <div class="nav-cta">
         <!-- PERBAIKAN: Path link yang benar menuju api/pages/ -->
-        <a href="api/pages/register.php" class="btn-ov">Daftar</a>
-        <a href="api/pages/login.php" class="btn-os">Login</a>
+        <a href="/pages/register.php" class="btn-ov">Daftar</a>
+        <a href="/pages/login.php" class="btn-os">Login</a>
     </div>
 </nav>
 
@@ -188,8 +188,8 @@ $daftarFitur = [
         <h1 class="hero-title">Kelola Data Tani <span>Lebih Mudah & Cerdas</span></h1>
         <p class="hero-desc">Platform digital terpadu untuk pemantauan data kelompok tani, lahan, dan distribusi pupuk yang transparan dengan dukungan data BPS real-time.</p>
         <div class="hero-actions">
-            <a href="api/pages/register.php" class="btn-hp"><i class="fa-solid fa-rocket"></i> Mulai Sekarang</a>
-            <a href="api/pages/login.php" class="btn-hs"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            <a href="/pages/register.php" class="btn-hp"><i class="fa-solid fa-rocket"></i> Mulai Sekarang</a>
+            <a href="/pages/login.php" class="btn-hs"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
         </div>
     </div>
     <div class="hero-floats">
@@ -236,8 +236,8 @@ $daftarFitur = [
     <h2>Siap Meningkatkan Produktivitas Pertanian?</h2>
     <p>Bergabunglah dengan ribuan petani yang sudah menggunakan AgriData.</p>
     <div class="cta-acts">
-        <a href="api/pages/register.php" class="btn-cw">Daftar Gratis</a>
-        <a href="api/pages/login.php" class="btn-cg">Login ke Akun</a>
+        <a href="/pages/register.php" class="btn-cw">Daftar Gratis</a>
+        <a href="/pages/login.php" class="btn-cg">Login ke Akun</a>
     </div>
 </section>
 
