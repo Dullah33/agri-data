@@ -316,77 +316,192 @@ if ($q_panen) {
             </form>
 
         <?php elseif ($action === 'edit'): ?>
-            <a href="/admin/petani" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+            <a href="/admin/petani" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+
             <form action="" method="POST">
                 <input type="hidden" name="id_user" value="<?= $data['id_user'] ?>">
+
                 <div class="two-col-grid">
+
+                    <!-- KIRI -->
                     <div class="form-card">
                         <div class="section-head">
-                            <h3>Edit Data</h3>
+                            <div class="section-head-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <h3>Informasi Petani</h3>
+                                <p>Edit data petani</p>
+                            </div>
                         </div>
-                        <div class="form-group"><label>Nama</label><input type="text" name="name" class="form-control" value="<?= $data['name'] ?>" required></div>
-                        <div class="form-group"><label>Telepon</label><input type="text" name="phone" class="form-control" value="<?= $data['phone'] ?>" required></div>
-                        <div class="form-group"><label>Alamat</label><textarea name="address" class="form-control" required><?= $data['address'] ?></textarea></div>
+
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="name" class="form-control"
+                                value="<?= htmlspecialchars($data['name']) ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Telepon</label>
+                            <input type="text" name="phone" class="form-control"
+                                value="<?= htmlspecialchars($data['phone']) ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <textarea name="address" class="form-control" required><?= htmlspecialchars($data['address']) ?></textarea>
+                        </div>
                     </div>
+
+                    <!-- KANAN -->
                     <div class="form-card">
-                        <div class="form-group"><label>Status</label>
+                        <div class="section-head">
+                            <div class="section-head-icon">
+                                <i class="fa-solid fa-key"></i>
+                            </div>
+                            <div>
+                                <h3>Akun</h3>
+                                <p>Pengaturan login</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
                             <select name="status" class="form-control">
-                                <option value="Active" <?= $data['status'] == 'Active' ? 'selected' : '' ?>>Aktif</option>
-                                <option value="Inactive" <?= $data['status'] == 'Inactive' ? 'selected' : '' ?>>Tidak Aktif</option>
+                                <option value="Active" <?= ($data['status'] == 'Active') ? 'selected' : '' ?>>Aktif</option>
+                                <option value="Inactive" <?= ($data['status'] == 'Inactive') ? 'selected' : '' ?>>Tidak Aktif</option>
                             </select>
                         </div>
-                        <div class="form-group"><label>Username</label><input type="text" name="username" class="form-control" value="<?= $data['username'] ?>" required></div>
-                        <div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" value="<?= $data['email'] ?>" required></div>
-                        <div class="form-group"><label>Ganti Password <small>(Kosongkan jika tetap)</small></label><input type="password" name="password" class="form-control"></div>
-                        <button type="submit" name="update" class="btn-save" style="width:100%; margin-top:20px; background:#2D6A4F; color:white; border:none; padding:15px; border-radius:10px; font-weight:700; cursor:pointer;">Simpan Perubahan</button>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control"
+                                value="<?= htmlspecialchars($data['username']) ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control"
+                                value="<?= htmlspecialchars($data['email']) ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ganti Password <small>(Kosongkan jika tidak diubah)</small></label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                        <button type="submit" name="update"
+                            class="btn-save"
+                            style="width:100%; margin-top:20px; background:#2D6A4F; color:white; border:none; padding:15px; border-radius:10px; font-weight:700; cursor:pointer;">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                        </button>
                     </div>
+
                 </div>
             </form>
 
         <?php elseif ($action === 'panen'): ?>
-            <div class="dashboard-header">
-                <h1>Manajemen Data Panen 🌾</h1>
-                <button class="btn-primary" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> Tambah Data Baru</button>
+
+            <div class="page-header">
+                <div class="page-info">
+                    <h1>Data Panen</h1>
+                    <p>Kelola data hasil panen seluruh provinsi</p>
+                </div>
+                <button class="btn-add-new" onclick="openAddModal()">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Tambah Data</span>
+                </button>
             </div>
-            <div class="table-section" style="background:white; border-radius:15px; padding:20px; border:1px solid #f1f5f9;">
-                <table class="admin-data-table" style="width:100%;">
+
+            <div class="table-container">
+                <table>
                     <thead>
-                        <tr style="background:#f8fafc;">
-                            <th style="padding:15px; text-align:left;">PROVINSI</th>
-                            <th style="padding:15px; text-align:right;">Luas (ha)</th>
-                            <th style="padding:15px; text-align:right;">Produksi (ton)</th>
-                            <th style="padding:15px; text-align:center;">AKSI</th>
+                        <tr>
+                            <th>Provinsi</th>
+                            <th style="text-align:right;">Luas Panen (Ha)</th>
+                            <th style="text-align:right;">Produksi (Ton)</th>
+                            <th style="text-align:center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($data_panen_list as $row): ?>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:15px; font-weight:700;"><?= $row['provinsi'] ?></td>
-                                <td style="padding:15px; text-align:right;"><?= number_format($row['luas_panen'], 2) ?></td>
-                                <td style="padding:15px; text-align:right; font-weight:700; color:#2D6A4F;"><?= number_format($row['produksi'], 2) ?></td>
-                                <td style="padding:15px; text-align:center;">
-                                    <a href="?action=panen&hapus_panen=<?= $row['id'] ?>" style="color:#ef4444;" onclick="return confirm('Hapus data?')"><i class="fa-solid fa-trash"></i></a>
+                            <tr>
+                                <td style="font-weight:600;">
+                                    <?= htmlspecialchars($row['provinsi']) ?>
+                                </td>
+
+                                <td style="text-align:right;">
+                                    <?= number_format($row['luas_panen'], 2) ?>
+                                </td>
+
+                                <td style="text-align:right; font-weight:600; color:#2D6A4F;">
+                                    <?= number_format($row['produksi'], 2) ?>
+                                </td>
+
+                                <td style="text-align:center;">
+                                    <a href="?action=panen&hapus_panen=<?= $row['id'] ?>"
+                                        class="btn-icon btn-delete"
+                                        onclick="return confirm('Hapus data ini?')">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-            <div id="addModal" class="modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+
+            <!-- MODAL TAMBAH -->
+            <div id="addModal" class="modal-overlay"
+                style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+
                 <div style="background:white; padding:30px; border-radius:20px; width:100%; max-width:500px;">
-                    <h3>Tambah Data Panen</h3>
+
+                    <h3 style="margin-bottom:10px;">Tambah Data Panen</h3>
+                    <p style="font-size:13px; color:#64748b; margin-bottom:20px;">
+                        Masukkan data panen terbaru
+                    </p>
+
                     <form action="" method="POST">
-                        <div class="form-group" style="margin-top:15px;"><label>Provinsi</label><input type="text" name="provinsi" class="form-control" required></div>
-                        <div class="form-group"><label>Luas Panen</label><input type="number" step="any" name="luas_panen" class="form-control" required></div>
-                        <div class="form-group"><label>Produktivitas</label><input type="number" step="any" name="produktivitas" class="form-control" required></div>
-                        <div class="form-group"><label>Produksi</label><input type="number" step="any" name="produksi" class="form-control" required></div>
-                        <div style="margin-top:20px; display:flex; gap:10px;">
-                            <button type="button" onclick="closeAddModal()" style="flex:1; padding:12px; border-radius:8px; border:1px solid #ccc;">Batal</button>
-                            <button type="submit" name="tambah_panen" style="flex:1; padding:12px; border-radius:8px; background:#2D6A4F; color:white; border:none;">Simpan</button>
+
+                        <div class="form-group">
+                            <label>Provinsi</label>
+                            <input type="text" name="provinsi" class="form-control" required>
                         </div>
+
+                        <div class="form-group">
+                            <label>Luas Panen (Ha)</label>
+                            <input type="number" step="any" name="luas_panen" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Produktivitas</label>
+                            <input type="number" step="any" name="produktivitas" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Produksi (Ton)</label>
+                            <input type="number" step="any" name="produksi" class="form-control" required>
+                        </div>
+
+                        <div style="margin-top:20px; display:flex; gap:10px;">
+                            <button type="button" onclick="closeAddModal()"
+                                style="flex:1; padding:12px; border-radius:10px; border:1px solid #ccc;">
+                                Batal
+                            </button>
+
+                            <button type="submit" name="tambah_panen"
+                                style="flex:1; padding:12px; border-radius:10px; background:#2D6A4F; color:white; border:none; font-weight:600;">
+                                Simpan
+                            </button>
+                        </div>
+
                     </form>
                 </div>
             </div>
+
             <script>
                 function openAddModal() {
                     document.getElementById('addModal').style.display = 'flex';
@@ -396,6 +511,7 @@ if ($q_panen) {
                     document.getElementById('addModal').style.display = 'none';
                 }
             </script>
+
         <?php endif; ?>
     </main>
 </body>
