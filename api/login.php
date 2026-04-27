@@ -1,11 +1,11 @@
 <?php
-require __DIR__ . '/../config/koneksi.php';
-require __DIR__ . '/../helpers/auth_cookie.php';
+require __DIR__ . '/config/koneksi.php';
+require __DIR__ . '/helpers/auth_cookie.php';
 
 // Sudah login → redirect langsung
 $existing = getAuthUser();
 if ($existing) {
-    header("Location: /pages/" . ($existing['role'] === 'admin' ? 'dashboard_admin.php' : 'dashboard_user.php'));
+    header("Location: /api/" . ($existing['role'] === 'admin' ? 'dashboard_admin.php' : 'dashboard_user.php'));
     exit();
 }
 
@@ -22,9 +22,9 @@ if (isset($_POST['login'])) {
             setAuthCookie($row);
 
             if ($row['role'] === 'admin') {
-                header("Location: /pages/dashboard_admin.php");
+                header("Location: /api/admin/dashboard.php");
             } else {
-                header("Location: /pages/dashboard_user.php");
+                header("Location: /api/user/dashboard.php");
             }
             exit();
         }

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../config/koneksi.php';
+require __DIR__ . '/config/koneksi.php';
 
 $reg_error = null;
 
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         ('$name', '$username', '$email', '$password', 'user', '$dob', '$gender', '$address', '$phone')";
 
         if (mysqli_query($conn, $query)) {
-            header("Location: /pages/login.php?registered=1");
+            header("Location: /api/login.php?registered=1");
             exit();
         } else {
             $reg_error = "Error: " . mysqli_error($conn);

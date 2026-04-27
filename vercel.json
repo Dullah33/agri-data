@@ -6,24 +6,37 @@
     },
     "routes": [
         { "handle": "filesystem" },
-
         {
             "src": "^/$",
             "dest": "/api/index.php"
         },
-
         {
-            "src": "^/pages/(.*)",
-            "dest": "/api/pages/$1"
+            "src": "^/login$",
+            "dest": "/api/login.php"
         },
-
+        {
+            "src": "^/register$",
+            "dest": "/api/register.php"
+        },
+        {
+            "src": "^/logout$",
+            "dest": "/api/logout.php"
+        },
+        {
+            "src": "^/admin/(.*)$",
+            "dest": "/api/admin/$1"
+        },
+        {
+            "src": "^/user/(.*)$",
+            "dest": "/api/user/$1"
+        },
+        {
+            "src": "^/sync/(.*)$",
+            "dest": "/api/sync/$1"
+        },
         {
             "src": "^/api/(.*)",
             "dest": "/api/$1"
-        },
-        {
-            "src": "/controllers/(.*)",
-            "dest": "/controllers/$1"
         }
     ]
 }
