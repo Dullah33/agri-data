@@ -1,41 +1,59 @@
-body {
-    font-family: 'Segoe UI';
-    background: #f5f7fa;
-}
-
+/* JANGAN override body global */
 .page-title {
+    font-size: 22px;
+    font-weight: 700;
     margin-bottom: 20px;
 }
 
+/* AREA */
+.content-area {
+    padding: 24px;
+}
+
+/* CARD */
 .card {
-    background: #fff;
-    padding: 16px;
-    border-radius: 12px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.container {
+    max-width: 1200px;
 }
 
 /* FORM */
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
 }
 
 input,
 select {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+    width: 100%;
 }
 
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #2d6a4f;
+}
+
+/* BUTTON */
 .btn-primary {
     background: #2d6a4f;
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 8px;
+    border-radius: 8px;
+    padding: 10px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .btn-primary:hover {
@@ -51,11 +69,12 @@ select {
 .table-modern th {
     background: #2d6a4f;
     color: white;
-    padding: 10px;
+    padding: 12px;
+    text-align: left;
 }
 
 .table-modern td {
-    padding: 10px;
+    padding: 12px;
     border-bottom: 1px solid #eee;
 }
 
@@ -66,7 +85,7 @@ select {
 /* BADGE */
 .badge {
     padding: 4px 10px;
-    border-radius: 12px;
+    border-radius: 999px;
     font-size: 12px;
 }
 
@@ -80,8 +99,13 @@ select {
     color: #991b1b;
 }
 
-/* BUTTON DELETE */
+/* DELETE */
 .btn-delete {
-    color: red;
+    color: #dc2626;
     text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-delete:hover {
+    text-decoration: underline;
 }
