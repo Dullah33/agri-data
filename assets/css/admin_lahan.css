@@ -31,11 +31,8 @@
 
 /* TABLE AREA FULL */
 .lahan-table-box {
-    flex: 1;
-    background: #fff;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    overflow-x: auto;
 }
 
 /* HEADER */
@@ -96,10 +93,22 @@
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .lahan-layout {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 20px;
+        width: 100%;
     }
-
     .lahan-form-box {
         width: 100%;
     }
+}
+
+/* FORCE FULL WIDTH KHUSUS HALAMAN LAHAN */
+.page-lahan .content-area {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.page-lahan .main-content {
+    max-width: 100% !important;
 }

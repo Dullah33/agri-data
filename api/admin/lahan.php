@@ -54,6 +54,8 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
 <body>
 
+    <body class="page-lahan">
+    </body>
     <div class="layout-wrapper">
 
         <?php include __DIR__ . '/partials/sidebar_admin.php'; ?>
