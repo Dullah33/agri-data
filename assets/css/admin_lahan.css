@@ -1,7 +1,6 @@
 /* =========================================
-   KHUSUS HALAMAN LAHAN (FINAL FIX CLEAN UI)
+   PAGE BASE
 ========================================= */
-
 body.page-lahan {
     background: #f1f5f9;
 }
@@ -12,7 +11,7 @@ body.page-lahan {
 .page-lahan .main-content {
     margin-left: 260px;
     width: calc(100% - 260px);
-    padding: 28px 32px;
+    padding: 30px;
 }
 
 /* =========================================
@@ -21,18 +20,18 @@ body.page-lahan {
 .page-lahan .lahan-layout {
     display: grid;
     grid-template-columns: 320px 1fr;
-    gap: 28px;
+    gap: 30px;
 }
 
 /* =========================================
-   CARD STYLE
+   CARD (FORM & TABLE)
 ========================================= */
 .page-lahan .lahan-form-box,
 .page-lahan .lahan-table-box {
     background: #ffffff;
     border-radius: 16px;
     border: 1px solid #e5e7eb;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
     padding: 24px;
 }
 
@@ -43,7 +42,7 @@ body.page-lahan {
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 /* =========================================
@@ -75,7 +74,7 @@ body.page-lahan {
 ========================================= */
 .page-lahan .btn-primary {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 12px;
     padding: 12px;
     border-radius: 12px;
     background: linear-gradient(135deg, #2d6a4f, #40916c);
@@ -86,59 +85,67 @@ body.page-lahan {
 }
 
 .page-lahan .btn-primary:hover {
-    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(45, 106, 79, 0.25);
 }
 
 /* =========================================
    TABLE CONTAINER (FIX UTAMA)
 ========================================= */
 .page-lahan .table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* =========================================
-   TABLE (FIX TOTAL)
-========================================= */
-.page-lahan .table-modern {
-    width: 100%;
-    border-collapse: collapse; /* 🔥 penting */
+    margin-top: 10px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
     background: #ffffff;
 }
 
+/* =========================================
+   TABLE
+========================================= */
+.page-lahan .table-modern {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 /* HEADER */
-.page-lahan .table-modern thead th {
+.page-lahan .table-modern thead {
     background: #2d6a4f;
-    color: white;
+}
+
+.page-lahan .table-modern thead th {
+    color: #ffffff;
     padding: 14px;
     font-size: 13px;
     text-align: left;
 }
 
 /* BODY */
-.page-lahan .table-modern td {
+.page-lahan .table-modern tbody td {
     padding: 14px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #f1f5f9;
     color: #334155;
 }
 
-/* STRIPED ROW */
-.page-lahan .table-modern tr:nth-child(even) {
-    background: #f9fafb;
+/* STRIPED */
+.page-lahan .table-modern tbody tr:nth-child(even) {
+    background: #f8fafc;
 }
 
 /* HOVER */
-.page-lahan .table-modern tr:hover {
-    background: #f1f5f9;
+.page-lahan .table-modern tbody tr:hover {
+    background: #eef2ff;
 }
 
-/* HEADER RADIUS (BIAR LEBIH HALUS) */
-.page-lahan .table-modern thead th:first-child {
-    border-top-left-radius: 10px;
-}
-
-.page-lahan .table-modern thead th:last-child {
-    border-top-right-radius: 10px;
+/* =========================================
+   EMPTY STATE (BIAR GA KOSONG BANGET)
+========================================= */
+.page-lahan td[colspan] {
+    padding: 50px !important;
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    background: #fafafa;
 }
 
 /* =========================================
@@ -171,16 +178,6 @@ body.page-lahan {
 
 .page-lahan .btn-delete:hover {
     text-decoration: underline;
-}
-
-/* =========================================
-   EMPTY STATE
-========================================= */
-.page-lahan td[colspan] {
-    text-align: center;
-    padding: 40px;
-    color: #94a3b8;
-    font-style: italic;
 }
 
 /* =========================================
