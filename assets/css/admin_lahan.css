@@ -28,14 +28,26 @@ body.page-lahan {
 }
 
 /* =========================================
+   TITLES / HEADERS (FIX: Margin Judul)
+========================================= */
+.page-lahan h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 20px; /* Memberi nafas antara judul dan konten di bawahnya */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================================
    TABLE CONTAINER
 ========================================= */
 .page-lahan .table-container {
-    margin-top: 10px;
     border-radius: 14px;
     border: 1px solid #e5e7eb;
     background: #ffffff;
-    overflow: hidden; /* Mengembalikan sudut tabel hijau agar melengkung */
+    overflow: hidden; /* Menjaga sudut tabel melengkung */
 }
 
 /* Mengamankan tabel agar bisa digeser jika layar kecil */
@@ -65,7 +77,7 @@ body.page-lahan {
 .page-lahan .table-modern thead th {
     color: #ffffff;
     font-weight: 600;
-    white-space: nowrap; /* Teks header tidak akan patah ke bawah */
+    white-space: nowrap;
 }
 
 /* BODY */
@@ -100,25 +112,32 @@ body.page-lahan {
     color: #b91c1c;
 }
 
-/* FORM ELEMENTS */
+/* =========================================
+   FORM ELEMENTS (FIX: Kerapian Form)
+========================================= */
 .page-lahan .form-group {
-    margin-bottom: 14px;
+    margin-bottom: 16px; /* Jarak antar input diperlebar sedikit */
 }
+
 .page-lahan label {
     font-size: 12px;
     font-weight: 700;
     color: #475569;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     display: block;
 }
+
 .page-lahan input,
 .page-lahan select {
     width: 100%;
-    padding: 10px 12px;
+    padding: 11px 14px; /* Padding dalam kotak input dilegakan */
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     background: #f8fafc;
     transition: 0.2s;
+    font-size: 13px;
+    color: #1e293b;
+    font-family: inherit; /* Menyesuaikan dengan font website */
 }
 
 .page-lahan input:focus,
@@ -129,6 +148,7 @@ body.page-lahan {
     outline: none;
 }
 
+/* BUTTON */
 .page-lahan .btn-primary {
     width: 100%;
     padding: 12px;
@@ -139,8 +159,9 @@ body.page-lahan {
     border: none;
     cursor: pointer;
     transition: 0.3s;
-    margin-top: 10px;
+    margin-top: 14px; /* Memberi jarak antara tombol dan input form terakhir */
 }
+
 .page-lahan .btn-primary:hover {
     background: #1b4332;
     transform: translateY(-2px);
