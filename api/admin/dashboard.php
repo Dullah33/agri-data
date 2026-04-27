@@ -26,7 +26,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin — AgriData</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
@@ -185,65 +185,6 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
 
         <!-- ── BOTTOM ROW ── -->
         <div class="bottom-grid">
-
-            <!-- Activity Feed -->
-            <div class="dash-card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Aktivitas Terkini</div>
-                        <div class="card-sub">Log aksi sistem hari ini</div>
-                    </div>
-                </div>
-
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background:#dcfce7;color:#15803d;">
-                            <i class="fa-solid fa-user-plus"></i>
-                        </div>
-                        <div class="activity-text">
-                            <div class="activity-msg">Petani baru berhasil <strong>mendaftar</strong> ke sistem</div>
-                            <div class="activity-time"><i class="fa-regular fa-clock"></i> Baru saja</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background:#dbeafe;color:#1d4ed8;">
-                            <i class="fa-solid fa-database"></i>
-                        </div>
-                        <div class="activity-text">
-                            <div class="activity-msg"><strong>Sinkronisasi data</strong> BPS berhasil dijalankan</div>
-                            <div class="activity-time"><i class="fa-regular fa-clock"></i> 1 jam lalu</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background:#fef9c3;color:#a16207;">
-                            <i class="fa-solid fa-user-pen"></i>
-                        </div>
-                        <div class="activity-text">
-                            <div class="activity-msg">Profil petani berhasil <strong>diperbarui</strong></div>
-                            <div class="activity-time"><i class="fa-regular fa-clock"></i> 2 jam lalu</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background:#f0fdf4;color:#2D6A4F;">
-                            <i class="fa-solid fa-wheat-awn"></i>
-                        </div>
-                        <div class="activity-text">
-                            <div class="activity-msg">Data panen baru <strong>ditambahkan</strong> ke tabel</div>
-                            <div class="activity-time"><i class="fa-regular fa-clock"></i> 3 jam lalu</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background:#ffe4e6;color:#be123c;">
-                            <i class="fa-solid fa-user-xmark"></i>
-                        </div>
-                        <div class="activity-text">
-                            <div class="activity-msg">Akun petani berhasil <strong>dinonaktifkan</strong></div>
-                            <div class="activity-time"><i class="fa-regular fa-clock"></i> 5 jam lalu</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Quick Nav -->
             <div class="dash-card">
                 <div class="card-header">
