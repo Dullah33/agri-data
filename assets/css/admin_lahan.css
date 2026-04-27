@@ -1,81 +1,48 @@
 /* =========================================
-   KHUSUS HALAMAN LAHAN (FINAL + MODERN UI)
+   KHUSUS HALAMAN LAHAN (MODERN TABLE FIX)
 ========================================= */
 
-/* hanya aktif di halaman lahan */
 body.page-lahan {
-    display: block;
     background: #f1f5f9;
 }
 
 /* =========================================
-   MAIN CONTENT (FULL WIDTH)
+   MAIN CONTENT
 ========================================= */
 .page-lahan .main-content {
     margin-left: 260px;
     width: calc(100% - 260px);
-    max-width: 100%;
     padding: 28px 32px;
 }
 
-/* hapus semua pembatas */
-.page-lahan .content-area,
-.page-lahan .container,
-.page-lahan .wrapper,
-.page-lahan .page-wrapper,
-.page-lahan .content-box {
-    width: 100%;
-    max-width: 100%;
-}
-
-/* buang style card bawaan */
-.page-lahan .content-box {
-    padding: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-}
-
 /* =========================================
-   LAYOUT UTAMA
+   LAYOUT
 ========================================= */
 .page-lahan .lahan-layout {
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 28px;
-    width: 100%;
 }
 
 /* =========================================
-   CARD (FORM & TABLE)
+   CARD STYLE
 ========================================= */
 .page-lahan .lahan-form-box,
 .page-lahan .lahan-table-box {
     background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
     padding: 24px;
-    border-radius: 18px;
-    border: 1px solid #eef2f7;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-    transition: all 0.2s ease;
-}
-
-.page-lahan .lahan-form-box:hover,
-.page-lahan .lahan-table-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
 }
 
 /* =========================================
    TITLE
 ========================================= */
-.page-lahan .lahan-form-box h3,
-.page-lahan .table-header h3 {
-    font-size: 17px;
+.page-lahan h3 {
+    font-size: 16px;
     font-weight: 700;
     color: #0f172a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
     margin-bottom: 18px;
 }
 
@@ -83,22 +50,22 @@ body.page-lahan {
    FORM
 ========================================= */
 .page-lahan .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .page-lahan input,
 .page-lahan select {
     width: 100%;
-    padding: 10px 14px;
+    padding: 10px 12px;
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     background: #f8fafc;
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
 
 .page-lahan input:focus,
 .page-lahan select:focus {
-    background: #ffffff;
+    background: #fff;
     border-color: #2d6a4f;
     box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
 }
@@ -109,53 +76,61 @@ body.page-lahan {
 .page-lahan .btn-primary {
     width: 100%;
     margin-top: 10px;
-    background: linear-gradient(135deg, #2d6a4f, #40916c);
-    color: #fff;
-    border-radius: 12px;
     padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2d6a4f, #40916c);
+    color: white;
     font-weight: 600;
-    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .page-lahan .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(45, 106, 79, 0.3);
+    opacity: 0.9;
+}
+
+/* =========================================
+   TABLE CONTAINER
+========================================= */
+.page-lahan .table-container {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
 }
 
 /* =========================================
    TABLE
 ========================================= */
-.page-lahan .lahan-table-box {
-    overflow-x: auto;
-}
-
 .page-lahan .table-modern {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
 }
 
+/* HEADER */
 .page-lahan .table-modern thead th {
     background: #2d6a4f;
-    color: #ffffff;
+    color: white;
     padding: 14px;
-    font-weight: 600;
-    text-align: left;
+    font-size: 13px;
+    letter-spacing: 0.3px;
 }
 
-.page-lahan .table-modern tbody tr {
-    transition: all 0.15s ease;
-}
-
-.page-lahan .table-modern tbody tr:hover {
-    background: #f8fafc;
-    transform: scale(1.002);
-}
-
-.page-lahan .table-modern td {
+/* BODY */
+.page-lahan .table-modern tbody td {
     padding: 14px;
+    background: #ffffff;
     border-bottom: 1px solid #f1f5f9;
-    color: #334155;
+}
+
+/* STRIPED ROW */
+.page-lahan .table-modern tbody tr:nth-child(even) td {
+    background: #f8fafc;
+}
+
+/* HOVER EFFECT */
+.page-lahan .table-modern tbody tr:hover td {
+    background: #eef2ff;
 }
 
 /* =========================================
@@ -184,20 +159,18 @@ body.page-lahan {
 .page-lahan .btn-delete {
     color: #ef4444;
     font-weight: 500;
-    transition: all 0.2s ease;
 }
 
 .page-lahan .btn-delete:hover {
-    color: #dc2626;
     text-decoration: underline;
 }
 
 /* =========================================
    EMPTY STATE
 ========================================= */
-.page-lahan .table-modern td[colspan] {
+.page-lahan td[colspan] {
     text-align: center;
-    padding: 30px;
+    padding: 40px;
     color: #94a3b8;
     font-style: italic;
 }
@@ -209,7 +182,6 @@ body.page-lahan {
     .page-lahan .main-content {
         margin-left: 0;
         width: 100%;
-        padding: 20px;
     }
 
     .page-lahan .lahan-layout {
