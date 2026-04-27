@@ -79,28 +79,66 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 
                 <!-- FORM FULL WIDTH -->
                 <div class="content-box">
-                    <form method="POST" class="form-grid-3">
 
-                        <input name="nama_pemilik" placeholder="Nama Pemilik" required>
-                        <input name="provinsi" placeholder="Provinsi" required>
-                        <input name="desa" placeholder="Desa">
+                    <form method="POST">
 
-                        <input name="luas" type="number" placeholder="Luas (ha)">
-                        <input name="komoditas" placeholder="Komoditas">
-                        <input name="masa_tanam" placeholder="Masa Tanam">
+                        <div class="form-grid-3">
 
-                        <input name="hasil_per_ha" type="number" placeholder="Hasil/ha">
-                        <input name="total_panen" type="number" placeholder="Total Panen">
+                            <div class="form-group">
+                                <label>Nama Pemilik</label>
+                                <input type="text" name="nama_pemilik" class="form-control" required>
+                            </div>
 
-                        <select name="status">
-                            <option value="aktif">Aktif</option>
-                            <option value="tidak aktif">Nonaktif</option>
-                        </select>
+                            <div class="form-group">
+                                <label>Provinsi</label>
+                                <input type="text" name="provinsi" class="form-control" required>
+                            </div>
 
-                        <button name="simpan" class="btn-add-new">
-                            <i class="fa fa-plus"></i> Tambah Data
-                        </button>
+                            <div class="form-group">
+                                <label>Desa</label>
+                                <input type="text" name="desa" class="form-control">
+                            </div>
 
+                            <div class="form-group">
+                                <label>Luas (ha)</label>
+                                <input type="number" name="luas" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Komoditas</label>
+                                <input type="text" name="komoditas" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Masa Tanam</label>
+                                <input type="text" name="masa_tanam" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Hasil / ha</label>
+                                <input type="number" name="hasil_per_ha" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Total Panen</label>
+                                <input type="number" name="total_panen" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status" class="form-control">
+                                    <option value="aktif">Aktif</option>
+                                    <option value="tidak aktif">Nonaktif</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-footer">
+                            <button name="simpan" class="btn-primary">
+                                <i class="fa fa-plus"></i> Tambah Data
+                            </button>
+                        </div>
                     </form>
                 </div>
 
