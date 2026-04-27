@@ -43,19 +43,18 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Lahan | AgriData</title>
+    <title>Data Lahan</title>
 
-    <!-- FONT & ICON -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- GLOBAL -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
 
-    <!-- PAKAI STYLE PETANI -->
+    <!-- pakai style petani -->
     <link rel="stylesheet" href="/assets/css/data_petani.css">
+
 </head>
 
 <body>
@@ -76,12 +75,22 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
                         <h1>Data Lahan</h1>
                         <p>Kelola seluruh data lahan petani AgriData</p>
                     </div>
+                </div>
 
-                    <!-- FORM INLINE -->
-                    <form method="POST" style="display:flex; gap:10px; flex-wrap:wrap;">
-                        <input name="nama_pemilik" placeholder="Nama" required>
+                <!-- FORM FULL WIDTH -->
+                <div class="content-box">
+                    <form method="POST" class="form-grid-3">
+
+                        <input name="nama_pemilik" placeholder="Nama Pemilik" required>
                         <input name="provinsi" placeholder="Provinsi" required>
-                        <input name="luas" placeholder="Luas" type="number">
+                        <input name="desa" placeholder="Desa">
+
+                        <input name="luas" type="number" placeholder="Luas (ha)">
+                        <input name="komoditas" placeholder="Komoditas">
+                        <input name="masa_tanam" placeholder="Masa Tanam">
+
+                        <input name="hasil_per_ha" type="number" placeholder="Hasil/ha">
+                        <input name="total_panen" type="number" placeholder="Total Panen">
 
                         <select name="status">
                             <option value="aktif">Aktif</option>
@@ -89,8 +98,9 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
                         </select>
 
                         <button name="simpan" class="btn-add-new">
-                            <i class="fa fa-plus"></i> Tambah
+                            <i class="fa fa-plus"></i> Tambah Data
                         </button>
+
                     </form>
                 </div>
 
@@ -112,9 +122,9 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
                         <tbody>
                             <?php if (mysqli_num_rows($data) > 0): ?>
                                 <?php while ($d = mysqli_fetch_assoc($data)): ?>
+
                                     <tr>
 
-                                        <!-- PROFILE STYLE -->
                                         <td>
                                             <div class="profile-cell">
                                                 <div class="avatar-initial">
@@ -139,22 +149,23 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 
                                         <td>
                                             <div class="action-group">
-                                                <a href="?hapus=<?= $d['id'] ?>"
-                                                    class="btn-icon btn-delete"
-                                                    onclick="return confirm('Hapus data?')">
+                                                <a href="?hapus=<?= $d['id'] ?>" class="btn-icon btn-delete" onclick="return confirm('Hapus data?')">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
 
                                     </tr>
+
                                 <?php endwhile; ?>
                             <?php else: ?>
+
                                 <tr>
                                     <td colspan="6" style="text-align:center; padding:30px;">
                                         Data belum tersedia
                                     </td>
                                 </tr>
+
                             <?php endif; ?>
                         </tbody>
 
@@ -163,7 +174,6 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 
             </div>
         </div>
-
     </div>
 
 </body>
