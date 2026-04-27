@@ -1,6 +1,6 @@
 <?php
 // File: controllers/user/dashboard_user_controller.php
-
+session_start();
 echo "<pre>";
 print_r($_SESSION);
 exit();
