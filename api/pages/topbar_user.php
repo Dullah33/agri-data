@@ -1,10 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../helpers/auth_cookie.php';
 
-$name     = $_SESSION['name'] ?? 'Guest';
-$username = $_SESSION['username'] ?? 'guest';
+$user     = getAuthUser();
+$name     = $user['name'] ?? 'Guest';
+$username = $user['username'] ?? 'guest';
 
 $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data...";
 ?>
@@ -20,16 +19,12 @@ $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data..."
     <div class="topbar-right">
         <div class="profile-trigger" id="profileDropdownTrigger">
             <div class="user-info-text" style="text-align: right; margin-right: 15px;">
-                <span class="user-name">
-                    <?= htmlspecialchars($name); ?>
-                </span>
+                <span class="user-name"><?= htmlspecialchars($name) ?></span>
                 <span class="user-role">Petani Aktif</span>
             </div>
-
             <div class="avatar-topbar">
-                <?= strtoupper(substr($name, 0, 1)); ?>
+                <?= strtoupper(substr($name, 0, 1)) ?>
             </div>
-
             <div class="profile-dropdown" id="profileMenu">
                 <a href="profile_user.php">Pengaturan Profil</a>
                 <hr>

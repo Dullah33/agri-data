@@ -1,29 +1,23 @@
 <?php
-// ==========================
-// REQUIRE LOGIN (SESSION)
-// ==========================
-function requireAuth($role = null)
+require_once __DIR__ . '/../helpers/auth_cookie.php';
+
+// ============================================================
+// requireAuth($role)
+// Cek login via cookie terenkripsi — works di Vercel serverless
+// ============================================================
+function requireAuth(?string $role = null): array
 {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    $user = getAuthUser();
 
-    if (!isset($_SESSION['id_user'])) {
+    if (!$user) {
         header("Location: /pages/login.php");
         exit();
     }
 
-    // Cek role jika diperlukan
-    if ($role && $_SESSION['role'] !== $role) {
+    if ($role && $user['role'] !== $role) {
         header("Location: /pages/login.php");
         exit();
     }
 
-    return [
-        'id_user'  => $_SESSION['id_user'],
-        'name'     => $_SESSION['name'],
-        'username' => $_SESSION['username'],
-        'email'    => $_SESSION['email'],
-        'role'     => $_SESSION['role'],
-    ];
+    return $user;
 }
