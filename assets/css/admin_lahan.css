@@ -6,14 +6,6 @@ body.page-lahan {
 }
 
 /* =========================================
-   KUNCI UTAMA: MEMAKSA WRAPPER FULL WIDTH
-========================================= */
-.page-lahan .layout-wrapper {
-    flex: 1;
-    width: 100%;
-}
-
-/* =========================================
    LAYOUT
 ========================================= */
 .page-lahan .content-area {
@@ -41,9 +33,9 @@ body.page-lahan {
 }
 
 /* =========================================
-   TITLES / HEADERS
+   TITLES / HEADERS (FIX: Dikunci agar tidak membajak Topbar)
 ========================================= */
-.page-lahan h3 {
+.page-lahan .content-area h3 {
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
@@ -107,7 +99,7 @@ body.page-lahan {
 }
 
 /* BADGE */
-.page-lahan .badge {
+.page-lahan .table-modern .badge {
     padding: 6px 12px;
     border-radius: 999px;
     font-size: 11px;
@@ -115,23 +107,23 @@ body.page-lahan {
     text-transform: uppercase;
     display: inline-block;
 }
-.page-lahan .aktif {
+.page-lahan .table-modern .aktif {
     background: #dcfce7;
     color: #15803d;
 }
-.page-lahan .nonaktif {
+.page-lahan .table-modern .nonaktif {
     background: #fee2e2;
     color: #b91c1c;
 }
 
 /* =========================================
-   FORM ELEMENTS
+   FORM ELEMENTS (FIX: Dikunci hanya untuk form kiri)
 ========================================= */
-.page-lahan .form-group {
+.page-lahan .lahan-form-box .form-group {
     margin-bottom: 16px;
 }
 
-.page-lahan label {
+.page-lahan .lahan-form-box label {
     font-size: 12px;
     font-weight: 700;
     color: #475569;
@@ -139,8 +131,8 @@ body.page-lahan {
     display: block;
 }
 
-.page-lahan input,
-.page-lahan select {
+.page-lahan .lahan-form-box input,
+.page-lahan .lahan-form-box select {
     width: 100%;
     padding: 11px 14px;
     border-radius: 10px;
@@ -152,8 +144,8 @@ body.page-lahan {
     font-family: inherit;
 }
 
-.page-lahan input:focus,
-.page-lahan select:focus {
+.page-lahan .lahan-form-box input:focus,
+.page-lahan .lahan-form-box select:focus {
     background: #fff;
     border-color: #2d6a4f;
     box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
@@ -161,7 +153,7 @@ body.page-lahan {
 }
 
 /* BUTTON */
-.page-lahan .btn-primary {
+.page-lahan .lahan-form-box .btn-primary {
     width: 100%;
     padding: 12px;
     border-radius: 12px;
@@ -174,7 +166,7 @@ body.page-lahan {
     margin-top: 14px;
 }
 
-.page-lahan .btn-primary:hover {
+.page-lahan .lahan-form-box .btn-primary:hover {
     background: #1b4332;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
