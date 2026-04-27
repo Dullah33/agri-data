@@ -183,7 +183,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
         </div>
 
         <!-- ── BOTTOM ROW ── -->
-        <div class="bottom-grid">
+        <div class="bottom-grid" style="grid-template-columns:1fr;">
             <!-- Quick Nav -->
             <div class="dash-card">
                 <div class="card-header">
@@ -195,7 +195,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
 
                 <div class="quick-nav-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
 
-                    <a href="/admin/petani" class="quick-nav-item" style="flex:1;">
+                    <a href="/admin/petani" class="quick-nav-item">
                         <div class="qn-icon" style="background:#f0fdf4;color:#2D6A4F;">
                             <i class="fa-solid fa-user-group"></i>
                         </div>
@@ -203,7 +203,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
                         <div class="qn-sub">Kelola data anggota</div>
                     </a>
 
-                    <a href="/admin/petani?action=panen" class="quick-nav-item" style="flex:1;">
+                    <a href="/admin/petani?action=panen" class="quick-nav-item">
                         <div class="qn-icon" style="background:#fffbeb;color:#d97706;">
                             <i class="fa-solid fa-wheat-awn"></i>
                         </div>
@@ -211,7 +211,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
                         <div class="qn-sub">Kelola hasil panen</div>
                     </a>
 
-                    <a href="/admin/petani?action=tambah" class="quick-nav-item" style="flex:1;">
+                    <a href="/admin/petani?action=tambah" class="quick-nav-item">
                         <div class="qn-icon" style="background:#eff6ff;color:#3b82f6;">
                             <i class="fa-solid fa-user-plus"></i>
                         </div>
@@ -219,7 +219,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
                         <div class="qn-sub">Daftarkan user baru</div>
                     </a>
 
-                    <a href="/admin/profile" class="quick-nav-item" style="flex:1;">
+                    <a href="/admin/profile" class="quick-nav-item">
                         <div class="qn-icon" style="background:#fdf4ff;color:#9333ea;">
                             <i class="fa-solid fa-user-gear"></i>
                         </div>
