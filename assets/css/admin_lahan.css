@@ -130,3 +130,47 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================
+   FIX FULL WIDTH CONTENT (WAJIB)
+   ========================================= */
+
+/* Geser konten agar tidak ketutup sidebar */
+.main-content {
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    max-width: 100% !important;
+}
+
+/* Hilangkan pembatas tengah */
+.page-lahan .main-content,
+.page-lahan .content-area {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 20px 30px !important;
+}
+
+/* Layout isi (form + table) */
+.lahan-layout {
+    display: grid !important;
+    grid-template-columns: 320px 1fr !important;
+    gap: 24px !important;
+    width: 100% !important;
+}
+
+/* Table full */
+.lahan-table-box {
+    width: 100% !important;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .lahan-layout {
+        grid-template-columns: 1fr !important;
+    }
+}
