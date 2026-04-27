@@ -155,18 +155,18 @@ if ($action === 'panen' || $action === 'list' || !$action) {
     <title><?= $action === 'tambah' ? 'Tambah Petani' : ($action === 'edit' ? 'Edit Petani' : ($action === 'panen' ? 'Data Panen' : 'Manajemen Petani')) ?> | AgriData</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/assets/css/style.css">
-    <link rel="stylesheet" href="/public/assets/css/sidebar_admin.css">
-    <link rel="stylesheet" href="/public/assets/css/topbar_admin.css">
-    <link rel="stylesheet" href="/public/assets/css/data_petani.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
+    <link rel="stylesheet" href="/assets/css/topbar_admin.css">
+    <link rel="stylesheet" href="/assets/css/data_petani.css">
     <?php if ($action === 'tambah'): ?>
-    <link rel="stylesheet" href="/public/assets/css/forms.css">
-    <link rel="stylesheet" href="/public/assets/css/tambah_petani_admin.css">
+    <link rel="stylesheet" href="/assets/css/forms.css">
+    <link rel="stylesheet" href="/assets/css/tambah_petani_admin.css">
     <?php elseif ($action === 'edit'): ?>
-    <link rel="stylesheet" href="/public/assets/css/forms.css">
-    <link rel="stylesheet" href="/public/assets/css/edit_petani_admin.css">
+    <link rel="stylesheet" href="/assets/css/forms.css">
+    <link rel="stylesheet" href="/assets/css/edit_petani_admin.css">
     <?php elseif ($action === 'panen'): ?>
-    <link rel="stylesheet" href="/public/assets/css/edit_data_panen.css">
+    <link rel="stylesheet" href="/assets/css/edit_data_panen.css">
     <?php endif; ?>
 </head>
 <body>
@@ -450,7 +450,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
                 </form>
             </div>
         </div>
-        <script src="/public/assets/js/edit_data_panen_admin.js"></script>
+        <script src="/assets/js/edit_data_panen_admin.js"></script>
         <?php endif; ?>
     </main>
 </body>

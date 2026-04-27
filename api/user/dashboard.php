@@ -56,12 +56,12 @@ if ($view === 'panen') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/public/assets/css/style.css">
-    <link rel="stylesheet" href="/public/assets/css/sidebar_user.css">
-    <link rel="stylesheet" href="/public/assets/css/topbar_user.css">
-    <link rel="stylesheet" href="/public/assets/css/dashboard_user.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/sidebar_user.css">
+    <link rel="stylesheet" href="/assets/css/topbar_user.css">
+    <link rel="stylesheet" href="/assets/css/dashboard_user.css">
     <?php if ($view === 'panen'): ?>
-    <link rel="stylesheet" href="/public/assets/css/data_panen.css">
+    <link rel="stylesheet" href="/assets/css/data_panen.css">
     <?php endif; ?>
 </head>
 <body>

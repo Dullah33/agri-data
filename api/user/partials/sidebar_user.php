@@ -1,6 +1,6 @@
 <?php $page = isset($page) ? $page : ''; ?>
 
-<link rel="stylesheet" href="/public/assets/css/sidebar_user.css">
+
 
 <aside class="sidebar-modern">
     <div class="sidebar-brand">

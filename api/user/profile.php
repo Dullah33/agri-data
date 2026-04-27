@@ -48,10 +48,10 @@ $data['name'] = $data['name'] ?? '';
     <title>Profil Saya | AgriData</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/assets/css/style.css">
-    <link rel="stylesheet" href="/public/assets/css/sidebar_user.css">
-    <link rel="stylesheet" href="/public/assets/css/topbar_user.css">
-    <link rel="stylesheet" href="/public/assets/css/profile_user.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/sidebar_user.css">
+    <link rel="stylesheet" href="/assets/css/topbar_user.css">
+    <link rel="stylesheet" href="/assets/css/profile_user.css">
 </head>
 <body>
     <?php include __DIR__ . '/partials/sidebar_user.php'; ?>
