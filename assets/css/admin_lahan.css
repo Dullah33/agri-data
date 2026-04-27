@@ -6,6 +6,14 @@ body.page-lahan {
 }
 
 /* =========================================
+   KUNCI UTAMA: MEMAKSA WRAPPER FULL WIDTH
+========================================= */
+.page-lahan .layout-wrapper {
+    flex: 1;
+    width: 100%;
+}
+
+/* =========================================
    LAYOUT
 ========================================= */
 .page-lahan .content-area {
@@ -17,7 +25,7 @@ body.page-lahan {
     grid-template-columns: 320px 1fr;
     gap: 30px;
     align-items: start;
-    width: 100%; /* Membuat kotak membentang penuh ke kanan */
+    width: 100%;
 }
 
 /* =========================================
