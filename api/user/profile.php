@@ -29,6 +29,12 @@ if (isset($_POST['update_profile'])) {
     }
 
     if (mysqli_query($conn, $sql)) {
+        // ✨ PERBARUI COOKIE DENGAN DATA BARU ✨
+        $user['name']     = $name;
+        $user['username'] = $username;
+        $user['email']    = $email;
+        setAuthCookie($user); // Timpa cookie lama dengan yang baru
+
         header("Location: /user/profile?success=1");
     } else {
         header("Location: /user/profile?error=1");
@@ -42,6 +48,7 @@ $data['name'] = $data['name'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +60,7 @@ $data['name'] = $data['name'] ?? '';
     <link rel="stylesheet" href="/assets/css/topbar_user.css">
     <link rel="stylesheet" href="/assets/css/profile_user.css">
 </head>
+
 <body>
     <?php include __DIR__ . '/partials/sidebar_user.php'; ?>
     <main class="main-content">
@@ -60,9 +68,9 @@ $data['name'] = $data['name'] ?? '';
 
         <div class="profile-wrapper">
             <?php if (isset($_GET['success'])): ?>
-            <div class="alert-banner success"><i class="fa-solid fa-circle-check"></i> Profil berhasil diperbarui!</div>
+                <div class="alert-banner success"><i class="fa-solid fa-circle-check"></i> Profil berhasil diperbarui!</div>
             <?php elseif (isset($_GET['error'])): ?>
-            <div class="alert-banner error"><i class="fa-solid fa-circle-exclamation"></i> Gagal memperbarui profil. Coba lagi.</div>
+                <div class="alert-banner error"><i class="fa-solid fa-circle-exclamation"></i> Gagal memperbarui profil. Coba lagi.</div>
             <?php endif; ?>
 
             <div class="hero-card">
@@ -79,7 +87,10 @@ $data['name'] = $data['name'] ?? '';
                     <div class="form-card">
                         <div class="card-header">
                             <div class="card-header-icon"><i class="fa-solid fa-user"></i></div>
-                            <div><h3>Informasi Pribadi</h3><p>Data diri dan kontak</p></div>
+                            <div>
+                                <h3>Informasi Pribadi</h3>
+                                <p>Data diri dan kontak</p>
+                            </div>
                         </div>
                         <div class="fg"><label>Nama Lengkap</label><input type="text" name="name" value="<?= htmlspecialchars($data['name'] ?? '') ?>" required></div>
                         <div class="fg"><label>Tanggal Lahir</label><input type="date" name="dob" value="<?= htmlspecialchars($data['dob'] ?? '') ?>"></div>
@@ -98,7 +109,10 @@ $data['name'] = $data['name'] ?? '';
                         <div class="form-card">
                             <div class="card-header">
                                 <div class="card-header-icon"><i class="fa-solid fa-at"></i></div>
-                                <div><h3>Data Akun</h3><p>Username dan email login</p></div>
+                                <div>
+                                    <h3>Data Akun</h3>
+                                    <p>Username dan email login</p>
+                                </div>
                             </div>
                             <div class="fg"><label>Username</label><input type="text" name="username" value="<?= htmlspecialchars($data['username'] ?? '') ?>" required></div>
                             <div class="fg"><label>Email</label><input type="email" name="email" value="<?= htmlspecialchars($data['email'] ?? '') ?>" required></div>
@@ -110,7 +124,10 @@ $data['name'] = $data['name'] ?? '';
                         <div class="form-card">
                             <div class="card-header">
                                 <div class="card-header-icon"><i class="fa-solid fa-lock"></i></div>
-                                <div><h3>Keamanan</h3><p>Kosongkan jika tidak ganti</p></div>
+                                <div>
+                                    <h3>Keamanan</h3>
+                                    <p>Kosongkan jika tidak ganti</p>
+                                </div>
                             </div>
                             <div class="fg">
                                 <label>Password Baru</label>
@@ -132,14 +149,24 @@ $data['name'] = $data['name'] ?? '';
         </div>
     </main>
     <script>
-    function togglePass() {
-        const f = document.getElementById('passField');
-        const i = document.getElementById('eyeIcon');
-        if (f.type === 'password') { f.type='text'; i.classList.replace('fa-eye','fa-eye-slash'); }
-        else { f.type='password'; i.classList.replace('fa-eye-slash','fa-eye'); }
-    }
-    const alert = document.querySelector('.alert-banner');
-    if (alert) setTimeout(() => { alert.style.opacity='0'; alert.style.transition='.4s'; setTimeout(()=>alert.remove(),400); }, 4000);
+        function togglePass() {
+            const f = document.getElementById('passField');
+            const i = document.getElementById('eyeIcon');
+            if (f.type === 'password') {
+                f.type = 'text';
+                i.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                f.type = 'password';
+                i.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+        const alert = document.querySelector('.alert-banner');
+        if (alert) setTimeout(() => {
+            alert.style.opacity = '0';
+            alert.style.transition = '.4s';
+            setTimeout(() => alert.remove(), 400);
+        }, 4000);
     </script>
 </body>
+
 </html>

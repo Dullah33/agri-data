@@ -21,6 +21,12 @@ if (isset($_POST['save_admin'])) {
     }
 
     if (mysqli_query($conn, $sql)) {
+        // ✨ PERBARUI COOKIE DENGAN DATA BARU ✨
+        $user['name']     = $name;
+        $user['username'] = $username;
+        $user['email']    = $email;
+        setAuthCookie($user); // Timpa cookie lama dengan yang baru
+
         header("Location: /admin/profile?success=1");
     } else {
         header("Location: /admin/profile?error=1");
