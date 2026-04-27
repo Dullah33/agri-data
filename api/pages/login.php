@@ -151,7 +151,7 @@ if (isset($_POST['login'])) {
         </form>
 
         <div class="register-prompt">
-            Belum punya akun? <a href="register.php">Daftar Sekarang</a>
+            Belum punya akun? <a href="/pages/register.php">Daftar Sekarang</a>
         </div>
     </div>
 </div>
