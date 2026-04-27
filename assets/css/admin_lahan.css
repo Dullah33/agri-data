@@ -132,25 +132,33 @@
 }
 
 /* =========================================
-   FIX FULL WIDTH CONTENT (WAJIB)
+   FORCE FULL WIDTH (OVERRIDE SEMUA)
    ========================================= */
 
-/* Geser konten agar tidak ketutup sidebar */
+/* Geser dari sidebar */
 .main-content {
     margin-left: 260px !important;
     width: calc(100% - 260px) !important;
     max-width: 100% !important;
-}
-
-/* Hilangkan pembatas tengah */
-.page-lahan .main-content,
-.page-lahan .content-area {
-    max-width: 100% !important;
-    width: 100% !important;
     padding: 20px 30px !important;
 }
 
-/* Layout isi (form + table) */
+/* HANCURKAN semua limit tengah */
+.main-content > * {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Kalau ada container bawaan */
+.container,
+.content-area,
+.page-wrapper,
+.wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Layout lahan */
 .lahan-layout {
     display: grid !important;
     grid-template-columns: 320px 1fr !important;
@@ -158,8 +166,13 @@
     width: 100% !important;
 }
 
-/* Table full */
+/* Table FULL BANGET */
 .lahan-table-box {
+    width: 100% !important;
+}
+
+/* Card kanan (daftar lahan) */
+.lahan-table-box table {
     width: 100% !important;
 }
 
