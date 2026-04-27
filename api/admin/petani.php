@@ -17,29 +17,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- TAMBAH PETANI ---
     if (isset($_POST['simpan'])) {
-        $id_user         = $_POST['id_user'];
+        $id_user         = mysqli_real_escape_string($conn, $_POST['id_user']);
         $name            = mysqli_real_escape_string($conn, $_POST['name']);
         $address         = mysqli_real_escape_string($conn, $_POST['address']);
-        $dob             = $_POST['dob'];
-        $gender          = $_POST['gender'];
+        $dob             = mysqli_real_escape_string($conn, $_POST['dob']);
+        $gender          = mysqli_real_escape_string($conn, $_POST['gender']);
         $phone           = mysqli_real_escape_string($conn, $_POST['phone']);
         $username        = mysqli_real_escape_string($conn, $_POST['username']);
         $email           = mysqli_real_escape_string($conn, $_POST['email']);
         $password_hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $role            = "user";
-        $status          = "Active"; // ✅ Tambahkan default status agar DB tidak error
 
-        // Menambahkan kolom 'status' ke dalam query INSERT
+        // ✨ TAMBAHKAN BARIS INI (Sangat Penting!)
+        $status          = "Active";
+
         $sql = "INSERT INTO users (id_user, name, username, email, password, phone, address, gender, dob, role, status)
                 VALUES ('$id_user', '$name', '$username', '$email', '$password_hashed', '$phone', '$address', '$gender', '$dob', '$role', '$status')";
 
         if (mysqli_query($conn, $sql)) {
-            // Bersihkan buffer sebelum redirect
-            ob_end_clean();
+            // Hapus sisa-sisa buffer sebelum pindah halaman
+            if (ob_get_length()) ob_end_clean();
             header("Location: /admin/petani?success=tambah");
             exit();
         } else {
-            $error_msg = "Error DB: " . mysqli_error($conn);
+            $error_msg = "Database Error: " . mysqli_error($conn);
         }
     }
 
