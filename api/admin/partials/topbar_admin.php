@@ -1,6 +1,6 @@
 <?php $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data (Coming Soon)"; ?>
 
-<link rel="stylesheet" href="/public/assets/css/topbar_admin.css">
+
 
 <header class="topbar-modern">
     <div class="search-box-wrapper">

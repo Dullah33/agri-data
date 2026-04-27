@@ -5,6 +5,10 @@
         }
     },
     "routes": [
+        {
+            "src": "^/public/assets/(.*)$",
+            "dest": "/public/assets/$1"
+        },
         { "handle": "filesystem" },
         {
             "src": "^/$",
