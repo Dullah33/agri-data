@@ -4,9 +4,7 @@ require_once __DIR__ . '/../config/koneksi.php';
 
 $page = 'data_lahan';
 
-// ======================
-// SIMPAN DATA
-// ======================
+// SIMPAN
 if (isset($_POST['simpan'])) {
 
     $nama = mysqli_real_escape_string($conn, $_POST['nama_pemilik']);
@@ -27,9 +25,7 @@ if (isset($_POST['simpan'])) {
     exit;
 }
 
-// ======================
-// HAPUS DATA
-// ======================
+// HAPUS
 if (isset($_GET['hapus'])) {
     $id = (int) $_GET['hapus'];
     mysqli_query($conn, "DELETE FROM lahan_petani WHERE id=$id");
@@ -38,9 +34,6 @@ if (isset($_GET['hapus'])) {
     exit;
 }
 
-// ======================
-// AMBIL DATA
-// ======================
 $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC, nama_pemilik ASC");
 ?>
 
@@ -61,7 +54,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC, n
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
 
-    <!-- CSS HALAMAN -->
+    <!-- CSS PAGE -->
     <link rel="stylesheet" href="/assets/css/admin_lahan.css">
 </head>
 
@@ -69,99 +62,93 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC, n
 
     <div class="layout-wrapper">
 
-        <!-- SIDEBAR -->
         <?php include __DIR__ . '/partials/sidebar_admin.php'; ?>
 
         <div class="main-content">
 
-            <!-- TOPBAR -->
             <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
 
-            <!-- CONTENT -->
             <div class="content-area">
 
-                <div class="container">
+                <!-- TITLE -->
+                <h2 class="page-title">
+                    <i class="fa-solid fa-seedling"></i> Kelola Data Lahan
+                </h2>
 
-                    <h2 class="page-title">
-                        <i class="fa-solid fa-seedling"></i> Kelola Data Lahan
-                    </h2>
+                <!-- FORM -->
+                <div class="card">
+                    <form method="POST" class="form-grid">
 
-                    <!-- FORM -->
-                    <div class="card">
-                        <form method="POST" class="form-grid">
+                        <input name="nama_pemilik" placeholder="Nama Pemilik" required>
+                        <input name="provinsi" placeholder="Provinsi" required>
+                        <input name="desa" placeholder="Desa">
 
-                            <input name="nama_pemilik" placeholder="Nama Pemilik" required>
-                            <input name="provinsi" placeholder="Provinsi" required>
-                            <input name="desa" placeholder="Desa">
+                        <input name="luas" type="number" step="0.01" placeholder="Luas (ha)">
+                        <input name="komoditas" placeholder="Komoditas">
+                        <input name="masa_tanam" placeholder="Masa Tanam">
 
-                            <input name="luas" type="number" step="0.01" placeholder="Luas (ha)">
-                            <input name="komoditas" placeholder="Komoditas">
-                            <input name="masa_tanam" placeholder="Masa Tanam">
+                        <input name="hasil_per_ha" type="number" step="0.01" placeholder="Hasil/ha">
+                        <input name="total_panen" type="number" step="0.01" placeholder="Total Panen">
 
-                            <input name="hasil_per_ha" type="number" step="0.01" placeholder="Hasil/ha">
-                            <input name="total_panen" type="number" step="0.01" placeholder="Total Panen">
+                        <select name="status">
+                            <option value="aktif">Aktif</option>
+                            <option value="tidak aktif">Tidak Aktif</option>
+                        </select>
 
-                            <select name="status">
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak aktif">Tidak Aktif</option>
-                            </select>
+                        <button name="simpan" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Tambah Data
+                        </button>
 
-                            <button name="simpan" class="btn-primary">
-                                <i class="fa-solid fa-plus"></i> Tambah Data
-                            </button>
+                    </form>
+                </div>
 
-                        </form>
-                    </div>
+                <!-- TABLE -->
+                <div class="card">
+                    <table class="table-modern">
 
-                    <!-- TABLE -->
-                    <div class="card">
-                        <table class="table-modern">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Provinsi</th>
+                                <th>Luas</th>
+                                <th>Komoditas</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
 
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Provinsi</th>
-                                    <th>Luas</th>
-                                    <th>Komoditas</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <?php if (mysqli_num_rows($data) > 0): ?>
-                                    <?php while ($d = mysqli_fetch_assoc($data)): ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($d['nama_pemilik']) ?></td>
-                                            <td><?= htmlspecialchars($d['provinsi']) ?></td>
-                                            <td><?= $d['luas'] ?> ha</td>
-                                            <td><?= htmlspecialchars($d['komoditas']) ?></td>
-                                            <td>
-                                                <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
-                                                    <?= ucfirst($d['status']) ?>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <a class="btn-delete"
-                                                    href="?hapus=<?= $d['id'] ?>"
-                                                    onclick="return confirm('Yakin hapus data ini?')">
-                                                    <i class="fa-solid fa-trash"></i> Hapus
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endwhile; ?>
-                                <?php else: ?>
+                        <tbody>
+                            <?php if (mysqli_num_rows($data) > 0): ?>
+                                <?php while ($d = mysqli_fetch_assoc($data)): ?>
                                     <tr>
-                                        <td colspan="6" style="text-align:center; padding:20px;">
-                                            Data belum tersedia
+                                        <td><?= htmlspecialchars($d['nama_pemilik']) ?></td>
+                                        <td><?= htmlspecialchars($d['provinsi']) ?></td>
+                                        <td><?= $d['luas'] ?> ha</td>
+                                        <td><?= htmlspecialchars($d['komoditas']) ?></td>
+                                        <td>
+                                            <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
+                                                <?= ucfirst($d['status']) ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a class="btn-delete"
+                                                href="?hapus=<?= $d['id'] ?>"
+                                                onclick="return confirm('Yakin hapus data ini?')">
+                                                <i class="fa-solid fa-trash"></i> Hapus
+                                            </a>
                                         </td>
                                     </tr>
-                                <?php endif; ?>
-                            </tbody>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6" style="text-align:center; padding:20px;">
+                                        Data belum tersedia
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
 
-                        </table>
-                    </div>
-
+                    </table>
                 </div>
 
             </div>
