@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../helpers/auth_cookie.php';
 $user     = getAuthUser();
 $name     = $user['name'] ?? 'Guest';
 $username = $user['username'] ?? 'guest';
-$placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data...";
+$placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data...(Comming Soon)";
 ?>
 
 <header class="topbar-modern">
