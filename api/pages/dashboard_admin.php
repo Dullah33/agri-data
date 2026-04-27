@@ -3,6 +3,7 @@ require __DIR__ . '/../controllers/admin/dashboard.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@ require __DIR__ . '/../controllers/admin/dashboard.php';
     <link rel="stylesheet" href="../../assets/css/dashboard_admin.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <?php include 'sidebar_admin.php'; ?>
 
@@ -134,75 +136,88 @@ require __DIR__ . '/../controllers/admin/dashboard.php';
                         $st = $u['status'] ?? 'Active';
                         $is_act = (strtolower($st) == 'active');
                     ?>
-                    <div class="recent-item">
-                        <div class="recent-avatar"><?= strtoupper(substr($u['name'], 0, 1)) ?></div>
-                        <div class="recent-info">
-                            <div class="recent-name"><?= htmlspecialchars($u['name']) ?></div>
-                            <div class="recent-detail"><?= htmlspecialchars($u['phone']) ?> &bull; <?= htmlspecialchars(mb_strimwidth($u['address'], 0, 28, '...')) ?></div>
+                        <div class="recent-item">
+                            <div class="recent-avatar"><?= strtoupper(substr($u['name'] ?? 'U', 0, 1)) ?></div>
+                            <div class="recent-info">
+                                <div class="recent-name"><?= htmlspecialchars($u['name']) ?></div>
+                                <div class="recent-detail"><?= htmlspecialchars($u['phone'] ?? '') ?>
+                                    <?= htmlspecialchars(mb_strimwidth($u['address'] ?? '', 0, 28, '...')) ?>
+                                </div>
+                                <span class="recent-badge <?= $is_act ? 'badge-act' : 'badge-inact' ?>">
+                                    <?= $is_act ? 'Aktif' : 'Inaktif' ?>
+                                </span>
+                            </div>
+                        <?php endwhile; ?>
                         </div>
-                        <span class="recent-badge <?= $is_act ? 'badge-act' : 'badge-inact' ?>">
-                            <?= $is_act ? 'Aktif' : 'Inaktif' ?>
-                        </span>
-                    </div>
-                    <?php endwhile; ?>
                 </div>
             </div>
-        </div>
 
-        <!-- QUICK NAVIGATION ADMIN -->
-        <div class="admin-card" style="margin-bottom:0;">
-            <div class="admin-card-header" style="margin-bottom:20px;">
-                <div>
-                    <h3 class="admin-card-title">Navigasi Cepat</h3>
-                    <p class="admin-card-sub">Akses halaman manajemen dengan cepat</p>
+            <!-- QUICK NAVIGATION ADMIN -->
+            <div class="admin-card" style="margin-bottom:0;">
+                <div class="admin-card-header" style="margin-bottom:20px;">
+                    <div>
+                        <h3 class="admin-card-title">Navigasi Cepat</h3>
+                        <p class="admin-card-sub">Akses halaman manajemen dengan cepat</p>
+                    </div>
+                </div>
+                <div class="quick-nav-grid">
+                    <a href="data_petani_admin.php" class="quick-nav-item">
+                        <div class="qn-icon" style="background:#f0fdf4; color:#2D6A4F;"><i class="fa-solid fa-user-group"></i></div>
+                        <div class="qn-label">Manajemen Petani</div>
+                        <div class="qn-sub">Kelola data anggota</div>
+                    </a>
+                    <a href="edit_data_panen_admin.php" class="quick-nav-item">
+                        <div class="qn-icon" style="background:#fffbeb; color:#d97706;"><i class="fa-solid fa-wheat-awn"></i></div>
+                        <div class="qn-label">Data Panen</div>
+                        <div class="qn-sub">Kelola hasil panen</div>
+                    </a>
+                    <a href="tambah_petani_admin.php" class="quick-nav-item">
+                        <div class="qn-icon" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-user-plus"></i></div>
+                        <div class="qn-label">Tambah Petani</div>
+                        <div class="qn-sub">Daftarkan anggota baru</div>
+                    </a>
+                    <a href="profile_admin.php" class="quick-nav-item">
+                        <div class="qn-icon" style="background:#fdf4ff; color:#9333ea;"><i class="fa-solid fa-user-gear"></i></div>
+                        <div class="qn-label">Profil Admin</div>
+                        <div class="qn-sub">Pengaturan akun admin</div>
+                    </a>
                 </div>
             </div>
-            <div class="quick-nav-grid">
-                <a href="data_petani_admin.php" class="quick-nav-item">
-                    <div class="qn-icon" style="background:#f0fdf4; color:#2D6A4F;"><i class="fa-solid fa-user-group"></i></div>
-                    <div class="qn-label">Manajemen Petani</div>
-                    <div class="qn-sub">Kelola data anggota</div>
-                </a>
-                <a href="edit_data_panen_admin.php" class="quick-nav-item">
-                    <div class="qn-icon" style="background:#fffbeb; color:#d97706;"><i class="fa-solid fa-wheat-awn"></i></div>
-                    <div class="qn-label">Data Panen</div>
-                    <div class="qn-sub">Kelola hasil panen</div>
-                </a>
-                <a href="tambah_petani_admin.php" class="quick-nav-item">
-                    <div class="qn-icon" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-user-plus"></i></div>
-                    <div class="qn-label">Tambah Petani</div>
-                    <div class="qn-sub">Daftarkan anggota baru</div>
-                </a>
-                <a href="profile_admin.php" class="quick-nav-item">
-                    <div class="qn-icon" style="background:#fdf4ff; color:#9333ea;"><i class="fa-solid fa-user-gear"></i></div>
-                    <div class="qn-label">Profil Admin</div>
-                    <div class="qn-sub">Pengaturan akun admin</div>
-                </a>
-            </div>
-        </div>
 
     </main>
 
     <script>
         document.getElementById('adminDate').textContent = new Date().toLocaleDateString('id-ID', {
-            weekday:'long', year:'numeric', month:'long', day:'numeric'
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
         new Chart(document.getElementById('statusChart').getContext('2d'), {
             type: 'doughnut',
             data: {
-                labels: ['Aktif','Inaktif'],
+                labels: ['Aktif', 'Inaktif'],
                 datasets: [{
                     data: [<?= json_encode((int)$total_aktif) ?>, <?= json_encode((int)$total_nonaktif) ?>],
-                    backgroundColor: ['#10b981','#ef4444'],
+                    backgroundColor: ['#10b981', '#ef4444'],
                     borderWidth: 0,
                     hoverOffset: 8
                 }]
             },
             options: {
                 cutout: '72%',
-                plugins: { legend: { display: false }, tooltip: { backgroundColor:'#1e293b', borderRadius:10 } }
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        borderRadius: 10
+                    }
+                }
             }
         });
     </script>
 </body>
+
 </html>
