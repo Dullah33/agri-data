@@ -14,8 +14,7 @@ if (isset($_POST['login'])) {
 
         $_SESSION['id_user']    = $row['id_user'];
         $_SESSION['role']       = $row['role'];
-        $_SESSION['name']       = $row['first_name'];
-        $_SESSION['first_name'] = $row['first_name'];
+        $_SESSION['name']       = $row['name'];
         $_SESSION['username']   = $row['username'];
 
         if ($row['role'] == 'admin') {
