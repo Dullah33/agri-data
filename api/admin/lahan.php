@@ -43,17 +43,57 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Lahan</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Data Lahan</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
-
-    <!-- pakai style petani -->
     <link rel="stylesheet" href="/assets/css/data_petani.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* FIX FULL WIDTH */
+        .content-area {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* FORM KHUSUS LAHAN */
+        .lahan-form {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+            margin-bottom: 24px;
+        }
+
+        /* GRID RESPONSIVE */
+        .lahan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .lahan-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .lahan-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FULL WIDTH BUTTON */
+        .lahan-action {
+            margin-top: 16px;
+        }
+    </style>
 
 </head>
 
@@ -77,69 +117,39 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
                     </div>
                 </div>
 
-                <!-- FORM FULL WIDTH -->
-                <div class="content-box">
+                <!-- FORM -->
+                <div class="lahan-form">
 
                     <form method="POST">
 
-                        <div class="form-grid-3">
+                        <div class="lahan-grid">
 
-                            <div class="form-group">
-                                <label>Nama Pemilik</label>
-                                <input type="text" name="nama_pemilik" class="form-control" required>
-                            </div>
+                            <input type="text" name="nama_pemilik" class="form-control" placeholder="Nama Pemilik" required>
+                            <input type="text" name="provinsi" class="form-control" placeholder="Provinsi" required>
+                            <input type="text" name="desa" class="form-control" placeholder="Desa">
 
-                            <div class="form-group">
-                                <label>Provinsi</label>
-                                <input type="text" name="provinsi" class="form-control" required>
-                            </div>
+                            <input type="number" name="luas" class="form-control" placeholder="Luas (ha)">
+                            <input type="text" name="komoditas" class="form-control" placeholder="Komoditas">
+                            <input type="text" name="masa_tanam" class="form-control" placeholder="Masa Tanam">
 
-                            <div class="form-group">
-                                <label>Desa</label>
-                                <input type="text" name="desa" class="form-control">
-                            </div>
+                            <input type="number" name="hasil_per_ha" class="form-control" placeholder="Hasil / ha">
+                            <input type="number" name="total_panen" class="form-control" placeholder="Total Panen">
 
-                            <div class="form-group">
-                                <label>Luas (ha)</label>
-                                <input type="number" name="luas" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Komoditas</label>
-                                <input type="text" name="komoditas" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Masa Tanam</label>
-                                <input type="text" name="masa_tanam" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Hasil / ha</label>
-                                <input type="number" name="hasil_per_ha" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Total Panen</label>
-                                <input type="number" name="total_panen" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select name="status" class="form-control">
-                                    <option value="aktif">Aktif</option>
-                                    <option value="tidak aktif">Nonaktif</option>
-                                </select>
-                            </div>
+                            <select name="status" class="form-control">
+                                <option value="aktif">Aktif</option>
+                                <option value="tidak aktif">Nonaktif</option>
+                            </select>
 
                         </div>
 
-                        <div class="form-footer">
-                            <button name="simpan" class="btn-primary">
+                        <div class="lahan-action">
+                            <button name="simpan" class="btn-add-new">
                                 <i class="fa fa-plus"></i> Tambah Data
                             </button>
                         </div>
+
                     </form>
+
                 </div>
 
                 <!-- TABLE -->
@@ -158,6 +168,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
                         </thead>
 
                         <tbody>
+
                             <?php if (mysqli_num_rows($data) > 0): ?>
                                 <?php while ($d = mysqli_fetch_assoc($data)): ?>
 
@@ -205,8 +216,8 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
                                 </tr>
 
                             <?php endif; ?>
-                        </tbody>
 
+                        </tbody>
                     </table>
                 </div>
 
