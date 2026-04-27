@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'] ?? 
     $name     = $data['name'] ?? '';
     $email    = $data['email'] ?? '';
     $password = password_hash($data['password'] ?? '', PASSWORD_DEFAULT);
-    $query = "INSERT INTO users (first_name, email, password, role) VALUES ('$name', '$email', '$password', 'user')";
+    $query = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$password', 'user')";
     if (mysqli_query($conn, $query)) {
         echo json_encode(["status" => "success"]);
     } else {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     if (mysqli_num_rows($check) > 0) {
         $reg_error = "Email sudah terdaftar!";
     } else {
-        $query = "INSERT INTO users (first_name, email, password, role) VALUES ('$name', '$email', '$password', 'user')";
+        $query = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$password', 'user')";
         if (mysqli_query($conn, $query)) {
             header("Location: /pages/login.php?registered=1");
             exit();

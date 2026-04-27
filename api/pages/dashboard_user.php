@@ -87,10 +87,10 @@ require __DIR__ . '/../controllers/user/dashboard_controller.php';
                 <div class="section-subtitle">Informasi akun yang terdaftar di sistem</div>
                 <div class="profile-summary">
                     <div class="profile-avatar-big">
-                        <?= strtoupper(substr($u['first_name'] ?? $user['name'] ?? 'P', 0, 1)) ?>
+                        <?= strtoupper(substr($u['name'] ?? $user['name'] ?? 'P', 0, 1)) ?>
                     </div>
                     <div>
-                        <div class="profile-info-name"><?= htmlspecialchars(trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? ''))) ?></div>
+                        <div class="profile-info-name"><?= htmlspecialchars($u['name'] ?? '') ?></div>
                         <div class="profile-info-role">Petani Terdaftar — AgriData</div>
                         <span class="status-pill <?= $is_active ? 'status-active' : 'status-inactive' ?>">
                             <i class="fa-solid fa-circle" style="font-size:7px;"></i>

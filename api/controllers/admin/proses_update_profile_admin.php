@@ -14,12 +14,12 @@ if (isset($_POST['save_admin'])) {
     if (!empty($password)) {
         $password_hashed = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE users SET 
-                first_name='$name', 
+                name='$name', 
                 username='$username', email='$email', password='$password_hashed' 
                 WHERE id_user='$id_user'";
     } else {
         $sql = "UPDATE users SET 
-                first_name='$name', 
+                name='$name', 
                 username='$username', email='$email' 
                 WHERE id_user='$id_user'";
     }
