@@ -7,13 +7,14 @@ $page = 'data_lahan';
 // SIMPAN
 if (isset($_POST['simpan'])) {
 
-    $nama = mysqli_real_escape_string($conn, $_POST['nama_pemilik']);
-    $provinsi = mysqli_real_escape_string($conn, $_POST['provinsi']);
-    $desa = mysqli_real_escape_string($conn, $_POST['desa']);
+    // ✅ FIX: Tambahkan operator "?? ''" agar tidak error jika form kosong
+    $nama = mysqli_real_escape_string($conn, $_POST['nama_pemilik'] ?? '');
+    $provinsi = mysqli_real_escape_string($conn, $_POST['provinsi'] ?? '');
+    $desa = mysqli_real_escape_string($conn, $_POST['desa'] ?? '');
     $luas = !empty($_POST['luas']) ? $_POST['luas'] : 0;
-    $komoditas = mysqli_real_escape_string($conn, $_POST['komoditas']);
-    $status = $_POST['status'];
-    $masa = mysqli_real_escape_string($conn, $_POST['masa_tanam']);
+    $komoditas = mysqli_real_escape_string($conn, $_POST['komoditas'] ?? '');
+    $status = $_POST['status'] ?? 'aktif';
+    $masa = mysqli_real_escape_string($conn, $_POST['masa_tanam'] ?? '');
     $hasil = !empty($_POST['hasil_per_ha']) ? $_POST['hasil_per_ha'] : 0;
     $total = !empty($_POST['total_panen']) ? $_POST['total_panen'] : 0;
 
@@ -89,6 +90,20 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                 <label>Komoditas</label>
                                 <input type="text" name="komoditas">
                             </div>
+
+                            <div class="form-group">
+                                <label>Masa Tanam</label>
+                                <input type="text" name="masa_tanam">
+                            </div>
+                            <div class="form-group">
+                                <label>Hasil / ha</label>
+                                <input type="number" step="0.01" name="hasil_per_ha">
+                            </div>
+                            <div class="form-group">
+                                <label>Total Panen</label>
+                                <input type="number" step="0.01" name="total_panen">
+                            </div>
+
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="status">
