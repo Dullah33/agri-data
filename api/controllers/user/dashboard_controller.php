@@ -1,6 +1,9 @@
 <?php
 // File: controllers/user/dashboard_user_controller.php
 
+echo "<pre>";
+print_r($_SESSION);
+exit();
 session_start();
 require __DIR__ . '/../../config/koneksi.php';
 
