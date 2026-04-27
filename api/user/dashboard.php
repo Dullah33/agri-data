@@ -120,7 +120,7 @@ if ($http_code === 200 && $json_data !== false) {
                 <div class="info-row"><span class="info-key"><i class="fa-regular fa-envelope"></i> Email</span><span class="info-val"><?= htmlspecialchars($u['email'] ?? '-') ?></span></div>
                 <div class="info-row"><span class="info-key"><i class="fa-solid fa-user"></i> Username</span><span class="info-val">@<?= htmlspecialchars($u['username'] ?? '-') ?></span></div>
                 <div class="info-row"><span class="info-key"><i class="fa-solid fa-phone"></i> Telepon</span><span class="info-val"><?= htmlspecialchars($u['phone'] ?? '-') ?></span></div>
-                <div class="info-row"><span class="info-key"><i class="fa-solid fa-location-dot"></i> Alamat</span><span class="info-val" style="max-width:180px;text-align:right;line-height:1.4;"><?= htmlspecialchars($u['address'] ?? '-') ?></span></div>
+                <div class="info-row"><span class="info-key"><i class="fa-solid fa-location-dot"></i> Alamat</span><span class="info-val address-val"><?= htmlspecialchars($u['address'] ?? '-') ?></span></div>
                 <div class="quick-actions">
                     <a href="/user/profile" class="qa-btn"><i class="fa-solid fa-user-pen"></i> Edit Profil</a>
                     <a href="/user/panen" class="qa-btn"><i class="fa-solid fa-leaf"></i> Data Panen</a>
@@ -178,14 +178,15 @@ if ($http_code === 200 && $json_data !== false) {
         </div>
 
         <div class="bps-table-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+            <div class="bps-header-wrap">
                 <div>
                     <div class="section-title">Data Rumah Tangga Petani</div>
                     <div class="section-subtitle" style="margin-bottom:0;">Jumlah petani menurut wilayah di Indonesia — Sensus Pertanian 2023</div>
                 </div>
                 <div class="bps-badge"><i class="fa-solid fa-database"></i> Sumber: BPS ST2023</div>
             </div>
-            <div style="overflow-x:auto;border-radius:14px;border:1px solid #f1f5f9;">
+
+            <div class="table-scroll-wrapper">
                 <table class="data-table">
                     <thead>
                         <tr>
