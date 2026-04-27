@@ -32,7 +32,7 @@ $data_panen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         <div class="content-wrapper" style="padding-top:20px;">
             <div class="page-header" style="margin-bottom:30px;">
-                <h2 style="font-weight:700; color: #0f172a;">Data Produksi Padi Nasional 2024</h2>
+                <h2 style="font-weight:700; color: #0f172a;">Data Produksi Padi Nasional 2023</h2>
                 <p style="color:#64748b;">Sumber: Badan Pusat Statistik</p>
             </div>
 
