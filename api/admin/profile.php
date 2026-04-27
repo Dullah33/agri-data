@@ -97,7 +97,7 @@ $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id_use
                                 </div>
                                 <div class="fg">
                                     <label>Email</label>
-                                    <input type="email" name="email" value="<?= htmlspecialchars($data['email'] ?? '') ?>" required>
+                                    <input type="text" name="email" value="<?= htmlspecialchars($data['email'] ?? '') ?>" required>
                                 </div>
                                 <div style="margin-top:24px;">
                                     <div class="info-chip"><i class="fa-solid fa-id-badge"></i><span>ID: <strong><?= htmlspecialchars($data['id_user'] ?? '-') ?></strong></span></div>

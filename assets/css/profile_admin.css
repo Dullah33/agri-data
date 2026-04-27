@@ -2,13 +2,18 @@
    profile_admin.css
    ====================================== */
 
-/* ── LAYOUT UTAMA (FIX: PASTI RATA TENGAH) ── */
-.profile-wrapper {
-    max-width: 900px; /* Lebar dibatasi agar elegan dan tidak melar */
+/* ── KUNCI UTAMA: MEMAKSA LAYOUT FULL LAYAR ── */
+.layout-wrapper {
+    flex: 1;
     width: 100%;
-    margin: 0 auto !important; /* MANTRA RATA TENGAH */
+}
+
+/* ── LAYOUT UTAMA PROFIL (RATA TENGAH) ── */
+.profile-wrapper {
+    max-width: 900px; /* Membatasi lebar agar tidak melar jelek */
+    width: 100%;
+    margin: 0 auto; /* Mendorong kotak agar persis di tengah */
     padding-bottom: 40px;
-    display: block; /* Memastikan sifatnya sebagai blok yang bisa ditengah */
 }
 
 .profile-grid {
