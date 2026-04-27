@@ -31,15 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
 
             $password_hashed = password_hash($password, PASSWORD_DEFAULT);
-            $role   = "user";
-            $status = "Active";
 
             $stmt = $conn->prepare("INSERT INTO users 
                 (name, username, email, password, phone, address, gender, dob, role, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'user', 'Active')");
 
             $stmt->bind_param(
-                "ssssssssss",
+                "ssssssss",
                 $name,
                 $username,
                 $email,
@@ -47,9 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $phone,
                 $address,
                 $gender,
-                $dob,
-                $role,
-                $status
+                $dob
             );
 
             if ($stmt->execute()) {
@@ -120,8 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ob_end_clean();
             header("Location: /admin/petani?success=edit");
             exit();
-        } else {
-            $error_msg = "DB Error: " . $stmt->error;
         }
     }
 
@@ -139,12 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES (?, ?, ?, ?, ?)");
 
         $stmt->bind_param("sdddi", $provinsi, $luas_panen, $produktivitas, $produksi, $tahun);
+        $stmt->execute();
 
-        if ($stmt->execute()) {
-            ob_end_clean();
-            header("Location: /admin/petani?action=panen&success=tambah");
-            exit();
-        }
+        ob_end_clean();
+        header("Location: /admin/petani?action=panen&success=tambah");
+        exit();
     }
 }
 
@@ -168,7 +161,6 @@ if ($action === 'edit') {
     $stmt = $conn->prepare("SELECT * FROM users WHERE id_user=?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-
     $data = $stmt->get_result()->fetch_assoc();
 
     if (!$data) {
@@ -187,7 +179,6 @@ if ($q_panen) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -287,7 +278,6 @@ if ($q_panen) {
                 </div>
             </div>
             <form action="" method="POST">
-                <input type="hidden" name="id_user" value="<?= $new_id ?>">
                 <div class="two-col-grid">
                     <div class="form-card">
                         <div class="section-head">
