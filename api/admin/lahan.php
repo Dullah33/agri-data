@@ -54,7 +54,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
 <body class="page-lahan">
 
-    <div class="layout-wrapper" style="display: flex; width: 100%;">
+    <div class="layout-wrapper">
 
         <?php include __DIR__ . '/partials/sidebar_admin.php'; ?>
 
@@ -62,7 +62,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
             <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
 
-            <div class="content-area" style="flex: 1; width: 100%;">
+            <div class="content-area">
 
                 <div class="lahan-layout">
 
@@ -108,51 +108,54 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                         </div>
 
                         <div class="table-container">
-                            <table class="table-modern">
-                                <thead>
-                                    <tr>
-                                        <th>Pemilik</th>
-                                        <th>Provinsi</th>
-                                        <th>Desa</th>
-                                        <th>Luas</th>
-                                        <th>Komoditas</th>
-                                        <th>Status</th>
-                                        <th style="text-align: center;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (mysqli_num_rows($data) > 0): ?>
-                                        <?php while ($d = mysqli_fetch_assoc($data)): ?>
+                            <div class="table-scroll">
+                                <table class="table-modern">
+                                    <thead>
+                                        <tr>
+                                            <th>Pemilik</th>
+                                            <th>Provinsi</th>
+                                            <th>Desa</th>
+                                            <th>Luas</th>
+                                            <th>Komoditas</th>
+                                            <th>Status</th>
+                                            <th style="text-align: center;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (mysqli_num_rows($data) > 0): ?>
+                                            <?php while ($d = mysqli_fetch_assoc($data)): ?>
+                                                <tr>
+                                                    <td><strong><?= $d['nama_pemilik'] ?></strong></td>
+                                                    <td><?= $d['provinsi'] ?></td>
+                                                    <td><?= $d['desa'] ?></td>
+                                                    <td><?= $d['luas'] ?> ha</td>
+                                                    <td><?= $d['komoditas'] ?></td>
+                                                    <td>
+                                                        <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
+                                                            <?= $d['status'] ?>
+                                                        </span>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus data ini?')">
+                                                            <i class="fa fa-trash"></i> Hapus
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php else: ?>
                                             <tr>
-                                                <td><strong><?= $d['nama_pemilik'] ?></strong></td>
-                                                <td><?= $d['provinsi'] ?></td>
-                                                <td><?= $d['desa'] ?></td>
-                                                <td><?= $d['luas'] ?> ha</td>
-                                                <td><?= $d['komoditas'] ?></td>
-                                                <td>
-                                                    <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
-                                                        <?= $d['status'] ?>
-                                                    </span>
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus data ini?')">
-                                                        <i class="fa fa-trash"></i> Hapus
-                                                    </a>
+                                                <td colspan="7" style="text-align:center; padding: 40px; color: #94a3b8;">
+                                                    <i class="fa fa-folder-open" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
+                                                    Belum ada data lahan tersedia.
                                                 </td>
                                             </tr>
-                                        <?php endwhile; ?>
-                                    <?php else: ?>
-                                        <tr>
-                                            <td colspan="7" style="text-align:center; padding: 40px; color: #94a3b8;">
-                                                <i class="fa fa-folder-open" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
-                                                Belum ada data lahan tersedia.
-                                            </td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
