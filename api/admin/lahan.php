@@ -75,11 +75,11 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                             </div>
                             <div class="form-group">
                                 <label>Provinsi</label>
-                                <input type="text" name="provinsi" required>
+                                <input type="text" name="provinsi" required placeholder="Contoh: Jawa Barat">
                             </div>
                             <div class="form-group">
                                 <label>Desa</label>
-                                <input type="text" name="desa">
+                                <input type="text" name="desa" required placeholder="Contoh: Sukamaju">
                             </div>
                             <div class="form-group">
                                 <label>Luas (ha)</label>
@@ -88,18 +88,6 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                             <div class="form-group">
                                 <label>Komoditas</label>
                                 <input type="text" name="komoditas">
-                            </div>
-                            <div class="form-group">
-                                <label>Masa Tanam</label>
-                                <input type="text" name="masa_tanam">
-                            </div>
-                            <div class="form-group">
-                                <label>Hasil / ha</label>
-                                <input type="number" name="hasil_per_ha">
-                            </div>
-                            <div class="form-group">
-                                <label>Total Panen</label>
-                                <input type="number" name="total_panen">
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
@@ -124,7 +112,8 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                 <thead>
                                     <tr>
                                         <th>Pemilik</th>
-                                        <th>Lokasi (Prov/Desa)</th>
+                                        <th>Provinsi</th>
+                                        <th>Desa</th>
                                         <th>Luas</th>
                                         <th>Komoditas</th>
                                         <th>Status</th>
@@ -136,7 +125,8 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                         <?php while ($d = mysqli_fetch_assoc($data)): ?>
                                             <tr>
                                                 <td><strong><?= $d['nama_pemilik'] ?></strong></td>
-                                                <td><?= $d['provinsi'] ?> / <?= $d['desa'] ?></td>
+                                                <td><?= $d['provinsi'] ?></td>
+                                                <td><?= $d['desa'] ?></td>
                                                 <td><?= $d['luas'] ?> ha</td>
                                                 <td><?= $d['komoditas'] ?></td>
                                                 <td>
@@ -145,7 +135,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                                     </span>
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" style="color: #ef4444; font-size: 13px;" onclick="return confirm('Hapus data ini?')">
+                                                    <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus data ini?')">
                                                         <i class="fa fa-trash"></i> Hapus
                                                     </a>
                                                 </td>
@@ -153,7 +143,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                                         <?php endwhile; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6" style="text-align:center; padding: 40px; color: #94a3b8;">
+                                            <td colspan="7" style="text-align:center; padding: 40px; color: #94a3b8;">
                                                 <i class="fa fa-folder-open" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
                                                 Belum ada data lahan tersedia.
                                             </td>
@@ -163,7 +153,6 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

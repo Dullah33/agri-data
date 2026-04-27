@@ -55,10 +55,18 @@ body.page-lahan {
     background: #ffffff;
 }
 
+/* FIX UNTUK TAMBAHAN KOLOM PROVINSI & DESA */
 .page-lahan .table-modern {
     width: 100%;
     border-collapse: collapse;
-    min-width: 700px; /* Menjaga tabel tetap rapi saat di-scroll */
+    min-width: 850px; /* Diperlebar agar kolom baru tidak sesak */
+}
+
+.page-lahan .table-modern th,
+.page-lahan .table-modern td {
+    text-align: left;
+    padding: 12px 15px; /* Mengatur jarak aman dalam sel */
+    font-size: 13px;
 }
 
 /* HEADER */
@@ -68,14 +76,11 @@ body.page-lahan {
 
 .page-lahan .table-modern thead th {
     color: #ffffff;
-    padding: 14px;
-    font-size: 13px;
-    text-align: left;
+    font-weight: 600;
 }
 
 /* BODY */
 .page-lahan .table-modern tbody td {
-    padding: 14px;
     border-bottom: 1px solid #f1f5f9;
     color: #334155;
 }
@@ -95,6 +100,7 @@ body.page-lahan {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
+    display: inline-block;
 }
 .page-lahan .aktif {
     background: #dcfce7;
@@ -123,6 +129,15 @@ body.page-lahan {
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     background: #f8fafc;
+    transition: 0.2s;
+}
+
+.page-lahan input:focus,
+.page-lahan select:focus {
+    background: #fff;
+    border-color: #2d6a4f;
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+    outline: none;
 }
 
 .page-lahan .btn-primary {
@@ -135,10 +150,12 @@ body.page-lahan {
     border: none;
     cursor: pointer;
     transition: 0.3s;
+    margin-top: 10px;
 }
 .page-lahan .btn-primary:hover {
     background: #1b4332;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
 }
 
 /* =========================================
