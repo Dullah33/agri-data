@@ -11,6 +11,8 @@ $id = $_GET['id'] ?? null;
 if (!$id) {
     echo "<script>alert('ID tidak ditemukan!'); window.location.href='/pages/dashboard_admin.php';</script>";
     exit();
+}
+
 $query = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id'");
 $data = mysqli_fetch_assoc($query);
 
@@ -20,4 +22,3 @@ if (!$data) {
     echo "<script>alert('Data petani tidak ditemukan!'); window.location.href='../../pages/dashboard_admin.php';</script>";
     exit();
 }
-
