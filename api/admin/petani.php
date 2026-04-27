@@ -1,5 +1,4 @@
 <?php
-// 1. Pastikan ob_start paling atas untuk mencegah "headers already sent"
 ob_start();
 
 require_once __DIR__ . '/../middleware/auth.php';
@@ -11,79 +10,137 @@ $action = $_GET['action'] ?? 'list';
 if ($action === 'panen') $page = 'data_panen';
 
 // =============================================
-// HANDLE POST ACTIONS (Proses Simpan/Update)
+// HANDLE POST
 // =============================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // --- TAMBAH PETANI ---
+    // ================= TAMBAH PETANI =================
     if (isset($_POST['simpan'])) {
-        $id_user         = mysqli_real_escape_string($conn, $_POST['id_user']);
-        $name            = mysqli_real_escape_string($conn, $_POST['name']);
-        $address         = mysqli_real_escape_string($conn, $_POST['address']);
-        $dob             = mysqli_real_escape_string($conn, $_POST['dob']);
-        $gender          = mysqli_real_escape_string($conn, $_POST['gender']);
-        $phone           = mysqli_real_escape_string($conn, $_POST['phone']);
-        $username        = mysqli_real_escape_string($conn, $_POST['username']);
-        $email           = mysqli_real_escape_string($conn, $_POST['email']);
-        $password_hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $role            = "user";
-        $status          = "Active"; // ✨ TAMBAHKAN BARIS INI! ✨
 
-        $sql = "INSERT INTO users (id_user, name, username, email, password, phone, address, gender, dob, role, status)
-                VALUES ('$id_user', '$name', '$username', '$email', '$password_hashed', '$phone', '$address', '$gender', '$dob', '$role', '$status')";
-        if (mysqli_query($conn, $sql)) {
-            // Hapus sisa-sisa buffer sebelum pindah halaman
-            if (ob_get_length()) ob_end_clean();
-            header("Location: /admin/petani?success=tambah");
-            exit();
+        $name     = $_POST['name'] ?? '';
+        $address  = $_POST['address'] ?? '';
+        $dob      = $_POST['dob'] ?? '';
+        $gender   = $_POST['gender'] ?? '';
+        $phone    = $_POST['phone'] ?? '';
+        $username = $_POST['username'] ?? '';
+        $email    = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        if (!$name || !$username || !$email || !$password) {
+            $error_msg = "Data wajib belum lengkap!";
         } else {
-            $error_msg = "Database Error: " . mysqli_error($conn);
+
+            $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+            $role   = "user";
+            $status = "Active";
+
+            $stmt = $conn->prepare("INSERT INTO users 
+                (name, username, email, password, phone, address, gender, dob, role, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            $stmt->bind_param(
+                "ssssssssss",
+                $name,
+                $username,
+                $email,
+                $password_hashed,
+                $phone,
+                $address,
+                $gender,
+                $dob,
+                $role,
+                $status
+            );
+
+            if ($stmt->execute()) {
+                if (ob_get_length()) ob_end_clean();
+                header("Location: /admin/petani?success=tambah");
+                exit();
+            } else {
+                $error_msg = "DB Error: " . $stmt->error;
+            }
         }
     }
 
-    // --- EDIT PETANI ---
+    // ================= EDIT PETANI =================
     if (isset($_POST['update'])) {
-        $id_user  = $_POST['id_user'];
-        $name     = mysqli_real_escape_string($conn, $_POST['name']);
-        $username = mysqli_real_escape_string($conn, $_POST['username']);
-        $email    = mysqli_real_escape_string($conn, $_POST['email']);
-        $address  = mysqli_real_escape_string($conn, $_POST['address']);
+
+        $id_user  = (int) $_POST['id_user'];
+        $name     = $_POST['name'];
+        $username = $_POST['username'];
+        $email    = $_POST['email'];
+        $address  = $_POST['address'];
         $dob      = $_POST['dob'];
         $gender   = $_POST['gender'];
-        $phone    = mysqli_real_escape_string($conn, $_POST['phone']);
+        $phone    = $_POST['phone'];
         $status   = $_POST['status'];
         $password = $_POST['password'];
 
         if (!empty($password)) {
             $password_hashed = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "UPDATE users SET name='$name', username='$username', email='$email',
-                    address='$address', dob='$dob', gender='$gender', phone='$phone',
-                    status='$status', password='$password_hashed' WHERE id_user='$id_user'";
+
+            $stmt = $conn->prepare("UPDATE users SET 
+                name=?, username=?, email=?, address=?, dob=?, gender=?, phone=?, status=?, password=?
+                WHERE id_user=?");
+
+            $stmt->bind_param(
+                "sssssssssi",
+                $name,
+                $username,
+                $email,
+                $address,
+                $dob,
+                $gender,
+                $phone,
+                $status,
+                $password_hashed,
+                $id_user
+            );
         } else {
-            $sql = "UPDATE users SET name='$name', username='$username', email='$email',
-                    address='$address', dob='$dob', gender='$gender', phone='$phone',
-                    status='$status' WHERE id_user='$id_user'";
+
+            $stmt = $conn->prepare("UPDATE users SET 
+                name=?, username=?, email=?, address=?, dob=?, gender=?, phone=?, status=?
+                WHERE id_user=?");
+
+            $stmt->bind_param(
+                "ssssssssi",
+                $name,
+                $username,
+                $email,
+                $address,
+                $dob,
+                $gender,
+                $phone,
+                $status,
+                $id_user
+            );
         }
 
-        if (mysqli_query($conn, $sql)) {
+        if ($stmt->execute()) {
             ob_end_clean();
             header("Location: /admin/petani?success=edit");
             exit();
         } else {
-            $error_msg = "Error DB: " . mysqli_error($conn);
+            $error_msg = "DB Error: " . $stmt->error;
         }
     }
 
-    // --- TAMBAH DATA PANEN ---
+    // ================= TAMBAH PANEN =================
     if (isset($_POST['tambah_panen'])) {
-        $provinsi      = strtoupper(mysqli_real_escape_string($conn, $_POST['provinsi']));
-        $luas_panen    = mysqli_real_escape_string($conn, $_POST['luas_panen']);
-        $produktivitas = mysqli_real_escape_string($conn, $_POST['produktivitas']);
-        $produksi      = mysqli_real_escape_string($conn, $_POST['produksi']);
+
+        $provinsi      = strtoupper($_POST['provinsi']);
+        $luas_panen    = $_POST['luas_panen'];
+        $produktivitas = $_POST['produktivitas'];
+        $produksi      = $_POST['produksi'];
         $tahun         = date('Y');
 
-        $sql = "INSERT INTO data_panen (provinsi, luas_panen, produktivitas, produksi, tahun) VALUES ('$provinsi', '$luas_panen', '$produktivitas', '$produksi', '$tahun')";
-        if (mysqli_query($conn, $sql)) {
+        $stmt = $conn->prepare("INSERT INTO data_panen 
+            (provinsi, luas_panen, produktivitas, produksi, tahun)
+            VALUES (?, ?, ?, ?, ?)");
+
+        $stmt->bind_param("sdddi", $provinsi, $luas_panen, $produktivitas, $produksi, $tahun);
+
+        if ($stmt->execute()) {
             ob_end_clean();
             header("Location: /admin/petani?action=panen&success=tambah");
             exit();
@@ -91,29 +148,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// =============================================
-// HANDLE GET: HAPUS
-// =============================================
+// ================= HAPUS =================
 if (isset($_GET['hapus'])) {
-    $id = mysqli_real_escape_string($conn, $_GET['hapus']);
-    mysqli_query($conn, "DELETE FROM users WHERE id_user = '$id'");
+    $id = (int) $_GET['hapus'];
+
+    $stmt = $conn->prepare("DELETE FROM users WHERE id_user=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
     ob_end_clean();
     header("Location: /admin/petani?success=hapus");
     exit();
 }
 
-// =============================================
-// DATA PREPARATION
-// =============================================
-if ($action === 'tambah') {
-    $query_id = mysqli_query($conn, "SELECT MAX(id_user) as last_id FROM users WHERE role='user'");
-    $data_id  = mysqli_fetch_assoc($query_id);
-    $new_id   = "USR-" . sprintf("%03s", (int)substr($data_id['last_id'] ?? 'USR-000', 4) + 1);
-}
-
+// ================= DATA =================
 if ($action === 'edit') {
-    $id = $_GET['id'] ?? null;
-    $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id'"));
+    $id = (int) ($_GET['id'] ?? 0);
+
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id_user=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $data = $stmt->get_result()->fetch_assoc();
+
     if (!$data) {
         header("Location: /admin/petani");
         exit();
@@ -122,11 +179,15 @@ if ($action === 'edit') {
 
 $query_petani = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER BY id_user DESC");
 $q_panen = mysqli_query($conn, "SELECT * FROM data_panen ORDER BY provinsi ASC");
+
 $data_panen_list = [];
 if ($q_panen) {
-    while ($row = mysqli_fetch_assoc($q_panen)) $data_panen_list[] = $row;
+    while ($row = mysqli_fetch_assoc($q_panen)) {
+        $data_panen_list[] = $row;
+    }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 
