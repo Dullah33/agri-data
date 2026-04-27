@@ -62,62 +62,78 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
             <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
 
-            <div class="content-area">
+            <div class="lahan-layout">
 
-                <!-- HEADER -->
-                <div class="page-header">
-                    <div>
-                        <h1>Data Lahan</h1>
-                        <p>Kelola seluruh data lahan petani AgriData</p>
-                    </div>
+                <!-- FORM -->
+                <div class="lahan-form-box">
+                    <h3><i class="fa fa-plus"></i> Tambah Data</h3>
+
+                    <form method="POST">
+
+                        <div class="form-group">
+                            <label>Nama Pemilik</label>
+                            <input type="text" name="nama_pemilik" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Provinsi</label>
+                            <input type="text" name="provinsi" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Desa</label>
+                            <input type="text" name="desa">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Luas (ha)</label>
+                            <input type="number" name="luas">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Komoditas</label>
+                            <input type="text" name="komoditas">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Masa Tanam</label>
+                            <input type="text" name="masa_tanam">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hasil / ha</label>
+                            <input type="number" name="hasil_per_ha">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Panen</label>
+                            <input type="number" name="total_panen">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status">
+                                <option value="aktif">Aktif</option>
+                                <option value="tidak aktif">Nonaktif</option>
+                            </select>
+                        </div>
+
+                        <button name="simpan" class="btn-primary">
+                            <i class="fa fa-save"></i> Simpan Data
+                        </button>
+
+                    </form>
                 </div>
 
-                <!-- GRID -->
-                <div class="lahan-grid">
 
-                    <!-- FORM -->
-                    <div class="card form-card">
-                        <h3 class="section-title">
-                            <i class="fa fa-plus"></i> Tambah Data
-                        </h3>
+                <!-- TABLE -->
+                <div class="lahan-table-box">
 
-                        <form method="POST">
-
-                            <div class="form-grid">
-
-                                <input type="text" name="nama_pemilik" placeholder="Nama Pemilik" required>
-                                <input type="text" name="provinsi" placeholder="Provinsi" required>
-
-                                <input type="text" name="desa" placeholder="Desa">
-                                <input type="number" name="luas" placeholder="Luas (ha)">
-
-                                <input type="text" name="komoditas" placeholder="Komoditas">
-                                <input type="text" name="masa_tanam" placeholder="Masa Tanam">
-
-                                <input type="number" name="hasil_per_ha" placeholder="Hasil / ha">
-                                <input type="number" name="total_panen" placeholder="Total Panen">
-
-                                <select name="status">
-                                    <option value="aktif">Aktif</option>
-                                    <option value="tidak aktif">Nonaktif</option>
-                                </select>
-
-                            </div>
-
-                            <button name="simpan" class="btn-primary full">
-                                <i class="fa fa-save"></i> Simpan Data
-                            </button>
-
-                        </form>
+                    <div class="table-header">
+                        <h3><i class="fa fa-table"></i> Daftar Lahan</h3>
                     </div>
 
-                    <!-- TABLE -->
-                    <div class="card table-card">
-
-                        <h3 class="section-title">
-                            <i class="fa fa-table"></i> Daftar Lahan
-                        </h3>
-
+                    <div class="table-container">
                         <table class="table-modern">
 
                             <thead>
@@ -134,48 +150,32 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
                             <tbody>
                                 <?php if (mysqli_num_rows($data) > 0): ?>
                                     <?php while ($d = mysqli_fetch_assoc($data)): ?>
-
                                         <tr>
-                                            <td>
-                                                <strong><?= htmlspecialchars($d['nama_pemilik']) ?></strong><br>
-                                                <small><?= htmlspecialchars($d['desa']) ?></small>
-                                            </td>
-
-                                            <td><?= htmlspecialchars($d['provinsi']) ?></td>
+                                            <td><?= $d['nama_pemilik'] ?></td>
+                                            <td><?= $d['provinsi'] ?></td>
                                             <td><?= $d['luas'] ?> ha</td>
-                                            <td><?= htmlspecialchars($d['komoditas']) ?></td>
-
+                                            <td><?= $d['komoditas'] ?></td>
                                             <td>
                                                 <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
-                                                    <?= ucfirst($d['status']) ?>
+                                                    <?= $d['status'] ?>
                                                 </span>
                                             </td>
-
                                             <td>
-                                                <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus data?')">
-                                                    <i class="fa fa-trash"></i>
+                                                <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus?')">
+                                                    Hapus
                                                 </a>
                                             </td>
                                         </tr>
-
                                     <?php endwhile; ?>
                                 <?php else: ?>
-
                                     <tr>
-                                        <td colspan="6" class="empty">
-                                            Data belum tersedia
-                                        </td>
+                                        <td colspan="6" style="text-align:center;">Data belum tersedia</td>
                                     </tr>
-
                                 <?php endif; ?>
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
