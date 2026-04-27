@@ -1,7 +1,7 @@
 <?php
 
 // PERBAIKAN: Path require yang benar (index.php berada di root folder, koneksi di api/config/)
-require_once __DIR__ . '/config/koneksi.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/api/config/koneksi.php';
 
 $daftarFitur = [
     [
