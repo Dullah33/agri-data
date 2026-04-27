@@ -41,7 +41,20 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC, n
 <html>
 
 <head>
-    <title>Data Lahan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Lahan | AgriData</title>
+
+    <!-- ICON & FONT -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS GLOBAL (WAJIB) -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
+    <link rel="stylesheet" href="/assets/css/topbar_admin.css">
+
+    <!-- CSS KHUSUS HALAMAN -->
     <link rel="stylesheet" href="/assets/css/admin_lahan.css">
 </head>
 
