@@ -11,47 +11,47 @@
             "dest": "/api/index.php"
         },
         {
-            "src": "^/login$",
+            "src": "^/login",
             "dest": "/api/login.php"
         },
         {
-            "src": "^/register$",
+            "src": "^/register",
             "dest": "/api/register.php"
         },
         {
-            "src": "^/logout$",
+            "src": "^/logout",
             "dest": "/api/logout.php"
         },
         {
-            "src": "^/admin/dashboard$",
+            "src": "^/admin/dashboard",
             "dest": "/api/admin/dashboard.php"
         },
         {
-            "src": "^/admin/petani$",
+            "src": "^/admin/petani",
             "dest": "/api/admin/petani.php"
         },
         {
-            "src": "^/admin/profile$",
+            "src": "^/admin/profile",
             "dest": "/api/admin/profile.php"
         },
         {
-            "src": "/admin/lahan",
+            "src": "^/admin/lahan",
             "dest": "/api/admin/lahan.php"
         },
         {
-            "src": "^/user/dashboard$",
+            "src": "^/user/dashboard",
             "dest": "/api/user/dashboard.php"
         },
         {
-            "src": "^/user/profile$",
+            "src": "^/user/profile",
             "dest": "/api/user/profile.php"
         },
         {
-            "src": "^/user/lahan$",
+            "src": "^/user/lahan",
             "dest": "/api/user/lahan.php"
         },
         {
-            "src": "^/user/panen$",
+            "src": "^/user/panen",
             "dest": "/api/user/panen.php"
         },
         {
