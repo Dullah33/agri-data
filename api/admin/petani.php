@@ -27,13 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email           = mysqli_real_escape_string($conn, $_POST['email']);
         $password_hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $role            = "user";
-
-        // ✨ TAMBAHKAN BARIS INI (Sangat Penting!)
-        $status          = "Active";
+        $status          = "Active"; // ✨ TAMBAHKAN BARIS INI! ✨
 
         $sql = "INSERT INTO users (id_user, name, username, email, password, phone, address, gender, dob, role, status)
                 VALUES ('$id_user', '$name', '$username', '$email', '$password_hashed', '$phone', '$address', '$gender', '$dob', '$role', '$status')";
-
         if (mysqli_query($conn, $sql)) {
             // Hapus sisa-sisa buffer sebelum pindah halaman
             if (ob_get_length()) ob_end_clean();
