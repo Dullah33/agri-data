@@ -5,7 +5,7 @@ require __DIR__ . '/helpers/auth_cookie.php';
 // Sudah login → redirect langsung
 $existing = getAuthUser();
 if ($existing) {
-    header("Location: /api/" . ($existing['role'] === 'admin' ? 'dashboard_admin.php' : 'dashboard_user.php'));
+    header("Location: /" . ($existing["role"] === "admin" ? "admin/dashboard" : "user/dashboard"));
     exit();
 }
 
@@ -22,9 +22,9 @@ if (isset($_POST['login'])) {
             setAuthCookie($row);
 
             if ($row['role'] === 'admin') {
-                header("Location: /api/admin/dashboard.php");
+                header("Location: /admin/dashboard");
             } else {
-                header("Location: /api/user/dashboard.php");
+                header("Location: /user/dashboard");
             }
             exit();
         }
@@ -105,7 +105,7 @@ if (isset($_POST['login'])) {
                 <button type="submit" name="login" class="btn-login">Sign In</button>
             </form>
             <div class="register-prompt">
-                Belum punya akun? <a href="/pages/register.php">Daftar Sekarang</a>
+                Belum punya akun? <a href="/register">Daftar Sekarang</a>
             </div>
         </div>
     </div>

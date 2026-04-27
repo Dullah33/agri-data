@@ -23,20 +23,28 @@
             "dest": "/api/logout.php"
         },
         {
-            "src": "^/admin/(.*)$",
-            "dest": "/api/admin/$1"
+            "src": "^/admin/dashboard$",
+            "dest": "/api/admin/dashboard.php"
         },
         {
-            "src": "^/user/(.*)$",
-            "dest": "/api/user/$1"
+            "src": "^/admin/petani$",
+            "dest": "/api/admin/petani.php"
+        },
+        {
+            "src": "^/admin/profile$",
+            "dest": "/api/admin/profile.php"
+        },
+        {
+            "src": "^/user/dashboard$",
+            "dest": "/api/user/dashboard.php"
+        },
+        {
+            "src": "^/user/profile$",
+            "dest": "/api/user/profile.php"
         },
         {
             "src": "^/sync/(.*)$",
             "dest": "/api/sync/$1"
-        },
-        {
-            "src": "^/api/(.*)",
-            "dest": "/api/$1"
         }
     ]
 }

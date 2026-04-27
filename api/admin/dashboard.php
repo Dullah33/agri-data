@@ -113,7 +113,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
                 </div>
                 <div class="admin-card-footer">
                     <i class="fa-solid fa-circle-info"></i>
-                    Gunakan halaman <a href="/api/admin/petani.php" style="color:#2D6A4F; font-weight:700;">Data Petani</a> untuk mengelola status akun.
+                    Gunakan halaman <a href="/admin/petani" style="color:#2D6A4F; font-weight:700;">Data Petani</a> untuk mengelola status akun.
                 </div>
             </div>
 
@@ -123,7 +123,7 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
                         <h3 class="admin-card-title">Pendaftar Terbaru</h3>
                         <p class="admin-card-sub">Petani yang baru bergabung ke sistem</p>
                     </div>
-                    <a href="/api/admin/petani.php" class="view-all-link">Lihat Semua <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/admin/petani" class="view-all-link">Lihat Semua <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 <div class="recent-list">
                     <?php
@@ -158,22 +158,22 @@ $query_recent = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER
                     </div>
                 </div>
                 <div class="quick-nav-grid">
-                    <a href="/api/admin/petani.php" class="quick-nav-item">
+                    <a href="/admin/petani" class="quick-nav-item">
                         <div class="qn-icon" style="background:#f0fdf4; color:#2D6A4F;"><i class="fa-solid fa-user-group"></i></div>
                         <div class="qn-label">Manajemen Petani</div>
                         <div class="qn-sub">Kelola data anggota</div>
                     </a>
-                    <a href="/api/admin/petani.php?action=panen" class="quick-nav-item">
+                    <a href="/admin/petani?action=panen" class="quick-nav-item">
                         <div class="qn-icon" style="background:#fffbeb; color:#d97706;"><i class="fa-solid fa-wheat-awn"></i></div>
                         <div class="qn-label">Data Panen</div>
                         <div class="qn-sub">Kelola hasil panen</div>
                     </a>
-                    <a href="/api/admin/petani.php?action=tambah" class="quick-nav-item">
+                    <a href="/admin/petani?action=tambah" class="quick-nav-item">
                         <div class="qn-icon" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-user-plus"></i></div>
                         <div class="qn-label">Tambah Petani</div>
                         <div class="qn-sub">Daftarkan anggota baru</div>
                     </a>
-                    <a href="/api/admin/profile.php" class="quick-nav-item">
+                    <a href="/admin/profile" class="quick-nav-item">
                         <div class="qn-icon" style="background:#fdf4ff; color:#9333ea;"><i class="fa-solid fa-user-gear"></i></div>
                         <div class="qn-label">Profil Admin</div>
                         <div class="qn-sub">Pengaturan akun admin</div>

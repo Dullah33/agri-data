@@ -21,9 +21,9 @@ if (isset($_POST['save_admin'])) {
     }
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: /api/admin/profile.php?success=1");
+        header("Location: /admin/profile?success=1");
     } else {
-        header("Location: /api/admin/profile.php?error=1");
+        header("Location: /admin/profile?error=1");
     }
     exit();
 }
@@ -56,7 +56,7 @@ $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id_use
             <div class="alert-banner error"><i class="fa-solid fa-circle-exclamation"></i> Gagal memperbarui profil. Coba lagi.</div>
             <?php endif; ?>
 
-            <a href="/api/admin/dashboard.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard</a>
+            <a href="/admin/dashboard" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard</a>
 
             <div class="profile-header-card">
                 <div class="profile-avatar"><?= strtoupper(substr($data['name'] ?? 'A', 0, 1)) ?></div>
@@ -67,7 +67,7 @@ $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id_use
                 </div>
             </div>
 
-            <form action="/api/admin/profile.php" method="POST">
+            <form action="/admin/profile" method="POST">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
                     <div class="profile-info-card">
                         <div class="section-head">

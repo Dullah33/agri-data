@@ -8,12 +8,12 @@
     <nav class="sidebar-nav">
         <ul>
             <li class="<?= ($page == 'dashboard') ? 'active' : '' ?>">
-                <a href="/api/admin/dashboard.php">
+                <a href="/admin/dashboard">
                     <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
                 </a>
             </li>
             <li class="<?= ($page == 'data_petani') ? 'active' : '' ?>">
-                <a href="/api/admin/petani.php">
+                <a href="/admin/petani">
                     <i class="fa-solid fa-user-group"></i><span>Data Petani</span>
                 </a>
             </li>
@@ -21,7 +21,7 @@
                 MANAJEMEN DATA
             </li>
             <li class="<?= ($page == 'data_panen') ? 'active' : '' ?>">
-                <a href="/api/admin/petani.php?action=panen">
+                <a href="/admin/petani?action=panen">
                     <i class="fa-solid fa-wheat-awn"></i><span>Data Panen</span>
                 </a>
             </li>
@@ -36,7 +36,7 @@
         <p>Apakah Anda yakin ingin keluar dari sistem Admin?</p>
         <div class="modal-actions">
             <button class="btn-cancel" id="btnBatalLogout">Batal</button>
-            <a href="/api/logout.php" class="btn-confirm-logout">Ya, Keluar</a>
+            <a href="/logout" class="btn-confirm-logout">Ya, Keluar</a>
         </div>
     </div>
 </div>

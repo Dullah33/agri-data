@@ -20,8 +20,8 @@
                     <span>@<?= htmlspecialchars($user['username'] ?? 'admin') ?></span>
                 </div>
                 <hr>
-                <a href="/api/admin/profile.php"><i class="fa-solid fa-user-shield"></i> Profil Admin</a>
-                <a href="/api/logout.php" id="triggerLogoutDropdown"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a href="/admin/profile"><i class="fa-solid fa-user-shield"></i> Profil Admin</a>
+                <a href="/logout" id="triggerLogoutDropdown"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </div>
         </div>
     </div>

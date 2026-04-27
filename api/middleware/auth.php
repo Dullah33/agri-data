@@ -6,12 +6,12 @@ function requireAuth(?string $role = null): array
     $user = getAuthUser();
 
     if (!$user) {
-        header("Location: /api/login.php");
+        header("Location: /login");
         exit();
     }
 
     if ($role && $user['role'] !== $role) {
-        header("Location: /api/login.php");
+        header("Location: /login");
         exit();
     }
 

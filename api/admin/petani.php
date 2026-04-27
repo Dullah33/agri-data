@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES ('$id_user', '$name', '$username', '$email', '$password_hashed', '$phone', '$address', '$gender', '$dob', '$role')";
 
         if (mysqli_query($conn, $sql)) {
-            header("Location: /api/admin/petani.php?success=tambah");
+            header("Location: /admin/petani?success=tambah");
         } else {
             $error_msg = "Error: " . mysqli_error($conn);
         }
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (mysqli_query($conn, $sql)) {
-            header("Location: /api/admin/petani.php?success=edit");
+            header("Location: /admin/petani?success=edit");
         } else {
             $error_msg = "Error: " . mysqli_error($conn);
         }
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $sql = "UPDATE data_panen SET luas_panen='$luas_panen', produktivitas='$produktivitas', produksi='$produksi' WHERE id='$id'";
         if (mysqli_query($conn, $sql)) {
-            header("Location: /api/admin/petani.php?action=panen&success=edit");
+            header("Location: /admin/petani?action=panen&success=edit");
         } else {
             $error_msg = mysqli_error($conn);
         }
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $sql = "INSERT INTO data_panen (provinsi, luas_panen, produktivitas, produksi, tahun) VALUES ('$provinsi', '$luas_panen', '$produktivitas', '$produksi', '$tahun')";
         if (mysqli_query($conn, $sql)) {
-            header("Location: /api/admin/petani.php?action=panen&success=tambah");
+            header("Location: /admin/petani?action=panen&success=tambah");
         } else {
             $error_msg = mysqli_error($conn);
         }
@@ -107,13 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['hapus'])) {
     $id = $_GET['hapus'];
     mysqli_query($conn, "DELETE FROM users WHERE id_user = '$id'");
-    header("Location: /api/admin/petani.php?success=hapus");
+    header("Location: /admin/petani?success=hapus");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['hapus_panen'])) {
     $id = $_GET['hapus_panen'];
     mysqli_query($conn, "DELETE FROM data_panen WHERE id = '$id'");
-    header("Location: /api/admin/petani.php?action=panen&success=hapus");
+    header("Location: /admin/petani?action=panen&success=hapus");
     exit();
 }
 
@@ -133,7 +133,7 @@ if ($action === 'edit') {
         $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id'"));
     }
     if (!$data) {
-        header("Location: /api/admin/petani.php");
+        header("Location: /admin/petani");
         exit();
     }
 }
@@ -247,7 +247,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
 
         <!-- ========== TAMBAH PETANI ========== -->
         <?php elseif ($action === 'tambah'): ?>
-        <a href="/api/admin/petani.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Petani</a>
+        <a href="/admin/petani" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Petani</a>
         <div class="add-hero">
             <div class="add-hero-icon"><i class="fa-solid fa-user-plus"></i></div>
             <div class="add-hero-info">
@@ -256,7 +256,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
                 <div><div class="add-hero-badge"><i class="fa-solid fa-id-badge" style="font-size:10px;"></i> ID Otomatis: <?= htmlspecialchars($new_id) ?></div></div>
             </div>
         </div>
-        <form action="/api/admin/petani.php?action=tambah" method="POST">
+        <form action="/admin/petani?action=tambah" method="POST">
             <input type="hidden" name="id_user" value="<?= htmlspecialchars($new_id) ?>">
             <div class="two-col-grid">
                 <div class="form-card">
@@ -295,7 +295,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
 
         <!-- ========== EDIT PETANI ========== -->
         <?php elseif ($action === 'edit'): ?>
-        <a href="/api/admin/petani.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Petani</a>
+        <a href="/admin/petani" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Petani</a>
         <div class="edit-hero">
             <div class="edit-hero-avatar"><?= strtoupper(substr($data['name'] ?? 'P', 0, 1)) ?></div>
             <div class="edit-hero-info">
@@ -303,7 +303,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
                 <span><i class="fa-solid fa-id-badge" style="margin-right:5px;"></i>ID: <?= htmlspecialchars($data['id_user'] ?? '') ?></span>
             </div>
         </div>
-        <form action="/api/admin/petani.php?action=edit" method="POST">
+        <form action="/admin/petani?action=edit" method="POST">
             <input type="hidden" name="id_user" value="<?= htmlspecialchars($data['id_user']) ?>">
             <div class="two-col-grid">
                 <div class="form-card">
@@ -417,7 +417,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
                     <h3><i class="fa-solid fa-pen-to-square" style="color:#3b82f6;"></i> Edit Data Panen</h3>
                     <button type="button" class="btn-close-modal" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <form action="/api/admin/petani.php?action=panen" method="POST">
+                <form action="/admin/petani?action=panen" method="POST">
                     <input type="hidden" name="id" id="edit_id">
                     <div class="form-group"><label class="form-label">Nama Provinsi</label><input type="text" id="edit_provinsi" class="form-control" readonly style="background:#f1f5f9;color:#64748b;"></div>
                     <div class="form-group"><label class="form-label">Luas Panen (Hektar)</label><input type="number" step="any" name="luas_panen" id="edit_luas" class="form-control" required></div>
@@ -438,7 +438,7 @@ if ($action === 'panen' || $action === 'list' || !$action) {
                     <h3><i class="fa-solid fa-plus" style="color:#10b981;"></i> Tambah Data Panen</h3>
                     <button type="button" class="btn-close-modal" onclick="closeAddModal()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <form action="/api/admin/petani.php?action=panen" method="POST">
+                <form action="/admin/petani?action=panen" method="POST">
                     <div class="form-group"><label class="form-label">Nama Provinsi</label><input type="text" name="provinsi" class="form-control" placeholder="Contoh: JAWA TENGAH" required></div>
                     <div class="form-group"><label class="form-label">Luas Panen (Hektar)</label><input type="number" step="any" name="luas_panen" class="form-control" required></div>
                     <div class="form-group"><label class="form-label">Produktivitas (Kuintal/Hektar)</label><input type="number" step="any" name="produktivitas" class="form-control" required></div>

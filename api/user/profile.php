@@ -29,9 +29,9 @@ if (isset($_POST['update_profile'])) {
     }
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: /api/user/profile.php?success=1");
+        header("Location: /user/profile?success=1");
     } else {
-        header("Location: /api/user/profile.php?error=1");
+        header("Location: /user/profile?error=1");
     }
     exit();
 }
@@ -74,7 +74,7 @@ $data['name'] = $data['name'] ?? '';
                 </div>
             </div>
 
-            <form action="/api/user/profile.php" method="POST">
+            <form action="/user/profile" method="POST">
                 <div class="profile-grid">
                     <div class="form-card">
                         <div class="card-header">

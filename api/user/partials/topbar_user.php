@@ -21,9 +21,9 @@ $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data..."
             </div>
             <div class="avatar-topbar"><?= strtoupper(substr($name, 0, 1)) ?></div>
             <div class="profile-dropdown" id="profileMenu">
-                <a href="/api/user/profile.php">Pengaturan Profil</a>
+                <a href="/user/profile">Pengaturan Profil</a>
                 <hr>
-                <a href="/api/logout.php" style="color:red;">Logout</a>
+                <a href="/logout" style="color:red;">Logout</a>
             </div>
         </div>
     </div>

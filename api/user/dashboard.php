@@ -139,7 +139,7 @@ if ($view === 'panen') {
                 <div class="card-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="fa-solid fa-seedling"></i></div>
                 <div class="card-label">Data Panen</div>
                 <div class="card-value">Lihat Riwayat</div>
-                <div class="card-sub"><a href="?view=panen" style="color:#7c3aed;font-weight:700;font-size:12px;">Ke halaman Data Panen →</a></div>
+                <div class="card-sub"><a href="/user/dashboard?view=panen" style="color:#7c3aed;font-weight:700;font-size:12px;">Ke halaman Data Panen →</a></div>
             </div>
         </div>
 
@@ -163,8 +163,8 @@ if ($view === 'panen') {
                 <div class="info-row"><span class="info-key"><i class="fa-solid fa-phone"></i> Telepon</span><span class="info-val"><?= htmlspecialchars($u['phone'] ?? '-') ?></span></div>
                 <div class="info-row"><span class="info-key"><i class="fa-solid fa-location-dot"></i> Alamat</span><span class="info-val" style="max-width:180px;text-align:right;line-height:1.4;"><?= htmlspecialchars($u['address'] ?? '-') ?></span></div>
                 <div class="quick-actions">
-                    <a href="/api/user/profile.php" class="qa-btn"><i class="fa-solid fa-user-pen"></i> Edit Profil</a>
-                    <a href="?view=panen" class="qa-btn"><i class="fa-solid fa-leaf"></i> Data Panen</a>
+                    <a href="/user/profile" class="qa-btn"><i class="fa-solid fa-user-pen"></i> Edit Profil</a>
+                    <a href="/user/dashboard?view=panen" class="qa-btn"><i class="fa-solid fa-leaf"></i> Data Panen</a>
                 </div>
             </div>
 
