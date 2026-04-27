@@ -34,7 +34,7 @@ if (isset($_GET['hapus'])) {
     exit;
 }
 
-$data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
+$data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -42,59 +42,14 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Data Lahan</title>
+    <title>Data Lahan | AgriData</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
-    <link rel="stylesheet" href="/assets/css/data_petani.css">
+    <link rel="stylesheet" href="/assets/css/admin_lahan.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* FIX FULL WIDTH */
-        .content-area {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        /* FORM KHUSUS LAHAN */
-        .lahan-form {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
-            margin-bottom: 24px;
-        }
-
-        /* GRID RESPONSIVE */
-        .lahan-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        @media (max-width: 1024px) {
-            .lahan-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .lahan-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* FULL WIDTH BUTTON */
-        .lahan-action {
-            margin-top: 16px;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -111,114 +66,114 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY provinsi ASC");
 
                 <!-- HEADER -->
                 <div class="page-header">
-                    <div class="page-info">
+                    <div>
                         <h1>Data Lahan</h1>
                         <p>Kelola seluruh data lahan petani AgriData</p>
                     </div>
                 </div>
 
-                <!-- FORM -->
-                <div class="lahan-form">
+                <!-- GRID -->
+                <div class="lahan-grid">
 
-                    <form method="POST">
+                    <!-- FORM -->
+                    <div class="card form-card">
+                        <h3 class="section-title">
+                            <i class="fa fa-plus"></i> Tambah Data
+                        </h3>
 
-                        <div class="lahan-grid">
+                        <form method="POST">
 
-                            <input type="text" name="nama_pemilik" class="form-control" placeholder="Nama Pemilik" required>
-                            <input type="text" name="provinsi" class="form-control" placeholder="Provinsi" required>
-                            <input type="text" name="desa" class="form-control" placeholder="Desa">
+                            <div class="form-grid">
 
-                            <input type="number" name="luas" class="form-control" placeholder="Luas (ha)">
-                            <input type="text" name="komoditas" class="form-control" placeholder="Komoditas">
-                            <input type="text" name="masa_tanam" class="form-control" placeholder="Masa Tanam">
+                                <input type="text" name="nama_pemilik" placeholder="Nama Pemilik" required>
+                                <input type="text" name="provinsi" placeholder="Provinsi" required>
 
-                            <input type="number" name="hasil_per_ha" class="form-control" placeholder="Hasil / ha">
-                            <input type="number" name="total_panen" class="form-control" placeholder="Total Panen">
+                                <input type="text" name="desa" placeholder="Desa">
+                                <input type="number" name="luas" placeholder="Luas (ha)">
 
-                            <select name="status" class="form-control">
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak aktif">Nonaktif</option>
-                            </select>
+                                <input type="text" name="komoditas" placeholder="Komoditas">
+                                <input type="text" name="masa_tanam" placeholder="Masa Tanam">
 
-                        </div>
+                                <input type="number" name="hasil_per_ha" placeholder="Hasil / ha">
+                                <input type="number" name="total_panen" placeholder="Total Panen">
 
-                        <div class="lahan-action">
-                            <button name="simpan" class="btn-add-new">
-                                <i class="fa fa-plus"></i> Tambah Data
+                                <select name="status">
+                                    <option value="aktif">Aktif</option>
+                                    <option value="tidak aktif">Nonaktif</option>
+                                </select>
+
+                            </div>
+
+                            <button name="simpan" class="btn-primary full">
+                                <i class="fa fa-save"></i> Simpan Data
                             </button>
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
 
-                </div>
+                    <!-- TABLE -->
+                    <div class="card table-card">
 
-                <!-- TABLE -->
-                <div class="table-container">
-                    <table>
+                        <h3 class="section-title">
+                            <i class="fa fa-table"></i> Daftar Lahan
+                        </h3>
 
-                        <thead>
-                            <tr>
-                                <th>PEMILIK</th>
-                                <th>LOKASI</th>
-                                <th>LUAS</th>
-                                <th>KOMODITAS</th>
-                                <th>STATUS</th>
-                                <th>AKSI</th>
-                            </tr>
-                        </thead>
+                        <table class="table-modern">
 
-                        <tbody>
+                            <thead>
+                                <tr>
+                                    <th>Pemilik</th>
+                                    <th>Lokasi</th>
+                                    <th>Luas</th>
+                                    <th>Komoditas</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
 
-                            <?php if (mysqli_num_rows($data) > 0): ?>
-                                <?php while ($d = mysqli_fetch_assoc($data)): ?>
+                            <tbody>
+                                <?php if (mysqli_num_rows($data) > 0): ?>
+                                    <?php while ($d = mysqli_fetch_assoc($data)): ?>
 
-                                    <tr>
+                                        <tr>
+                                            <td>
+                                                <strong><?= htmlspecialchars($d['nama_pemilik']) ?></strong><br>
+                                                <small><?= htmlspecialchars($d['desa']) ?></small>
+                                            </td>
 
-                                        <td>
-                                            <div class="profile-cell">
-                                                <div class="avatar-initial">
-                                                    <?= strtoupper(substr($d['nama_pemilik'], 0, 1)) ?>
-                                                </div>
-                                                <div>
-                                                    <span class="user-name"><?= htmlspecialchars($d['nama_pemilik']) ?></span>
-                                                    <span class="user-sub"><?= htmlspecialchars($d['desa']) ?></span>
-                                                </div>
-                                            </div>
-                                        </td>
+                                            <td><?= htmlspecialchars($d['provinsi']) ?></td>
+                                            <td><?= $d['luas'] ?> ha</td>
+                                            <td><?= htmlspecialchars($d['komoditas']) ?></td>
 
-                                        <td><?= htmlspecialchars($d['provinsi']) ?></td>
-                                        <td><?= $d['luas'] ?> ha</td>
-                                        <td><?= htmlspecialchars($d['komoditas']) ?></td>
+                                            <td>
+                                                <span class="badge <?= $d['status'] == 'aktif' ? 'aktif' : 'nonaktif' ?>">
+                                                    <?= ucfirst($d['status']) ?>
+                                                </span>
+                                            </td>
 
-                                        <td>
-                                            <span class="badge-status <?= $d['status'] == 'aktif' ? 'status-active' : 'status-inactive' ?>">
-                                                <?= ucfirst($d['status']) ?>
-                                            </span>
-                                        </td>
-
-                                        <td>
-                                            <div class="action-group">
-                                                <a href="?hapus=<?= $d['id'] ?>" class="btn-icon btn-delete" onclick="return confirm('Hapus data?')">
+                                            <td>
+                                                <a href="?hapus=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Hapus data?')">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
-                                            </div>
-                                        </td>
+                                            </td>
+                                        </tr>
 
+                                    <?php endwhile; ?>
+                                <?php else: ?>
+
+                                    <tr>
+                                        <td colspan="6" class="empty">
+                                            Data belum tersedia
+                                        </td>
                                     </tr>
 
-                                <?php endwhile; ?>
-                            <?php else: ?>
+                                <?php endif; ?>
+                            </tbody>
 
-                                <tr>
-                                    <td colspan="6" style="text-align:center; padding:30px;">
-                                        Data belum tersedia
-                                    </td>
-                                </tr>
+                        </table>
 
-                            <?php endif; ?>
+                    </div>
 
-                        </tbody>
-                    </table>
                 </div>
 
             </div>
