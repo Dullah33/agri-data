@@ -25,6 +25,11 @@
                     <i class="fa-solid fa-wheat-awn"></i><span>Data Panen</span>
                 </a>
             </li>
+            <li class="<?= ($page == 'data_lahan') ? 'active' : '' ?>">
+                <a href="/admin/lahan">
+                    <i class="fa-solid fa-seedling"></i><span>Data Lahan</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </aside>
@@ -41,12 +46,14 @@
     </div>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('logoutModal');
-    const btnBatal = document.getElementById('btnBatalLogout');
-    if (modal && btnBatal) {
-        btnBatal.onclick = () => modal.classList.remove('active');
-        window.onclick = (e) => { if (e.target == modal) modal.classList.remove('active'); }
-    }
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('logoutModal');
+        const btnBatal = document.getElementById('btnBatalLogout');
+        if (modal && btnBatal) {
+            btnBatal.onclick = () => modal.classList.remove('active');
+            window.onclick = (e) => {
+                if (e.target == modal) modal.classList.remove('active');
+            }
+        }
+    });
 </script>
