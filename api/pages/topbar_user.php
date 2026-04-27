@@ -1,11 +1,10 @@
 <?php
-require_once __DIR__ . '/../helpers/jwt_helper.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$token = $_COOKIE['token'] ?? null;
-$user = $token ? verifyJWT($token) : null;
-
-$name = $user['name'] ?? 'Guest';
-$username = $user['username'] ?? 'guest';
+$name     = $_SESSION['name'] ?? 'Guest';
+$username = $_SESSION['username'] ?? 'guest';
 
 $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data...";
 ?>
@@ -44,10 +43,6 @@ $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data..."
     document.getElementById('profileDropdownTrigger').onclick = function(e) {
         e.stopPropagation();
         document.getElementById('profileMenu').classList.toggle('show');
-    };
-    document.getElementById('triggerLogoutUser').onclick = function(e) {
-        e.preventDefault();
-        document.getElementById('logoutModal').classList.add('active');
     };
     window.onclick = function() {
         document.getElementById('profileMenu').classList.remove('show');

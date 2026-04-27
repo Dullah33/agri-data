@@ -1,18 +1,28 @@
 <?php
 require __DIR__ . '/../config/koneksi.php';
-require __DIR__ . '/../helpers/jwt_helper.php';
 
 $reg_error = null;
-$reg_success = null;
 
-// Handle JSON API request (dari fetch JS)
+// Handle JSON API request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
     header("Content-Type: application/json");
+
     $data = json_decode(file_get_contents("php://input"), true);
-    $name     = $data['name'] ?? '';
-    $email    = $data['email'] ?? '';
+
+    $name     = mysqli_real_escape_string($conn, $data['name'] ?? '');
+    $username = mysqli_real_escape_string($conn, $data['username'] ?? '');
+    $email    = mysqli_real_escape_string($conn, $data['email'] ?? '');
     $password = password_hash($data['password'] ?? '', PASSWORD_DEFAULT);
-    $query = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$password', 'user')";
+    $dob      = $data['dob'] ?? null;
+    $gender   = $data['gender'] ?? null;
+    $address  = mysqli_real_escape_string($conn, $data['address'] ?? '');
+    $phone    = mysqli_real_escape_string($conn, $data['phone'] ?? '');
+
+    $query = "INSERT INTO users 
+    (name, username, email, password, role, dob, gender, address, phone) 
+    VALUES 
+    ('$name', '$username', '$email', '$password', 'user', '$dob', '$gender', '$address', '$phone')";
+
     if (mysqli_query($conn, $query)) {
         echo json_encode(["status" => "success"]);
     } else {
@@ -23,20 +33,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'] ?? 
 
 // Handle form POST biasa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $name     = mysqli_real_escape_string($conn, $_POST['name'] ?? '');
-    $email    = mysqli_real_escape_string($conn, $_POST['email'] ?? '');
-    $password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
-    
+
+    $name     = mysqli_real_escape_string($conn, $_POST['name']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email    = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $dob      = $_POST['dob'];
+    $gender   = $_POST['gender'];
+    $address  = mysqli_real_escape_string($conn, $_POST['address']);
+    $phone    = mysqli_real_escape_string($conn, $_POST['phone']);
+
+    // cek email
     $check = mysqli_query($conn, "SELECT id_user FROM users WHERE email='$email'");
     if (mysqli_num_rows($check) > 0) {
         $reg_error = "Email sudah terdaftar!";
     } else {
-        $query = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$password', 'user')";
+
+        $query = "INSERT INTO users 
+        (name, username, email, password, role, dob, gender, address, phone) 
+        VALUES 
+        ('$name', '$username', '$email', '$password', 'user', '$dob', '$gender', '$address', '$phone')";
+
         if (mysqli_query($conn, $query)) {
             header("Location: /pages/login.php?registered=1");
             exit();
         } else {
-            $reg_error = "Gagal mendaftar, coba lagi.";
+            $reg_error = "Error: " . mysqli_error($conn);
         }
     }
 }
@@ -450,7 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" name="register" name="register" class="btn-submit">
+                    <button type="submit" name="register" class="btn-submit">
                         <i class="fa-solid fa-check" style="margin-right:8px;"></i> Buat Akun Sekarang
                     </button>
                     <button type="button" class="btn-back" onclick="prevStep()">

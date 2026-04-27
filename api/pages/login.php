@@ -1,30 +1,33 @@
 <?php
+session_start();
 require __DIR__ . '/../config/koneksi.php';
-require __DIR__ . '/../helpers/jwt_helper.php';
+
+// Kalau sudah login, redirect langsung
+if (isset($_SESSION['id_user'])) {
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: /pages/dashboard_admin.php");
+    } else {
+        header("Location: /pages/dashboard_user.php");
+    }
+    exit();
+}
 
 if (isset($_POST['login'])) {
 
-    $email = $_POST['email'];
+    $email    = $_POST['email'];
     $password = $_POST['password'];
 
     $query = mysqli_query($conn, "SELECT * FROM users WHERE email='$email' LIMIT 1");
 
     if ($row = mysqli_fetch_assoc($query)) {
-
         if (password_verify($password, $row['password'])) {
 
-            $payload = [
-                "id_user" => $row['id_user'],
-                "role"    => $row['role'],
-                "name"    => $row['name'],
-            ];
-
-            $token   = generateJWT($payload);
-            $refresh = generateRefreshToken($payload);
-
-            // ✅ FIX setcookie (support semua PHP)
-            setcookie("token", $token, time() + 3600, "/", "", false, true);
-            setcookie("refresh_token", $refresh, time() + (7 * 24 * 60 * 60), "/", "", false, true);
+            // Set session
+            $_SESSION['id_user']  = $row['id_user'];
+            $_SESSION['name']     = $row['name'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['email']    = $row['email'];
+            $_SESSION['role']     = $row['role'];
 
             if ($row['role'] === 'admin') {
                 header("Location: /pages/dashboard_admin.php");
