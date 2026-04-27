@@ -10,13 +10,11 @@
             <li class="<?= ($page == 'dashboard' || $page == '') ? 'active' : '' ?>">
                 <a href="/user/dashboard"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
             </li>
-
             <li class="<?= ($page == 'data_lahan') ? 'active' : '' ?>">
                 <a href="/user/lahan"><i class="fa-solid fa-map-location-dot"></i><span>Data Lahan</span></a>
             </li>
-
             <li class="<?= ($page == 'data_panen') ? 'active' : '' ?>">
-                <a href="/user/dashboard?view=panen"><i class="fa-solid fa-seedling"></i><span>Data Panen</span></a>
+                <a href="/user/panen"><i class="fa-solid fa-seedling"></i><span>Data Panen</span></a>
             </li>
         </ul>
     </nav>

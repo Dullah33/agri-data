@@ -51,6 +51,10 @@
             "dest": "/api/user/lahan.php"
         },
         {
+            "src": "^/user/panen$",
+            "dest": "/api/user/panen.php"
+        },
+        {
             "src": "^/sync/(.*)$",
             "dest": "/api/sync/$1"
         }
