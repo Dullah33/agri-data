@@ -8,12 +8,13 @@ $action = $_GET['action'] ?? 'list';
 if ($action === 'panen') $page = 'data_panen';
 
 // =============================================
-// HANDLE POST ACTIONS (Proses Form)
+// HANDLE POST ACTIONS (Hanya perbaikan logika redirect)
 // =============================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action_post = $_POST['action_type'] ?? '';
 
     // --- TAMBAH PETANI ---
-    if (isset($_POST['simpan'])) {
+    if ($action_post === 'tambah' && isset($_POST['simpan'])) {
         $id_user         = $_POST['id_user'];
         $name            = mysqli_real_escape_string($conn, $_POST['name']);
         $address         = mysqli_real_escape_string($conn, $_POST['address']);
@@ -30,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (mysqli_query($conn, $sql)) {
             header("Location: /admin/petani?success=tambah");
-            exit(); // ✅ Kunci agar redirect sukses di Vercel
+            exit();
         } else {
             $error_msg = "Error: " . mysqli_error($conn);
         }
     }
 
     // --- EDIT PETANI ---
-    if (isset($_POST['update'])) {
+    if ($action_post === 'edit' && isset($_POST['update'])) {
         $id_user  = $_POST['id_user'];
         $name     = mysqli_real_escape_string($conn, $_POST['name']);
         $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -62,49 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (mysqli_query($conn, $sql)) {
             header("Location: /admin/petani?success=edit");
-            exit(); // ✅ Pastikan berhenti setelah header
+            exit();
         } else {
             $error_msg = "Error: " . mysqli_error($conn);
-        }
-    }
-
-    // --- EDIT DATA PANEN ---
-    if (isset($_POST['edit_panen'])) {
-        $id            = mysqli_real_escape_string($conn, $_POST['id']);
-        $luas_panen    = mysqli_real_escape_string($conn, $_POST['luas_panen']);
-        $produktivitas = mysqli_real_escape_string($conn, $_POST['produktivitas']);
-        $produksi      = mysqli_real_escape_string($conn, $_POST['produksi']);
-
-        $sql = "UPDATE data_panen SET luas_panen='$luas_panen', produktivitas='$produktivitas', produksi='$produksi' WHERE id='$id'";
-        if (mysqli_query($conn, $sql)) {
-            header("Location: /admin/petani?action=panen&success=edit");
-            exit();
-        } else {
-            $error_msg = mysqli_error($conn);
-        }
-    }
-
-    // --- TAMBAH DATA PANEN ---
-    if (isset($_POST['tambah_panen'])) {
-        $provinsi      = strtoupper(mysqli_real_escape_string($conn, $_POST['provinsi']));
-        $luas_panen    = mysqli_real_escape_string($conn, $_POST['luas_panen']);
-        $produktivitas = mysqli_real_escape_string($conn, $_POST['produktivitas']);
-        $produksi      = mysqli_real_escape_string($conn, $_POST['produksi']);
-        $tahun         = date('Y');
-
-        $sql = "INSERT INTO data_panen (provinsi, luas_panen, produktivitas, produksi, tahun) 
-                VALUES ('$provinsi', '$luas_panen', '$produktivitas', '$produksi', '$tahun')";
-        if (mysqli_query($conn, $sql)) {
-            header("Location: /admin/petani?action=panen&success=tambah");
-            exit();
-        } else {
-            $error_msg = mysqli_error($conn);
         }
     }
 }
 
 // =============================================
-// HANDLE GET ACTIONS (Hapus)
+// HANDLE GET: HAPUS
 // =============================================
 if (isset($_GET['hapus'])) {
     $id = mysqli_real_escape_string($conn, $_GET['hapus']);
@@ -112,21 +79,14 @@ if (isset($_GET['hapus'])) {
     header("Location: /admin/petani?success=hapus");
     exit();
 }
-if (isset($_GET['hapus_panen'])) {
-    $id = mysqli_real_escape_string($conn, $_GET['hapus_panen']);
-    mysqli_query($conn, "DELETE FROM data_panen WHERE id = '$id'");
-    header("Location: /admin/petani?action=panen&success=hapus");
-    exit();
-}
 
 // =============================================
-// DATA LOADING
+// LOAD DATA
 // =============================================
 if ($action === 'tambah') {
     $query_id = mysqli_query($conn, "SELECT MAX(id_user) as last_id FROM users WHERE role='user'");
     $data_id  = mysqli_fetch_assoc($query_id);
-    $num = (int)substr($data_id['last_id'] ?? 'USR-000', 4) + 1;
-    $new_id   = "USR-" . sprintf("%03s", $num);
+    $new_id   = "USR-" . sprintf("%03s", (int)substr($data_id['last_id'] ?? 'USR-000', 4) + 1);
 }
 
 if ($action === 'edit') {
@@ -139,7 +99,6 @@ if ($action === 'edit') {
 }
 
 $query_petani = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER BY id_user DESC");
-$q_panen = mysqli_query($conn, "SELECT * FROM data_panen ORDER BY provinsi ASC");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -150,20 +109,17 @@ $q_panen = mysqli_query($conn, "SELECT * FROM data_panen ORDER BY provinsi ASC")
     <title>Manajemen Petani | AgriData</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar_admin.css">
     <link rel="stylesheet" href="/assets/css/topbar_admin.css">
     <link rel="stylesheet" href="/assets/css/data_petani.css">
-    
-    <?php if ($action === 'tambah' || $action === 'edit'): ?>
+    <?php if ($action === 'tambah'): ?>
         <link rel="stylesheet" href="/assets/css/forms.css">
-        <link rel="stylesheet" href="/assets/css/<?= $action ?>_petani_admin.css">
-    
-        <?php elseif ($action === 'panen'): ?>
-        <link rel="stylesheet" href="/assets/css/edit_data_panen.css">
-    
-        <?php endif; ?>
+        <link rel="stylesheet" href="/assets/css/tambah_petani_admin.css">
+    <?php elseif ($action === 'edit'): ?>
+        <link rel="stylesheet" href="/assets/css/forms.css">
+        <link rel="stylesheet" href="/assets/css/edit_petani_admin.css">
+    <?php endif; ?>
 </head>
 
 <body>
@@ -171,134 +127,177 @@ $q_panen = mysqli_query($conn, "SELECT * FROM data_panen ORDER BY provinsi ASC")
     <main class="main-content">
         <?php include __DIR__ . '/partials/topbar_admin.php'; ?>
 
-        <div style="padding: 20px;">
-            <?php if (isset($_GET['success'])): ?>
-                <div class="alert-banner success" style="margin-bottom:20px; padding:15px; background:#dcfce7; color:#15803d; border-radius:10px; border:1px solid #bbf7d0;">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <?= ($_GET['success'] == 'tambah' ? 'Data berhasil ditambahkan!' : ($_GET['success'] == 'edit' ? 'Data berhasil diperbarui!' : 'Data berhasil dihapus!')) ?>
-                </div>
-            <?php endif; ?>
+        <?php if (isset($_GET['success'])): ?>
+            <div class="alert-banner success" style="margin:16px;padding:14px 20px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;color:#166534;font-weight:600;">
+                <i class="fa-solid fa-circle-check"></i>
+                <?php
+                $msgs = ['tambah' => 'Data berhasil ditambahkan!', 'edit' => 'Data berhasil diperbarui!', 'hapus' => 'Data berhasil dihapus!'];
+                echo $msgs[$_GET['success']] ?? 'Operasi berhasil!';
+                ?>
+            </div>
+        <?php endif; ?>
 
-            <?php if (isset($error_msg)): ?>
-                <div class="alert-banner error" style="margin-bottom:20px; padding:15px; background:#fee2e2; color:#b91c1c; border-radius:10px; border:1px solid #fecaca;">
-                    <i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error_msg) ?>
-                </div>
-            <?php endif; ?>
+        <?php if (isset($error_msg)): ?>
+            <div class="alert-banner error" style="margin:16px;padding:14px 20px;background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;color:#991b1b;">
+                <i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($error_msg) ?>
+            </div>
+        <?php endif; ?>
 
-            <?php if ($action === 'list' || !$action): ?>
-                <div class="page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
-                    <div>
-                        <h1 style="font-size:24px; font-weight:800;">Daftar Petani</h1>
-                        <p style="color:#64748b; font-size:14px;">Kelola seluruh akun petani dalam satu panel.</p>
-                    </div>
-                    <a href="?action=tambah" class="btn-add-new" style="background:#2D6A4F; color:white; padding:12px 20px; border-radius:10px; text-decoration:none; font-weight:600; display:flex; align-items:center; gap:8px;">
-                        <i class="fa-solid fa-user-plus"></i> Petani Baru
-                    </a>
+        <?php if ($action === 'list' || !$action): ?>
+            <div class="page-header">
+                <div class="page-info">
+                    <h1>Daftar Petani</h1>
+                    <p>Kelola dan pantau seluruh data akun petani AgriData.</p>
                 </div>
-
-                <div class="table-container" style="background:white; border-radius:15px; overflow:hidden; border:1px solid #f1f5f9; box-shadow:0 4px 15px rgba(0,0,0,0.03);">
-                    <table style="width:100%; border-collapse:collapse;">
-                        <thead>
-                            <tr style="background:#f8fafc; border-bottom:2px solid #f1f5f9;">
-                                <th style="padding:15px; text-align:left; font-size:12px; color:#64748b; text-transform:uppercase;">Profil Petani</th>
-                                <th style="padding:15px; text-align:left; font-size:12px; color:#64748b; text-transform:uppercase;">Kontak</th>
-                                <th style="padding:15px; text-align:left; font-size:12px; color:#64748b; text-transform:uppercase;">Alamat</th>
-                                <th style="padding:15px; text-align:left; font-size:12px; color:#64748b; text-transform:uppercase;">Status</th>
-                                <th style="padding:15px; text-align:center; font-size:12px; color:#64748b; text-transform:uppercase;">Aksi</th>
+                <a href="?action=tambah" class="btn-add-new">
+                    <i class="fa-solid fa-user-plus"></i><span>Petani Baru</span>
+                </a>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Profil Petani</th>
+                            <th>Kontak & Akun</th>
+                            <th>Alamat Lokasi</th>
+                            <th>Status</th>
+                            <th style="text-align:center;">Kelola</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($query_petani)): ?>
+                            <tr>
+                                <td>
+                                    <div class="profile-cell">
+                                        <div class="avatar-initial"><?= strtoupper(substr($row['name'], 0, 1)) ?></div>
+                                        <div>
+                                            <span class="user-name"><?= htmlspecialchars($row['name']) ?></span>
+                                            <span class="user-sub">ID: #<?= $row['id_user'] ?></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="font-weight:500;"><?= htmlspecialchars($row['phone']) ?></div>
+                                    <div class="user-sub">@<?= htmlspecialchars($row['username']) ?></div>
+                                </td>
+                                <td>
+                                    <div style="max-width:200px;line-height:1.4;font-size:13px;"><?= htmlspecialchars($row['address']) ?></div>
+                                </td>
+                                <td>
+                                    <?php $status = $row['status'] ?? 'Active';
+                                    $class = ($status == 'Active') ? 'status-active' : 'status-inactive'; ?>
+                                    <span class="badge-status <?= $class ?>"><?= $status ?></span>
+                                </td>
+                                <td>
+                                    <div class="action-group">
+                                        <a href="?action=edit&id=<?= $row['id_user'] ?>" class="btn-icon btn-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="?hapus=<?= $row['id_user'] ?>" class="btn-icon btn-delete" onclick="return confirm('Hapus petani ini?')"><i class="fa-solid fa-trash-can"></i></a>
+                                    </div>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($query_petani)): ?>
-                                <tr style="border-bottom:1px solid #f1f5f9;">
-                                    <td style="padding:15px;">
-                                        <div style="display:flex; align-items:center; gap:12px;">
-                                            <div style="width:40px; height:40px; border-radius:50%; background:#2D6A4F; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;"><?= strtoupper(substr($row['name'], 0, 1)) ?></div>
-                                            <div>
-                                                <div style="font-weight:700; color:#0f172a;"><?= htmlspecialchars($row['name']) ?></div>
-                                                <div style="font-size:12px; color:#94a3b8;">#<?= $row['id_user'] ?></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="padding:15px; font-size:14px;"><?= htmlspecialchars($row['phone']) ?><br><span style="color:#94a3b8;">@<?= htmlspecialchars($row['username']) ?></span></td>
-                                    <td style="padding:15px; font-size:13px; color:#475569; max-width:200px;"><?= htmlspecialchars($row['address']) ?></td>
-                                    <td style="padding:15px;">
-                                        <span style="padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; background:<?= $row['status'] == 'Active' ? '#dcfce7; color:#166534;' : '#fee2e2; color:#991b1b;' ?>">
-                                            <?= $row['status'] ?? 'Active' ?>
-                                        </span>
-                                    </td>
-                                    <td style="padding:15px; text-align:center;">
-                                        <div style="display:flex; justify-content:center; gap:8px;">
-                                            <a href="?action=edit&id=<?= $row['id_user'] ?>" style="color:#3b82f6;"><i class="fa-solid fa-pen-to-square"></i></a>
-                                            <a href="?hapus=<?= $row['id_user'] ?>" style="color:#ef4444;" onclick="return confirm('Hapus petani ini?')"><i class="fa-solid fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
 
-            <?php elseif ($action === 'tambah'): ?>
-                <div style="max-width:800px; margin:0 auto;">
-                    <a href="/admin/petani" style="display:inline-block; margin-bottom:20px; text-decoration:none; color:#64748b; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
-                    <form action="/admin/petani" method="POST">
-                        <input type="hidden" name="id_user" value="<?= $new_id ?>">
-                        <div style="background:white; border-radius:20px; padding:30px; border:1px solid #f1f5f9; box-shadow:0 10px 30px rgba(0,0,0,0.05);">
-                            <h2 style="margin-bottom:25px;">Tambah Petani Baru <span style="font-size:14px; color:#94a3b8;">(ID: <?= $new_id ?>)</span></h2>
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-                                <div class="form-group"><label>Nama Lengkap</label><input type="text" name="name" class="form-control" required></div>
-                                <div class="form-group"><label>Username</label><input type="text" name="username" class="form-control" required></div>
-                                <div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" required></div>
-                                <div class="form-group"><label>Password</label><input type="password" name="password" class="form-control" required></div>
-                                <div class="form-group"><label>Telepon</label><input type="text" name="phone" class="form-control" required></div>
-                                <div class="form-group"><label>Gender</label>
-                                    <select name="gender" class="form-control" required>
-                                        <option value="Male">Laki-laki</option>
-                                        <option value="Female">Perempuan</option>
-                                    </select>
-                                </div>
-                                <div class="form-group"><label>Tanggal Lahir</label><input type="date" name="dob" class="form-control" required></div>
-                                <div class="form-group"><label>Alamat</label><textarea name="address" class="form-control" required></textarea></div>
-                            </div>
-                            <button type="submit" name="simpan" style="margin-top:25px; width:100%; background:#2D6A4F; color:white; border:none; padding:15px; border-radius:12px; font-weight:700; cursor:pointer;">Simpan Data Petani</button>
-                        </div>
-                    </form>
+        <?php elseif ($action === 'tambah'): ?>
+            <a href="/admin/petani" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Petani</a>
+            <div class="add-hero">
+                <div class="add-hero-icon"><i class="fa-solid fa-user-plus"></i></div>
+                <div class="add-hero-info">
+                    <h2>Tambah Petani Baru</h2>
+                    <span>Daftarkan akun petani baru ke sistem AgriData</span>
+                    <div class="add-hero-badge">ID Otomatis: <?= htmlspecialchars($new_id) ?></div>
                 </div>
+            </div>
+            <form action="/admin/petani" method="POST">
+                <input type="hidden" name="action_type" value="tambah">
+                <input type="hidden" name="id_user" value="<?= htmlspecialchars($new_id) ?>">
+                <div class="two-col-grid">
+                    <div class="form-card">
+                        <div class="section-head">
+                            <div class="section-head-icon"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h3>Informasi Pribadi</h3>
+                                <p>Data diri dan kontak petani</p>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Nama Lengkap</label><input type="text" name="name" class="form-control" required></div>
+                        <div class="form-group"><label>Tanggal Lahir</label><input type="date" name="dob" class="form-control" required></div>
+                        <div class="form-group"><label>Jenis Kelamin</label>
+                            <select name="gender" class="form-control" required>
+                                <option value="Male">Laki-laki</option>
+                                <option value="Female">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>No. Telepon</label><input type="text" name="phone" class="form-control" required></div>
+                        <div class="form-group"><label>Alamat</label><textarea name="address" class="form-control" rows="3" required></textarea></div>
+                    </div>
+                    <div class="form-card">
+                        <div class="section-head">
+                            <div class="section-head-icon"><i class="fa-solid fa-key"></i></div>
+                            <div>
+                                <h3>Data Akun</h3>
+                                <p>Username, email, dan password</p>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Username</label><input type="text" name="username" class="form-control" required></div>
+                        <div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" required></div>
+                        <div class="form-group"><label>Password</label><input type="password" name="password" class="form-control" required></div>
+                        <button type="submit" name="simpan" class="btn-save" style="width:100%; margin-top:20px; background:#2D6A4F; color:white; border:none; padding:15px; border-radius:10px; font-weight:700; cursor:pointer;">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Petani Baru
+                        </button>
+                    </div>
+                </div>
+            </form>
 
-            <?php elseif ($action === 'edit'): ?>
-                <div style="max-width:800px; margin:0 auto;">
-                    <a href="/admin/petani" style="display:inline-block; margin-bottom:20px; text-decoration:none; color:#64748b; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
-                    <form action="/admin/petani" method="POST">
-                        <input type="hidden" name="id_user" value="<?= $data['id_user'] ?>">
-                        <div style="background:white; border-radius:20px; padding:30px; border:1px solid #f1f5f9; box-shadow:0 10px 30px rgba(0,0,0,0.05);">
-                            <h2 style="margin-bottom:25px;">Edit Petani: <?= htmlspecialchars($data['name']) ?></h2>
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-                                <div class="form-group"><label>Nama Lengkap</label><input type="text" name="name" class="form-control" value="<?= $data['name'] ?>" required></div>
-                                <div class="form-group"><label>Username</label><input type="text" name="username" class="form-control" value="<?= $data['username'] ?>" required></div>
-                                <div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" value="<?= $data['email'] ?>" required></div>
-                                <div class="form-group"><label>Status</label>
-                                    <select name="status" class="form-control">
-                                        <option value="Active" <?= $data['status'] == 'Active' ? 'selected' : '' ?>>Aktif</option>
-                                        <option value="Inactive" <?= $data['status'] == 'Inactive' ? 'selected' : '' ?>>Tidak Aktif</option>
-                                    </select>
-                                </div>
-                                <div class="form-group"><label>Password <small>(Kosongkan jika tidak ganti)</small></label><input type="password" name="password" class="form-control"></div>
-                                <div class="form-group"><label>Telepon</label><input type="text" name="phone" class="form-control" value="<?= $data['phone'] ?>" required></div>
-                                <div class="form-group"><label>Gender</label>
-                                    <select name="gender" class="form-control">
-                                        <option value="Male" <?= $data['gender'] == 'Male' ? 'selected' : '' ?>>Laki-laki</option>
-                                        <option value="Female" <?= $data['gender'] == 'Female' ? 'selected' : '' ?>>Perempuan</option>
-                                    </select>
-                                </div>
-                                <div class="form-group"><label>Tanggal Lahir</label><input type="date" name="dob" class="form-control" value="<?= $data['dob'] ?>" required></div>
-                                <div class="form-group" style="grid-column: span 2;"><label>Alamat</label><textarea name="address" class="form-control" required><?= $data['address'] ?></textarea></div>
-                            </div>
-                            <button type="submit" name="update" style="margin-top:25px; width:100%; background:#2D6A4F; color:white; border:none; padding:15px; border-radius:12px; font-weight:700; cursor:pointer;">Update Data Petani</button>
-                        </div>
-                    </form>
+        <?php elseif ($action === 'edit'): ?>
+            <a href="/admin/petani" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Petani</a>
+            <div class="edit-hero">
+                <div class="edit-hero-avatar"><?= strtoupper(substr($data['name'] ?? 'P', 0, 1)) ?></div>
+                <div class="edit-hero-info">
+                    <h2>Edit Profil: <?= htmlspecialchars($data['name'] ?? '') ?></h2>
+                    <span>ID: <?= htmlspecialchars($data['id_user'] ?? '') ?></span>
                 </div>
-            <?php endif; ?>
-        </div>
+            </div>
+            <form action="/admin/petani" method="POST">
+                <input type="hidden" name="action_type" value="edit">
+                <input type="hidden" name="id_user" value="<?= htmlspecialchars($data['id_user']) ?>">
+                <div class="two-col-grid">
+                    <div class="form-card">
+                        <div class="section-head">
+                            <div class="section-head-icon"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h3>Informasi Pribadi</h3>
+                                <p>Data diri dan kontak petani</p>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Nama Lengkap</label><input type="text" name="name" class="form-control" value="<?= htmlspecialchars($data['name'] ?? '') ?>" required></div>
+                        <div class="form-group"><label>No. Telepon</label><input type="text" name="phone" class="form-control" value="<?= htmlspecialchars($data['phone'] ?? '') ?>" required></div>
+                        <div class="form-group"><label>Alamat</label><textarea name="address" class="form-control" rows="3" required><?= htmlspecialchars($data['address'] ?? '') ?></textarea></div>
+                    </div>
+                    <div class="form-card">
+                        <div class="section-head">
+                            <div class="section-head-icon"><i class="fa-solid fa-at"></i></div>
+                            <div>
+                                <h3>Data Akun</h3>
+                                <p>Status dan Password</p>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Status Akun</label>
+                            <select name="status" class="form-control">
+                                <option value="Active" <?= ($data['status'] ?? '') == 'Active' ? 'selected' : '' ?>>Aktif</option>
+                                <option value="Inactive" <?= ($data['status'] ?? '') == 'Inactive' ? 'selected' : '' ?>>Tidak Aktif</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Password Baru <small>(Kosongkan jika tetap)</small></label><input type="password" name="password" class="form-control"></div>
+                        <button type="submit" name="update" class="btn-save" style="width:100%; margin-top:20px; background:#2D6A4F; color:white; border:none; padding:15px; border-radius:10px; font-weight:700; cursor:pointer;">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                        </button>
+                    </div>
+                </div>
+            </form>
+        <?php endif; ?>
     </main>
 </body>
 
