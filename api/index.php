@@ -751,10 +751,10 @@ $daftarFitur = [
 
     <!-- NAVBAR -->
     <nav>
-        <a href="index.php" class="nav-logo">
+        <div class="nav-logo">
             <div class="logo-icon"><i class="fa-solid fa-leaf"></i></div>
             <span class="logo-text">AgriData</span>
-        </a>
+        </div>
         <ul class="nav-links">
             <li><a href="#" class="active">Home</a></li>
             <li><a href="#features">Features</a></li>
