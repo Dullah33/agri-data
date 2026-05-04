@@ -7,6 +7,11 @@ $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data...(
 ?>
 
 <header class="topbar-modern">
+    <!-- Tombol hamburger untuk mobile -->
+    <button class="sidebar-toggle" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
     <div class="search-box-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="<?= htmlspecialchars($placeholder) ?>">
@@ -24,21 +29,36 @@ $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data...(
             <div class="profile-dropdown" id="profileMenu">
                 <a href="/user/profile"><i class="fa-solid fa-user-pen"></i> Pengaturan Profil</a>
                 <hr style="margin: 5px 0; border: none; border-top: 1px solid #f1f5f9;">
-                <a href="/logout" style="color: #ef4444;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a href="/logout" style="color: #ef4444;" id="triggerLogoutDropdown"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </div>
         </div>
     </div>
 </header>
 
 <script>
-    document.getElementById('profileDropdownTrigger').onclick = function(e) {
-        e.stopPropagation();
-        document.getElementById('profileMenu').classList.toggle('show');
-    };
-    window.onclick = function() {
-        const menu = document.getElementById('profileMenu');
-        if (menu && menu.classList.contains('show')) {
+document.addEventListener('DOMContentLoaded', function() {
+    const trigger   = document.getElementById('profileDropdownTrigger');
+    const menu      = document.getElementById('profileMenu');
+    const logoutBtn = document.getElementById('triggerLogoutDropdown');
+    const modal     = document.getElementById('logoutModal');
+
+    if (trigger && menu) {
+        trigger.onclick = function(e) {
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        };
+        window.addEventListener('click', function() {
+            if (menu.classList.contains('show')) menu.classList.remove('show');
+        });
+    }
+
+    // Jika ada modal logout, gunakan modal; jika tidak, biarkan langsung redirect
+    if (logoutBtn && modal) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.add('active');
             menu.classList.remove('show');
-        }
-    };
+        });
+    }
+});
 </script>

@@ -165,3 +165,21 @@ body { font-family: 'Plus Jakarta Sans', 'Plus Jakarta Sans', 'Inter', sans-seri
     color: #dc2626;
     transform: translateY(-1px);
 }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+    .page-info h1 { font-size: 20px; }
+
+    .table-container {
+        border-radius: 14px;
+        overflow-x: auto;
+    }
+    .table-container table {
+        min-width: 560px;
+    }
+}

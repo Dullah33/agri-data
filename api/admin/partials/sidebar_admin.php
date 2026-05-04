@@ -1,6 +1,6 @@
 <?php $page = isset($page) ? $page : ''; ?>
 
-<aside class="sidebar-modern">
+<aside class="sidebar-modern" id="sidebarAdmin">
     <div class="sidebar-brand">
         <div class="brand-icon"><i class="fa-solid fa-leaf"></i></div>
         <span class="brand-name">AgriData</span>
@@ -34,6 +34,9 @@
     </nav>
 </aside>
 
+<!-- Overlay untuk menutup sidebar di mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="modal-overlay" id="logoutModal">
     <div class="modal-box">
         <div class="modal-icon-warning"><i class="fa-solid fa-right-from-bracket"></i></div>
@@ -47,8 +50,26 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('logoutModal');
+        const sidebar  = document.getElementById('sidebarAdmin');
+        const overlay  = document.getElementById('sidebarOverlay');
+        const toggleBtn = document.getElementById('sidebarToggleBtn');
+        const modal    = document.getElementById('logoutModal');
         const btnBatal = document.getElementById('btnBatalLogout');
+
+        // Hamburger toggle
+        if (toggleBtn && sidebar && overlay) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            });
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        }
+
+        // Modal logout
         if (modal && btnBatal) {
             btnBatal.onclick = () => modal.classList.remove('active');
             window.onclick = (e) => {

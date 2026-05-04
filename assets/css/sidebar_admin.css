@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     padding: 28px 0;
-    z-index: 100;
+    z-index: 300;
     box-shadow: 4px 0 20px rgba(15,23,42,0.04);
     transition: transform 0.3s ease;
 }
@@ -94,7 +94,24 @@
 .btn-cancel { padding: 10px 24px; border-radius: 10px; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: 600; color: #475569; }
 .btn-confirm-logout { padding: 10px 24px; border-radius: 10px; background: #ef4444; color: white; text-decoration: none; font-weight: 600; }
 
+/* Sidebar Overlay (backdrop saat sidebar terbuka di mobile) */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    z-index: 250;
+    backdrop-filter: blur(2px);
+}
+.sidebar-overlay.active { display: block; }
+
 @media (max-width: 768px) {
-    .sidebar-modern { transform: translateX(-100%); }
-    .sidebar-modern.open { transform: translateX(0); }
+    .sidebar-modern {
+        transform: translateX(-100%);
+        z-index: 300;
+    }
+    .sidebar-modern.open {
+        transform: translateX(0);
+        box-shadow: 8px 0 40px rgba(15,23,42,0.15);
+    }
 }

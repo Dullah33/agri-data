@@ -1,8 +1,11 @@
 <?php $placeholder = isset($search_placeholder) ? $search_placeholder : "Cari data (Coming Soon)"; ?>
 
-
-
 <header class="topbar-modern">
+    <!-- Tombol hamburger untuk mobile -->
+    <button class="sidebar-toggle" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
     <div class="search-box-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="<?= htmlspecialchars($placeholder) ?>" disabled>
@@ -32,8 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const menu = document.getElementById('profileMenu');
     const logoutTrigger = document.getElementById('triggerLogoutDropdown');
     const modal = document.getElementById('logoutModal');
-    trigger.onclick = (e) => { e.stopPropagation(); menu.classList.toggle('show'); };
-    window.onclick = () => menu.classList.remove('show');
+
+    if (trigger && menu) {
+        trigger.onclick = (e) => { e.stopPropagation(); menu.classList.toggle('show'); };
+        window.addEventListener('click', () => menu.classList.remove('show'));
+    }
     if (logoutTrigger && modal) {
         logoutTrigger.onclick = (e) => { e.preventDefault(); modal.classList.add('active'); };
     }
