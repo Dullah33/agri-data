@@ -15,6 +15,7 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Lahan Pertanian | AgriData</title>
 
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time(); ?>">
@@ -38,15 +39,32 @@ $data = mysqli_query($conn, "SELECT * FROM lahan_petani ORDER BY id DESC");
             margin-bottom: 25px;
             border-left: 5px solid #2d6a4f;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 15px;
         }
 
         .user-info-banner i {
             color: #2d6a4f;
             font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
+        /* Pastikan content-area tidak overflow */
+        .content-area {
+            width: 100%;
+            min-width: 0;
+        }
+
+        @media (max-width: 768px) {
+            .user-info-banner {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+            .user-info-banner p {
+                font-size: 13px;
+            }
+        }
         .user-info-banner p {
             font-size: 14px;
             color: #334155;

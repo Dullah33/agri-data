@@ -58,6 +58,7 @@ body.page-lahan {
 .page-lahan .table-scroll {
     width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .page-lahan .table-modern {
@@ -190,5 +191,23 @@ body.page-lahan {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
+    }
+    .page-lahan .lahan-table-box {
+        border-radius: 14px;
+    }
+    .page-lahan .table-container {
+        border-radius: 10px;
+    }
+    /* Paksa table container bisa scroll horizontal */
+    .page-lahan .table-container {
+        overflow: visible;
+    }
+    .page-lahan .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+    }
+    .page-lahan .table-modern {
+        min-width: 560px;
     }
 }
