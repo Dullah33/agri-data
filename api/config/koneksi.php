@@ -2,7 +2,7 @@
 $host = "gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com";
 $port = 4000;
 $user = "2PYtsc69VVAWGrB.root";
-$pass = "yEfXagDr03g7t2EL";
+$pass = "anCsIH8X6yWPTTxS";
 $db   = "drive-agridata";
 
 $conn = mysqli_init();
